@@ -44,6 +44,39 @@
         </div>
     </nav>
     <ui-view></ui-view>
+
+    <!--SignalR chat test files-->
+    <div class="chat-window " ng-show="account.isLoggedIn()">
+        
+            
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Chat test</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div style="overflow-y: scroll; max-height:400px;">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-success">Hello! Welcome to Gamesquad!</li>
+
+                                <li class="list-group-item" ng-repeat="msg in account.messages" ng-class="{'list-group-item list-group-item-info': account.getUserName() === msg.username}"><b>{{msg.username}}</b>: {{msg.message}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+
+                        <form  ng-submit="account.sendMessage()">
+                            <input ng-model="account.newMessage" class="form-control" type="text" />
+                            <input type="submit" value="Send" class="btn btn-primary" />
+                            @*<button ng-click="account.sendMessage()" class="btn btn-primary btn-sm">Send</button>*@
+                        </form>
+                    </div>
+                </div>
+            
+       
+    </div>
+
+   
+
     <!-- Library Files -->
     <script src="~/lib/angular/angular.js"></script>
     <script src="~/lib/angular-resource/angular-resource.js"></script>
@@ -66,6 +99,10 @@
     <!----link-->
     <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- SignalR files -->
+    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script src="signalr/hubs"></script>
 
 </body>
 </html>

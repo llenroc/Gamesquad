@@ -113,3 +113,19 @@ textarea {
         z-index: 10 !important;
     }
 }
+
+
+/*Chat window test*/
+.chat-window {
+    width: 30%;
+    background-image:none;
+    position: fixed;
+    bottom: 0px;
+    right: 15px;
+    min-width: 400px;
+    
+}
+
+.chat-user{
+
+}

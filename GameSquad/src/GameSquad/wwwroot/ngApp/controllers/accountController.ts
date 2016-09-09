@@ -1,5 +1,5 @@
 namespace GameSquad.Controllers {
-
+    declare var $;
     export class AccountController {
         public externalLogins;
 
@@ -34,12 +34,48 @@ namespace GameSquad.Controllers {
             })
         }
 
+        //Signalr Chat stuff, probably temp
+        public messages = [];
+        public newMessage;
+        private chatHub: any
+
+        public sendMessage() {
+            let username = this.getUserName();
+            let messageToSend = { username: username, message: this.newMessage }
+            console.log(messageToSend);
+            this.chatHub.server.sendMessage(messageToSend);
+            console.log("Message sent to server");
+
+            this.chatHub.newMessage = "";
+            this.newMessage = "";
+        }
+
+        public waitForMessages() {
+            let messagelist = this.messages;
+            let scope = this.$scope;
+
+            this.chatHub.client.newMessage = function onNewMessage(messageRecieved) {
+                console.log("Message Recieved from server!");
+
+                messagelist.push(messageRecieved);
+                console.log(messagelist);
+                scope.$apply();
+
+            };
+
+        }
+
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService,
-            private $uibModal: ng.ui.bootstrap.IModalService
+            private $uibModal: ng.ui.bootstrap.IModalService,
+            private $scope: ng.IScope
         ) {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
             });
+
+            //signalr thing
+            this.chatHub = $.connection.chatHub;
+            this.waitForMessages();
         }
     }
 

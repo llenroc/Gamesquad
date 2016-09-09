@@ -13,6 +13,9 @@ using GameSquad.Data;
 using GameSquad.Models;
 using GameSquad.Services;
 using GameSquad.Repositories;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace GameSquad
 {
@@ -40,6 +43,12 @@ namespace GameSquad
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //SignalR stuff
+            services.AddSignalR(options =>
+            {
+                options.Hubs.EnableDetailedErrors = true;
+            });
+
             //
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<ITeamService, TeamService>();
@@ -70,6 +79,15 @@ namespace GameSquad
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            //SignalR Stuff
+            loggerFactory.AddConsole(LogLevel.Debug);
+
+            app.UseFileServer();
+
+            app.UseWebSockets();
+            app.UseSignalR();
+
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -84,7 +102,12 @@ namespace GameSquad
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot")),
+                RequestPath = new PathString("")
+            });
 
             app.UseIdentity();
 
