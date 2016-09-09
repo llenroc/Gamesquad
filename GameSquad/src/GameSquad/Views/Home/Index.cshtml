@@ -26,7 +26,7 @@
                 <li><a href="/dashboard">Dashboard</a></li>
                 <li><a href="/My Teams">MyTeam</a></li>
                 <li><a href="/team">Find Team</a></li>
-                <li><a href="/FindUser">Find Users</a></li>
+                <li><a href="/findUsers">Find Users</a></li>
                 <li><a href="/Friends">Friends</a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">SignUp</a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">SignIn</a> </li>
@@ -90,9 +90,11 @@
     <script src="~/ngapp/controllers/controllers.js"></script>
     <script src="~/ngApp/controllers/profileController.js"></script>
     <script src="~/ngApp/controllers/teamController.js"></script>
+    <script src="~/ngApp/controllers/userSearchController.js"></script>
     <!--services-->
     <script src="~/ngapp/services/services.js"></script>
     <script src="~/ngApp/services/teamService.js"></script>
+    <script src="~/ngApp/services/userSearchService.js"></script>
     <!-- Security -->
     <script src="~/ngapp/controllers/accountcontroller.js"></script>
     <script src="~/ngapp/services/accountservice.js"></script>

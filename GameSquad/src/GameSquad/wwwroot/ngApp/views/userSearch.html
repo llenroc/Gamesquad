@@ -1,0 +1,21 @@
+﻿
+<h2>Search For User</h2>
+<br />
+<div>
+    <label>Search By Username</label>
+    <input ng-model="searchUser" type="text" />
+</div>
+<div>
+    <form>
+        <table class="table table-striped">
+            <tr>
+                <th>Username</th>
+                <th>Rank</th>
+            </tr>
+            <tr ng-repeat="user in controller.users | filter:{userName:searchUser}">
+                <td>{{user.userName}}</td>
+                <td>{{user.rank}}</td>
+            </tr>
+        </table>
+    </form>
+</div>

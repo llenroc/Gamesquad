@@ -1,22 +1,22 @@
-
-<h2>Your Spot</h2>
-<p>
-    {{controller.message}}
-</p>
-
-<div class="userName" ng-show="controller.isLoggedIn()">
-    <h4>
-        <strong>
-            {{controller.getUserName()}}
-        </strong>
-    </h4>
-    <br />
-    <h5> Bio </h5>
-    <p class="center-block">
-        Text for bio goes here taken from bio property in profile datamodel
-        Text for bio goes here taken from bio property in profile datamodel.
-        Text for bio goes here taken from bio property in profile datamodel.
-        Text for bio goes here taken from bio property in profile datamodel.
-        Text for bio goes here taken from bio property in profile datamodel.
+<div class="container">
+    
+    <p>
+        {{controller.message}}
     </p>
+    <div class="userName" ng-show="controller.isLoggedIn()">
+        <h2>
+            <strong>
+                {{controller.getUserName()}}
+            </strong>
+        </h2>
+        <br />
+        <h5> Bio </h5>
+        <p class="center-block">
+            Text for bio goes here taken from bio property in profile datamodel
+            Text for bio goes here taken from bio property in profile datamodel.
+            Text for bio goes here taken from bio property in profile datamodel.
+            Text for bio goes here taken from bio property in profile datamodel.
+            Text for bio goes here taken from bio property in profile datamodel.
+        </p>
+    </div>
 </div>

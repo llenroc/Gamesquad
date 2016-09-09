@@ -49,6 +49,12 @@ namespace GameSquad {
                 controller: GameSquad.Controllers.AboutController,
                 controllerAs: 'controller'
             })
+            .state('findUsers', {
+                url: '/findUsers',
+                templateUrl: '/ngApp/views/userSearch.html',
+                controller: GameSquad.Controllers.UserSearchController,
+                controllerAs: 'controller'
+            })
             .state('team', {
                 url: '/team',
                 templateUrl: '/ngApp/views/team.html',
