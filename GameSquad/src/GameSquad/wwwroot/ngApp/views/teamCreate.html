@@ -1,0 +1,34 @@
+﻿<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Game Squad </h1>
+                <hr />
+            </div>
+        </div>
+        <div>
+            <form class="form-horizontal" ng-submit="controller.saveTeam()">
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">Team Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" ng-model="controller.teamToCreate.teamName" placeholder="Enter Team Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">PlayStyle </label>
+                    <div class="cols-sm-10">
+                        <input type="radio" name="casual" value="casual" ng-model="controller.teamToCreate.playStyle" />Casual
+                        <input type="radio" name="competitive" value="competitive" ng-model="controller.teamToCreate.playStyle" />Competitive
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-lg login-button">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
