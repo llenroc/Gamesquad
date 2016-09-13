@@ -9,17 +9,15 @@
 /// <reference path="lib/jquery/dist/jquery.js" />
 /// <reference path="lib/jquery-validation/dist/jquery.validate.js" />
 /// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
-/// <reference path="lib/signalr/jquery.signalR.js" />
 /// <reference path="ngapp/app.js" />
 /// <reference path="ngapp/controllers/accountcontroller.js" />
+/// <reference path="ngapp/controllers/chatcontroller.js" />
 /// <reference path="ngapp/controllers/controllers.js" />
-/// <reference path="ngApp/controllers/ProfileController.js" />
-/// <reference path="ngApp/controllers/teamController.js" />
+/// <reference path="ngapp/controllers/profilecontroller.js" />
+/// <reference path="ngapp/controllers/teamcontroller.js" />
 /// <reference path="ngapp/controllers/teamsearchcontroller.js" />
 /// <reference path="ngapp/controllers/usersearchcontroller.js" />
-
 /// <reference path="ngapp/services/accountservice.js" />
 /// <reference path="ngapp/services/services.js" />
-/// <reference path="ngApp/services/teamService.js" />
+/// <reference path="ngapp/services/teamservice.js" />
 /// <reference path="ngapp/services/usersearchservice.js" />
-
