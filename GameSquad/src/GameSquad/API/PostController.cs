@@ -4,16 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GameSquad.Services;
+using GameSquad.Models;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GameSquad.API
 {
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class PostController : Controller
     {
-        private IUserService _service;
-        public UserController(IUserService service)
+        private IPostService _service;
+        public PostController(IPostService service)
         {
             _service = service;
         }
@@ -22,21 +24,31 @@ namespace GameSquad.API
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_service.GetAllUsers());
+            return Ok(_service.GetPosts());
         }
-
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public IActionResult Get(int id)
         {
-            return Ok(_service.GetUserById(id));
+            return Ok(_service.GetPostById(id));
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+       // POST api/values
+       [HttpPost]
+        public async Task<IActionResult> Post([FromBody]Post post)
         {
+            if (ModelState.IsValid)
+            {
+                await _service.SavePost(this.User, post);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+                
+
+            }
         }
 
         // PUT api/values/5
@@ -47,8 +59,10 @@ namespace GameSquad.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _service.DeletePost(id);
+            return Ok();
         }
     }
 }

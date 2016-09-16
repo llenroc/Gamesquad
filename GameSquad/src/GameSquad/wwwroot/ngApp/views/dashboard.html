@@ -1,0 +1,48 @@
+<div  class="dashImg">
+    <img  width="800" height="120" src="../../images/dashboardimg.png" />
+    <br />
+    <br />
+    <div ng-controller="AccountController as controller " class="userName" ng-show="controller.isLoggedIn()">
+        <h2 class="glyphicon glyphicon-user"><strong> {{controller.getUserName()}} </strong></h2>
+    </div>
+    <br />
+<form>
+    <div class="textblock1">
+        <ul>
+            <li>
+                <strong>Bio:</strong>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Sed ultrices tincidunt pulvinar. Sed odio augue, consequat in
+                pharetra vitae, molestie ultrices ipsum. Donec egestas, nisi vel
+                tristique ullamcorper, mauris turpis imperdiet magna, sit amet pulvinar
+                magna nulla quis turpis. Nunc vel nulla at elit suscipit hendrerit
+                nec non nibh. Integer ac tincidunt orci. Aliquam a fermentum mauris,
+                non ultricies lorem. Aliquam at leo consequat, varius lectus quis,
+                dictum tortor. Phasellus pulvinar magna nec nisi suscipit feugia.
+            </li>
+            <li><strong>Location:</strong> Tucson, Az</li>
+            <li><strong>BattlleNet Account:</strong> Sirpunchkill#1234</li>
+            <li><strong>Play-Style:</strong> Casual</li>
+            <li><strong>Rank:</strong> 55</li>
+        </ul>
+    </div>
+</form>
+ </div>
+<div  id="top-wrapper" class="container">
+   
+    <h1 ></h1><a style="font-size:1.5em" href="/postCreate">Create A <strong>Post</strong></a> 
+ 
+    <div  ng-repeat="post in controller.posts" class="list-group">
+        <div href="#" class="list-group-item active">
+            {{post.comment}}
+            <br />
+            <br />
+            <img id="displayed2" width="500" height="500" ng-src="{{post.item}}" class="img-responsive" />
+            <br />
+            <a class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
+            <br />
+            <a class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
+        </div>
+
+    </div>
+</div>

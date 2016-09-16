@@ -14,6 +14,7 @@ namespace GameSquad.Data
         //data tables 
         public DbSet<UserProf> UserProfs { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

@@ -6,5 +6,6 @@ namespace GameSquad.Services
     public interface IUserService
     {
         List<ApplicationUser> GetAllUsers();
+        ApplicationUser GetUserById(string id);
     }
 }

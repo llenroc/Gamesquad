@@ -40,7 +40,7 @@ namespace GameSquad.Controllers
 
 
         private async Task<UserViewModel> GetUser(string userName)
-        {
+        { 
             var user = await _userManager.FindByNameAsync(userName);
             var claims = await _userManager.GetClaimsAsync(user);
             var vm = new UserViewModel
