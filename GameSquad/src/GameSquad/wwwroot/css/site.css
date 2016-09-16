@@ -127,6 +127,7 @@ textarea {
     margin-right: 5px;
     pointer-events:all;
     width: 375px;
+    
 
     
     
@@ -134,15 +135,23 @@ textarea {
 
 .chat-panel {
     margin-bottom: 0px;
+    
 }
 
-.chat-window-body{
+.chat-item-container{
+    
     
     overflow-y: scroll; 
     max-height:400px;
-
+    
     display: flex;
     flex-direction: column;
+}
+
+.chat-panel-body {
+    overflow: hidden;
+    background-image: none;
+    background-color: black;
 }
 
 .friendslist {

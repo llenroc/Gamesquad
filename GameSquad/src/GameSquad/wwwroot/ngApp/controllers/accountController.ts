@@ -49,7 +49,8 @@ namespace GameSquad.Controllers {
         public openPrivateChat;
         public newPrivateMessage;
         public privateMessageArray = [];
-        public privateMessagesDispalyed; 
+        public privateMessagesDispalyed;
+        public newMessageAlertUser; 
 
         public setUserToMessage(username) {
             this.sendToUser = username;
@@ -105,6 +106,7 @@ namespace GameSquad.Controllers {
             let messagelist = this.messages;
             let scope = this.$scope;
             let privateMessageArray = this.privateMessageArray;
+            let messageAlert = this.newMessageAlertUser;
 
             this.chatHub.client.newMessage = function onNewMessage(messageRecieved) {
                 console.log("Message Recieved from server!");
@@ -130,7 +132,6 @@ namespace GameSquad.Controllers {
                     let chosenUser = privateMessageArray[index];
 
                     chosenUser.messages.push(newMessage);
-                    scope.$apply();
                 }
                 else {
                     let newConversation = {
@@ -138,9 +139,11 @@ namespace GameSquad.Controllers {
                         messages: [newMessage]
                     }
                     privateMessageArray.push(newConversation);
-                    scope.$apply;
                 }
-                
+                messageAlert = conversationName;
+                console.log(messageAlert);
+                scope.$apply();
+
 
             };
 
