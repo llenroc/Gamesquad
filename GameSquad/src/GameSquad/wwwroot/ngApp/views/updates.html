@@ -1,0 +1,21 @@
+﻿
+<div class="container">
+    <img class="displayed" width="800" height="120" src="../../images/imageedit_29_6802030492.png" />
+    <br />
+    <h1><strong>Recent Posts</strong></h1>
+<div  ng-repeat="post in controller.posts" class="list-group">
+    
+    <br />
+    <div  href="#" class="list-group-item active">
+        <h3><strong>{{post.user}}</strong></h3>
+        <br />
+        {{post.comment}}
+        <br />
+        <br />
+        <div  style="text-align:right">
+            <img id="displayed2" width="700" height="700" ng-src="{{post.item}}" class="img-responsive" />
+            </div>
+            <br />
+        </div>
+</div>
+</div>

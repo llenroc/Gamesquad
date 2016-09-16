@@ -1,0 +1,22 @@
+﻿
+<div>
+    <h2><strong>Post</strong></h2>
+</div>
+
+<div>
+    <form ng-submit="controller.savePost()">
+       
+        <div class="form-group">
+            <label>Comment</label>
+            <textarea rows="5" cols="50" type="text" class="form-control" ng-model="controller.postToSave.comment" placeholder="Enter Comment here..."></textarea>
+        </div>
+        <button type="button" ng-click="controller.pickFile()" class="btn btn-primary">Upload Snapshot</button>
+        <img ng-src="{{controller.file.url | fpConvert:{w: 400} }}" alt="{{controller.file.filename}}" />
+
+        <br />
+        <button type="submit" class="btn btn-info ">Submit</button>
+    </form>
+</div>
+
+
+

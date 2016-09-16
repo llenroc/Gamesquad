@@ -1,0 +1,23 @@
+﻿<div class="modal-header">
+    <h1>Edit <strong>Post</strong></h1>
+</div>
+<br />
+<br />
+<div class="modal-body">
+    <form ng-submit="controller.savePost()">
+        <div class="row">
+            <div class="innBody">
+                <div class="form-group">
+                    <label>Comment</label>
+                    <textarea type="text" class="form-control" ng-model="controller.postToEdit.comment" placeholder="..."></textarea>
+                    <div class="form-group">
+                        <br />
+                        <br />
+                        <button type="submit" class="btn btn-info ">Save</button>
+                        <button class="btn btn-warning" ng-click="controller.cancel()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

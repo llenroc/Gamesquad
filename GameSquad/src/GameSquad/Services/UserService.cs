@@ -18,6 +18,12 @@ namespace GameSquad.Services
             var data = _repo.Query<ApplicationUser>().ToList();
             return data;
         }
+
+        public ApplicationUser GetUserById(string id)
+        {
+            var data = _repo.Query<ApplicationUser>().Where(u => u.Id == id).FirstOrDefault();
+            return data;
+        }
     }
 
     

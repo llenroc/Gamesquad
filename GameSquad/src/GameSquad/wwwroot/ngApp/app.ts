@@ -1,11 +1,12 @@
 namespace GameSquad {
-    
 
-    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap', 'luegg.directives' ]).config((
+    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-filepicker', 'luegg.directives']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
-        $locationProvider: ng.ILocationProvider
+        $locationProvider: ng.ILocationProvider,
+        filepickerProvider
     ) => {
+        filepickerProvider.setKey('AYcH3ThlIS2qD7OcTjF8Iz');
         // Define routes
         $stateProvider
             .state('landing', {
@@ -16,8 +17,8 @@ namespace GameSquad {
             })
             .state('home', {
                 url: '/dashboard',
-                templateUrl: '/ngApp/views/home.html',
-                controller: GameSquad.Controllers.ProfileController,
+                templateUrl: '/ngApp/views/dashboard.html',
+                controller: GameSquad.Controllers.PostController,
                 controllerAs: 'controller'
             })
             .state('secret', {
@@ -66,6 +67,18 @@ namespace GameSquad {
                 url: '/teamCreate',
                 templateUrl: '/ngApp/views/teamCreate.html',
                 controller: GameSquad.Controllers.TeamController,
+                controllerAs: 'controller'
+            })
+            .state('postCreate', {
+                url: '/postCreate',
+                templateUrl: '/ngApp/views/postCreate.html',
+                controller: GameSquad.Controllers.PostCreateController,
+                controllerAs: 'controller'
+            })
+            .state('updates', {
+                url: '/updates',
+                templateUrl: '/ngApp/views/updates.html',
+                controller: GameSquad.Controllers.PostController,
                 controllerAs: 'controller'
             })
             .state('notFound', {

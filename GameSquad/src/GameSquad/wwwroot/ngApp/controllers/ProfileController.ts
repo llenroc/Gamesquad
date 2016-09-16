@@ -18,7 +18,7 @@
         }
 
         constructor(private $uibModal: angular.ui.bootstrap.IModalService, private accountService: GameSquad.Services.AccountService) {
-
+            
         }
     }
     angular.module('GameSquad').controller('ProfileController', ProfileController);

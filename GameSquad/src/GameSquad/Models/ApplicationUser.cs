@@ -11,9 +11,7 @@ namespace GameSquad.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        public string ProfileImage { get; set; }
-
+        
         //TODO: update when battle.net integration is implemented
         public string BattleNetUser { get; set; }
 
@@ -22,6 +20,21 @@ namespace GameSquad.Models
 
         //TODO: update when ranking is implemented
         public int Rank { get; set; }
+
+        //teams
+        
+
+        //
+        //user profile (data model) removed merged with appuse.
+        //bio for user dashboard
+        public string Bio { get; set; }
+        //location (optional) 
+        public string Location { get; set; }
+        //gaming platform (console / pc)
+        public string Platform { get; set; }
+        //profile image prop    
+        public string ProfileImage { get; set; }
+
 
     }
 }

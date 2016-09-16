@@ -24,6 +24,7 @@ namespace GameSquad.Controllers {
         public getExternalLogins() {
             return this.accountService.getExternalLogins();
         }
+       
 
         //Launch Login Modal
         public loginModal() {

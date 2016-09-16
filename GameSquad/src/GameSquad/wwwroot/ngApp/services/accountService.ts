@@ -9,12 +9,27 @@ namespace GameSquad.Services {
 
             // store claims
             this.$window.sessionStorage.setItem('claims', JSON.stringify(userInfo.claims));
+
+            //store profile info
+            this.$window.sessionStorage.setItem('bio', userInfo.bio);
+            this.$window.sessionStorage.setItem('location', userInfo.location);
+            this.$window.sessionStorage.setItem('platform', userInfo.platform);
         }
 
         public getUserName() {
             return this.$window.sessionStorage.getItem('userName');
         }
-
+        //get profile data
+        //public getUserBio() {
+        //    return this.$window.sessionStorage.getItem('bio');
+        //}
+        //public getUserLocation() {
+        //    return this.$window.sessionStorage.getItem('location');
+        //}
+        //public getUserPlatform() {
+        //    return this.$window.sessionStorage.getItem('platform');
+        //}
+        ///
 
         public getClaim(type) {
             var allClaims = JSON.parse(this.$window.sessionStorage.getItem('claims'));

@@ -15,5 +15,6 @@ namespace GameSquad.Models
         public string  Bio { get; set; }
         public string Location { get; set; }
         public string Platform { get; set; }
+        public List<Team> UserTeam { get; set; }
     }
 }
