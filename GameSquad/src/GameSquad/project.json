@@ -47,10 +47,11 @@
     "Microsoft.AspNetCore.SignalR.SqlServer": "0.2.0-alpha1-22091",
     "Microsoft.AspNetCore.SignalR.Messaging": "0.2.0-alpha1-22091",
     "Microsoft.AspNetCore.WebSockets": "0.2.0-alpha1-22091",
-    "signalr.TypeScript.DefinitelyTyped": "0.4.1"
-    },
+    "signalr.TypeScript.DefinitelyTyped": "0.4.1",
     "Microsoft.EntityFrameworkCore": "1.0.0"
+
   },
+  
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",

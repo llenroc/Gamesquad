@@ -15,7 +15,7 @@
     "angular-filepicker": "1.1.4"
   },
   "resolutions": {
-    "angular": ">=1.2.0"
+    "angular": ">=1.2.0",
     "angular-ui-router": "0.x",
     "signalr": "*",
     "angularjs-scroll-glue": "~0.0.1",
