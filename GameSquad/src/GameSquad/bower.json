@@ -12,7 +12,8 @@
     "angular-animate": "1.x",
     "angular-touch": "1.x",
     "angular-ui-router": "0.x",
-    "angular-filepicker": "1.1.4"
+    "angular-filepicker": "1.1.4",
+    "signalr": "2.2.1"
   },
   "resolutions": {
     "angular": ">=1.2.0",

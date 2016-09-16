@@ -1,25 +1,36 @@
 ﻿<div class="modal-header">
     <h3 class="modal-title"><strong>Sign In</strong></h3>
 </div>
-<div class="modal-body">
-    <form ng-submit="modal.login()">
-        <div class="form-group">
-            <label>Email / Username:</label>
-            <input class="form-control" ng-model="modal.emailOrUser" required="true" type="text" />
-        </div>
-        <div class="form-group">
-            <label>Password:</label>
-            <input ng-model="modal.loginUser.password" class="form-control" type="password" required="true" />
-        </div>
-        <input type="submit" value="Login" class="btn btn-warning" />
-        
+<div class="modal-body" ng-controller="AccountController as account">
+    <div class="row">
+        <div class="col-md-6">
+            <form ng-submit="modal.login()">
+                <div class="form-group">
+                    <label>Email / Username:</label>
+                    <input class="form-control" ng-model="modal.emailOrUser" required="true" type="text" />
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input ng-model="modal.loginUser.password" class="form-control" type="password" required="true" />
+                </div>
+                <input type="submit" value="Login" class="btn btn-warning" />
 
-        <ul>
-            <li ng-repeat="error in modal.validationMessages track by $index">
-                {{error}}
-            </li>
-        </ul>
-    </form>
-    <p class="text-danger">{{modal.validationError}}</p>
+
+                <ul>
+                    <li ng-repeat="error in modal.validationMessages track by $index">
+                        {{error}}
+                    </li>
+                </ul>
+            </form>
+            <p class="text-danger">{{modal.validationError}}</p>
+        </div>
+        <div class="col-md-6">
+            <ul>
+                <li ng-repeat="externalLogin in account.externalLogins">
+                    <a target="_self" href="/api/account/ExternalLogin?provider={{externalLogin.authenticationScheme}}&returnUrl=https://localhost:44311/">{{externalLogin.displayName}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 

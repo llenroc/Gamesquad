@@ -16,6 +16,7 @@ using GameSquad.Repositories;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GameSquad
 {
@@ -63,7 +64,10 @@ namespace GameSquad
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -71,11 +75,11 @@ namespace GameSquad
             
 
             
-                        // add security policies
-                        services.AddAuthorization(options =>
-                        {
-                            options.AddPolicy("AdminOnly", policy => policy.RequireClaim("IsAdmin"));
-                        });
+            // add security policies
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireClaim("IsAdmin"));
+            });
             
         }
 
@@ -105,6 +109,15 @@ namespace GameSquad
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseIdentity();
+
+            app.UseBattleNetAuthentication(options => {
+                options.ClientId = "pcgjuk4snvtbmsz8n8dy9q8aegc84z99";
+                options.ClientSecret = "nuQquGRcQ2eGbe2XpxyzEsxCM2DXg4Rw";
+                options.AutomaticChallenge = true;
+
+            });
+
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(
@@ -112,7 +125,7 @@ namespace GameSquad
                 RequestPath = new PathString("")
             });
 
-            app.UseIdentity();
+
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
