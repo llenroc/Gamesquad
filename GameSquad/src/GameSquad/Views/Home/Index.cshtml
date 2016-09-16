@@ -46,36 +46,93 @@
     <ui-view></ui-view>
 
     <!--SignalR chat test files-->
-    <div class="chat-window " ng-show="account.isLoggedIn()">
-        
-            
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Global Chat</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div style="overflow-y: scroll; max-height:400px;">
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-success">Hello! Welcome to Gamesquad!</li>
+    
+    <div class="chatsection">
 
-                                <li class="list-group-item" ng-repeat="msg in account.messages" ng-class="{'list-group-item list-group-item-info': account.getUserName() === msg.username}"><b>{{msg.username}}</b>: {{msg.message}}</li>
-                            </ul>
+        <div class="chat-window " ng-show="account.isLoggedIn() && account.openPrivateChat">
+
+
+            <div class="panel panel-primary chat-panel">
+                <div class="panel-heading" data-toggle="collapse" href="#collapse3">
+                    <h3 class="panel-title">Private Chat with {{account.sendToUser}}</h3>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="chat-window-body" scroll-glue>
+
+                            <div class="list-group-item list-group-item-success">Hello! Welcome to Gamesquad!</div>
+
+                            <div class="list-group-item" ng-repeat="msg in account.privateMessagesDispalyed" ng-class="{'list-group-item list-group-item-info': account.getUserName() === msg.username}"><b>{{msg.username}}</b>: {{msg.message}}</div>
+
                         </div>
                     </div>
                     <div class="panel-footer">
 
-                        <form  ng-submit="account.sendMessage()">
-                            <input ng-model="account.newMessage" class="form-control" type="text" />
+                        <form ng-submit="account.sendPrivateMessage()">
+                            <input ng-model="account.newPrivateMessage" class="form-control" type="text" />
                             <input type="submit" value="Send" class="btn btn-primary" />
-                            @*<button ng-click="account.sendMessage()" class="btn btn-primary btn-sm">Send</button>*@
+
                         </form>
+
                     </div>
                 </div>
-            
-       
+            </div>
+        </div>
+        <div class="chat-window " ng-show="account.isLoggedIn()">
+
+
+            <div class="panel panel-primary chat-panel">
+                <div class="panel-heading" data-toggle="collapse" href="#collapse2">
+                    <h3 class="panel-title">Global Chat</h3>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="chat-window-body" scroll-glue>
+
+                            <div class="list-group-item list-group-item-success">Hello! Welcome to Gamesquad!</div>
+
+                            <div class="list-group-item" ng-repeat="msg in account.messages" ng-class="{'list-group-item list-group-item-info': account.getUserName() === msg.username}"><b>{{msg.username}}</b>: {{msg.message}}</div>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+
+                        <form ng-submit="account.sendMessage()">
+                            <input ng-model="account.newMessage" class="form-control" type="text" />
+                            <input type="submit" value="Send" class="btn btn-primary" />
+
+                        </form>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="friendslist" ng-show="account.isLoggedIn()">
+            <div class="panel panel-primary chat-panel">
+                <div class="panel-heading" data-toggle="collapse" href="#collapse1">
+                    <h3 class="panel-title">
+                        Connected Users
+                        
+                    </h3>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div style="overflow-y: scroll; max-height:400px;">
+                            <ul class="list-group">
+
+
+                                <li class="list-group-item" ng-click="account.setUserToMessage(user.Username)" ng-repeat="user in account.connectedUsers">{{user.Username}}</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-   
 
     <!-- Library Files -->
     <script src="~/lib/angular/angular.js"></script>
@@ -105,6 +162,6 @@
     <!-- SignalR files -->
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
     <script src="signalr/hubs"></script>
-
+    <script src="~/lib/angularjs-scroll-glue/src/scrollglue.js"></script>
 </body>
 </html>

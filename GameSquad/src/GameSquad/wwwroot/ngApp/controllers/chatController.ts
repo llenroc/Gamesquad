@@ -36,5 +36,5 @@
 //        }
 //    }
 
-//    angular.module('GameSquad').controller('chatController', ChatController);
+//    angular.module('GameSquad').controller('ChatController', ChatController);
 //}

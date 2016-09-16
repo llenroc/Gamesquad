@@ -1,6 +1,7 @@
 namespace GameSquad {
+    
 
-    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap']).config((
+    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap', 'luegg.directives' ]).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider
@@ -79,14 +80,16 @@ namespace GameSquad {
         $locationProvider.html5Mode(true);
 
         //SignalR Stuff
-        $(function () {
-            $.connection.hub.stop();
-            $.connection.hub.logging = true;
-            $.connection.hub.start();
-        });
-        $.connection.hub.error(function (err) {
-            console.log("An error occurded: " + err);
-        });
+        //$(function () {
+        //   // $.connection.hub.stop();
+        //    $.connection.hub.logging = true;
+        //    $.connection.hub.start();
+            
+
+        //});
+        //$.connection.hub.error(function (err) {
+        //    console.log("An error occurded: " + err);
+        //});
     });
 
     

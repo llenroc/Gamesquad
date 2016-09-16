@@ -1,5 +1,6 @@
 body {
     font-size:2em;
+    
  
 }
 /* Set some basic padding to keep content from hitting the edges */
@@ -119,15 +120,49 @@ textarea {
 
 /*Chat window test*/
 .chat-window {
-    width: 30%;
+    
+    
     background-image:none;
-    position: fixed;
-    bottom: 0px;
-    right: 15px;
-    min-width: 400px;
+    margin-left: 5px;
+    margin-right: 5px;
+    pointer-events:all;
+    width: 375px;
+
+    
     
 }
 
-.chat-user{
+.chat-panel {
+    margin-bottom: 0px;
+}
 
+.chat-window-body{
+    
+    overflow-y: scroll; 
+    max-height:400px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.friendslist {
+    pointer-events:all;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-image:none;
+    width: 250px;
+    
+    
+    
+}
+
+.chatsection {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap:wrap-reverse;
+    align-items: flex-start;
+    position: fixed;
+    bottom: 0px;
+    right: 15px;
+    pointer-events:none;
 }
