@@ -1,19 +1,19 @@
 ﻿namespace GameSquad.Controllers {
-    export class UserSearchController {
+    export class UserController {
         public users;
         constructor(
-            private userSearchService: GameSquad.Services.UserSearchService,
+            private userService: GameSquad.Services.UserService,
             private $state: angular.ui.IStateService
         ) {
             this.getAllUsers();
         }
         //get all Users to display
         public getAllUsers() {
-            this.users = this.userSearchService.getAllUsers();
+            this.users = this.userService.getAllUsers();
         }
         //get single id
         //private getUserById() {
-        //    this.getUserById = this.userSearchService.getUserById(this.userId);
+        //    this.getUserById = this.userService.getUserById(this.userId);
         //}
     }
 }

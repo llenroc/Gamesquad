@@ -36,6 +36,12 @@ namespace GameSquad.API
             return Ok(_service.getTeamInfo(id));
         }
 
+        [HttpGet("GetUsersByTeam/{id}")]
+        public IActionResult GetUsersByTeam(int id)
+        {
+            return Ok(_service.UsersByTeam(id));
+        }
+
         // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody]Team team)

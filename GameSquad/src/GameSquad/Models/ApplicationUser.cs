@@ -22,6 +22,6 @@ namespace GameSquad.Models
 
         //TODO: update when ranking is implemented
         public int Rank { get; set; }
-
+        public ICollection<TeamMembers> TeamMembers { get; set; }
     }
 }

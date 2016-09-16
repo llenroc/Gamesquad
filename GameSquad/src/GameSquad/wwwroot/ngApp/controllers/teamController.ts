@@ -3,8 +3,10 @@
     export class TeamController {
 
         public team;
+        public myteam;
+        public users;
         public teamToCreate;
-        constructor(private teamService: GameSquad.Services.TeamService
+        constructor(private teamService: GameSquad.Services.TeamService,
             , private $state: angular.ui.IStateService) {
 
             this.getTeams();
@@ -42,6 +44,11 @@
                     console.log("something went wrong");
                 })
 
+        }
+
+        public members(myteam, id) {
+            this.myteam = myteam;
+            this.users = this.teamService.getUsersForTeam(id);
         }
     }
 

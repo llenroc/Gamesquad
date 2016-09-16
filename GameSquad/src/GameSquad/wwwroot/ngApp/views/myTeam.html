@@ -1,0 +1,33 @@
+﻿
+    <br />
+    <div>
+        <form>
+            <table class="table table-striped">
+                <tr>
+                    <th>Team Leader</th>
+
+
+                </tr>
+                <tr ng-repeat="teamLeader in controller.team">
+                    <td>{{teamLeader.teamLeader}}</td>
+
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div>
+        <form>
+            <table class="table table-striped">
+                <tr>
+                    <th>Username</th>
+                    <th>Rank</th>
+
+                </tr>
+                <tr ng-repeat="members in controller.users">
+                    <td>{{members.userName}}</td>
+                    <td>{{members.rank}}</td>
+                </tr>
+            </table>
+        </form>
+    </div>

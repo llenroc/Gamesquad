@@ -62,6 +62,11 @@ namespace GameSquad.Services
             var data = _repo.Query<Team>().ToList();
             return data;
         }
+        public List<ApplicationUser> UsersByTeam(int teamId)
+        {
+            var users = _repo.Query<TeamMembers>().Where(tm => tm.TeamId == teamId).Select(tm => tm.ApplicationUser).ToList();
+            return users;
+        }
 
     }
 }

@@ -52,7 +52,7 @@ namespace GameSquad {
             .state('findUsers', {
                 url: '/findUsers',
                 templateUrl: '/ngApp/views/userSearch.html',
-                controller: GameSquad.Controllers.UserSearchController,
+                controller: GameSquad.Controllers.UserController,
                 controllerAs: 'controller'
             })
             .state('team', {
@@ -64,6 +64,12 @@ namespace GameSquad {
             .state('teamCreate', {
                 url: '/teamCreate',
                 templateUrl: '/ngApp/views/teamCreate.html',
+                controller: GameSquad.Controllers.TeamController,
+                controllerAs: 'controller'
+            })
+            .state('myTeam', {
+                url: '/myTeam',
+                templateUrl: '/ngApp/views/myTeam.html',
                 controller: GameSquad.Controllers.TeamController,
                 controllerAs: 'controller'
             })
