@@ -1,34 +1,36 @@
 ﻿<img class="displayed" width="1000" height="300" src="../../images/TeamUPUP.png" />
 <div class="container">
-<h2>Search For Team</h2>
-<br />
-<div>
-    <label>Search By Name</label>
-    <input ng-model="nameHolder" type="text"/>
-    <label>Play Style</label>
-    <select ng-model="holder">
-        <option>-- --</option>
-        <option value="casual">Casual</option>
-        <option value="competitive">Competitive</option>
-    </select>
-</div>
-
-<div>
-    <form>
-        <table class="table table-striped">
-            <tr>
-                <th>Team</th>
-                <th>Team Leader</th>
-                <th>Play Style</th>
-            </tr>
-            <tr ng-repeat="team in controller.team | filter:{teamName:nameHolder} | filter:{playStyle:holder}">
-                <td>{{team.teamName}}</td>
-                <td>{{team.teamLeader}}</td>
-                <td>{{team.playStyle}}</td>
-            </tr>
-        </table>
-    </form>
-</div>
-    <a href="/teamCreate">Create A Team</a>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h2>Search For Team</h2>
+            <br />
+            <div>
+                <label>Search By Name</label>
+                <input ng-model="nameHolder" type="text" />
+                <label>Play Style</label>
+                <select ng-model="holder">
+                    <option>-- --</option>
+                    <option value="casual">Casual</option>
+                    <option value="competitive">Competitive</option>
+                </select>
+            </div>
+            <div>
+                <form>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Team</th>
+                            <th>Team Leader</th>
+                            <th>Play Style</th>
+                        </tr>
+                        <tr ng-repeat="team in controller.team | filter:{teamName:nameHolder} | filter:{playStyle:holder}">
+                            <td>{{team.teamName}}</td>
+                            <td>{{team.teamLeader}}</td>
+                            <td>{{team.playStyle}}</td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <a href="/teamCreate">Create A Team</a>
+        </div>
     </div>
-
+</div>

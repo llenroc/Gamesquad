@@ -1,24 +1,26 @@
 ﻿
 <img class="displayed" width="800" height="130" src="../../images/player123.png" />
-
-<div class="container">
-    <h1>Search For <strong>Players</strong> </h1>
-    <br />
-    <label>Search By Username</label>
-    <input ng-model="searchUser" type="text" />
-
-<div>
-    <form>
-        <table class="table table-striped">
-            <tr>
-                <th>Username</th>
-                <th>Rank</th>
-            </tr>
-            <tr ng-repeat="user in controller.users | filter:{userName:searchUser}">
-                <td>{{user.userName}}</td>
-                <td>{{user.rank}}</td>
-            </tr>
-        </table>
-    </form>
-</div>
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="container">
+            <h1>Search For <strong>Players</strong> </h1>
+            <br />
+            <label>Search By Username</label>
+            <input ng-model="searchUser" type="text" />
+            <div>
+                <form>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Username</th>
+                            <th>Rank</th>
+                        </tr>
+                        <tr ng-repeat="user in controller.users | filter:{userName:searchUser}">
+                            <td>{{user.userName}}</td>
+                            <td>{{user.rank}}</td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

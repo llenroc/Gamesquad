@@ -8,32 +8,26 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-#userName
-{
-    margin-left:35px;
-    margin-top:10px;
-    /*font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif*/
 
-}
 .dashImg
 {
     margin:50px
 }
 .container
 {
-    margin: 100px;
+    width:100%;
     display:block;
-    margin-left:260px;
+  
     
 }
 .textHeader1{
     position:center;
-    margin-top:40%;
+    margin-top:50%;
 }
 .textblock1
 {
      border:solid;
-     padding:10px;
+     padding:15px;
      width:auto;
      margin:auto;
 }
@@ -187,4 +181,5 @@ textarea {
     bottom: 0px;
     right: 15px;
     pointer-events:none;
+    z-index:9999;
 }
