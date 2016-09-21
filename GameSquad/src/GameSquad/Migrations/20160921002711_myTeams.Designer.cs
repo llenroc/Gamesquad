@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160916074736_myTeam")]
-    partial class myTeam
+    [Migration("20160921002711_myTeams")]
+    partial class myTeams
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

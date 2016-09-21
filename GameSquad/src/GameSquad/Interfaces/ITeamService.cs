@@ -8,6 +8,7 @@ namespace GameSquad.Services
         Team getTeamInfo(int id);
         List<Team> getTeams();
         void SaveTeam(Team team);
+        List<Team> TeamsByUser(string userId);
         List<ApplicationUser> UsersByTeam(int teamId);
     }
 }

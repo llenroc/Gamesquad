@@ -132,6 +132,22 @@ namespace GameSquad.Data
                    {
                        TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Eevee").Id,
                        ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Chase").Id
+                   },
+                   //Pikachu
+                   new TeamMembers
+                   {
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Pikachu").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Reg").Id
+                   },
+                   new TeamMembers
+                   {
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Pikachu").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Emma").Id
+                   },
+                   new TeamMembers
+                   {
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Pikachu").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Shane").Id
                    });
 
                 context.SaveChanges();

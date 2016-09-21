@@ -14,6 +14,7 @@
 /// <reference path="ngapp/controllers/controllers.js" />
 /// <reference path="ngapp/controllers/profilecontroller.js" />
 /// <reference path="ngapp/controllers/teamcontroller.js" />
+/// <reference path="ngapp/controllers/teaminfocontroller.js" />
 /// <reference path="ngapp/controllers/teamsearchcontroller.js" />
 /// <reference path="ngapp/controllers/usercontroller.js" />
 /// <reference path="ngapp/services/accountservice.js" />

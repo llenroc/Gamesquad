@@ -6,9 +6,14 @@
 
         constructor(private $resource: angular.resource.IResourceService) {
             this.teamsResource = this.$resource('/api/team/:id', null, {
-                getUsersByEvent: {
+                getUsersByTeam: {
                     method: 'GET',
-                    url: '/api/events/getUsersByEvent/:id',
+                    url: '/api/team/getUsersByTeam/:id',
+                    isArray: true
+                },
+                getTeamsByUser: {
+                    method: 'GET',
+                    url: '/api/team/getTeamsByUser',
                     isArray: true
                 }
             });
@@ -33,8 +38,12 @@
             return this.teamsResource.query();
         }
 
-        public getUsersForTeam(id) {
+        public getUsersByTeam(id) {
             return this.teamsResource.getUsersByTeam({ id: id });
+        }
+
+        public getTeamsByUser() {
+            return this.teamsResource.getTeamsByUser();
         }
 
     }

@@ -4,30 +4,15 @@
         <form>
             <table class="table table-striped">
                 <tr>
-                    <th>Team Leader</th>
+                    <th>My Teams</th>
 
 
                 </tr>
-                <tr ng-repeat="teamLeader in controller.team">
-                    <td>{{teamLeader.teamLeader}}</td>
+                <tr ng-repeat="team in controller.teams">
+                    <td><a ng-href="/team/{{team.id}}">{{team.teamName}}</a></td>
 
-                </tr>
-            </table>
-        </form>
-    </div>
-
-    <div>
-        <form>
-            <table class="table table-striped">
-                <tr>
-                    <th>Username</th>
-                    <th>Rank</th>
-
-                </tr>
-                <tr ng-repeat="members in controller.users">
-                    <td>{{members.userName}}</td>
-                    <td>{{members.rank}}</td>
                 </tr>
             </table>
         </form>
     </div>
+
