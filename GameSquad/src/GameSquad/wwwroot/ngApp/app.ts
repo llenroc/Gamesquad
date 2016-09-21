@@ -54,7 +54,7 @@ namespace GameSquad {
             .state('findUsers', {
                 url: '/findUsers',
                 templateUrl: '/ngApp/views/userSearch.html',
-                controller: GameSquad.Controllers.UserSearchController,
+                controller: GameSquad.Controllers.UserController,
                 controllerAs: 'controller'
             })
             .state('team', {
@@ -69,6 +69,12 @@ namespace GameSquad {
                 controller: GameSquad.Controllers.TeamController,
                 controllerAs: 'controller'
             })
+            .state('myTeam', {
+                url: '/myTeam',
+                templateUrl: '/ngApp/views/myTeam.html',
+                controller: GameSquad.Controllers.TeamController,
+                controllerAs: 'controller'
+            })
             .state('postCreate', {
                 url: '/postCreate',
                 templateUrl: '/ngApp/views/postCreate.html',
@@ -79,6 +85,12 @@ namespace GameSquad {
                 url: '/updates',
                 templateUrl: '/ngApp/views/updates.html',
                 controller: GameSquad.Controllers.PostController,
+                controllerAs: 'controller'
+            })
+            .state('teamInfo', {
+                url: '/team/:id',
+                templateUrl: '/ngApp/views/teamInfo.html',
+                controller: GameSquad.Controllers.TeamInfoController,
                 controllerAs: 'controller'
             })
             .state('notFound', {

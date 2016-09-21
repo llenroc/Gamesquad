@@ -1,0 +1,21 @@
+﻿<h2>Team {{controller.teamDetails.teamName}}</h2>
+<br />
+<h4>Team Leader: {{controller.teamDetails.teamLeader}}</h4>
+<h5>Playstyle: {{controller.teamDetails.playStyle}}</h5>
+<br />
+
+<div>
+    <form>
+        <table class="table table-striped">
+            <tr>
+                <th>Team Members</th>
+                <th>Rank</th>
+
+            </tr>
+            <tr ng-repeat="member in controller.teamUser}">
+                <td>{{member.userName}}</td>
+                <td>{{member.rank}}</td>
+            </tr>
+        </table>
+    </form>
+</div>
