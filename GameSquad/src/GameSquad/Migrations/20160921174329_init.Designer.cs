@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160921002711_myTeams")]
-    partial class myTeams
+    [Migration("20160921174329_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,8 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("BattleNetUser");
 
+                    b.Property<string>("Bio");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -36,6 +38,8 @@ namespace GameSquad.Migrations
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
+
+                    b.Property<string>("Location");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -52,6 +56,8 @@ namespace GameSquad.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("Platform");
 
                     b.Property<string>("ProfileImage");
 
@@ -80,6 +86,24 @@ namespace GameSquad.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("GameSquad.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("User");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("comment");
+
+                    b.Property<string>("item");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Posts");
+                });
+
             modelBuilder.Entity("GameSquad.Models.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -93,7 +117,11 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("UserId");
 
+                    b.Property<int?>("UserProfId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserProfId");
 
                     b.ToTable("Teams");
                 });
@@ -247,10 +275,17 @@ namespace GameSquad.Migrations
                         .HasForeignKey("TeamId");
                 });
 
+            modelBuilder.Entity("GameSquad.Models.Team", b =>
+                {
+                    b.HasOne("GameSquad.Models.UserProf")
+                        .WithMany("UserTeam")
+                        .HasForeignKey("UserProfId");
+                });
+
             modelBuilder.Entity("GameSquad.Models.TeamMembers", b =>
                 {
                     b.HasOne("GameSquad.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("TeamMembers")
+                        .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
