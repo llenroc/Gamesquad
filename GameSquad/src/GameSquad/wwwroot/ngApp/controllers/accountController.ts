@@ -112,7 +112,7 @@ namespace GameSquad.Controllers {
         public validationMessages;
 
         public register() {
-            this.accountService.registerExternal(this.registerUser.email)
+            this.accountService.registerExternal(this.registerUser.username)
                 .then((result) => {
                     this.$location.path('/');
                 }).catch((result) => {

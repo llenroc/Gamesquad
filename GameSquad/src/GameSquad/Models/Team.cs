@@ -13,7 +13,9 @@ namespace GameSquad.Models
         public string PlayStyle { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
-        public ApplicationUser TeamLeader { get; set; }
+        public string TeamLeader { get; set; }
         public ICollection<ApplicationUser> Members { get; set; }
+        public ICollection<TeamMembers> TeamMembers { get; set; }
+
     }
 }

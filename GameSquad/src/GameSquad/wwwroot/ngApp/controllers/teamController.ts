@@ -3,10 +3,14 @@
     export class TeamController {
 
         public team;
+        public members;
+        public users;
         public teamToCreate;
-        constructor(private teamService: GameSquad.Services.TeamService
-            , private $state: angular.ui.IStateService) {
+        public teams;
 
+        constructor(private teamService: GameSquad.Services.TeamService,
+            private $state: angular.ui.IStateService) {
+            this.teamsByUser();
             this.getTeams();
 
         }
@@ -42,6 +46,18 @@
                     console.log("something went wrong");
                 })
 
+        }
+
+        public UserByTeam(members, id) {
+            this.members = members;
+            this.users = this.teamService.getUsersByTeam(id);
+        }
+
+        public teamsByUser() {
+            this.teamService.getTeamsByUser().$promise.then((data) => {
+                this.teams = data;
+                console.log(this.teams);
+            });
         }
     }
 

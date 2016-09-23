@@ -5,10 +5,26 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GameSquad.Migrations
 {
-    public partial class addAllTables : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    User = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true),
+                    comment = table.Column<string>(nullable: true),
+                    item = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -59,18 +75,31 @@ namespace GameSquad.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "TeamMembers",
+                columns: table => new
+                {
+                    TeamId = table.Column<int>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamMembers", x => new { x.TeamId, x.ApplicationUserId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserProfs",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(nullable: true),
-                    comment = table.Column<string>(nullable: true),
-                    item = table.Column<string>(nullable: true)
+                    Bio = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    Platform = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_UserProfs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,12 +109,20 @@ namespace GameSquad.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PlayStyle = table.Column<string>(nullable: true),
+                    TeamLeader = table.Column<string>(nullable: true),
                     TeamName = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    UserProfId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_UserProfs_UserProfId",
+                        column: x => x.UserProfId,
+                        principalTable: "UserProfs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,28 +161,6 @@ namespace GameSquad.Migrations
                         name: "FK_AspNetUsers_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserProfs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Bio = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    Platform = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserProfs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserProfs_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -232,14 +247,19 @@ namespace GameSquad.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_UserName",
-                table: "Posts",
-                column: "UserName");
+                name: "IX_Teams_UserProfId",
+                table: "Teams",
+                column: "UserProfId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Teams_UserId",
-                table: "Teams",
-                column: "UserId");
+                name: "IX_TeamMembers_ApplicationUserId",
+                table: "TeamMembers",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamMembers_TeamId",
+                table: "TeamMembers",
+                column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserProfs_UserId",
@@ -277,16 +297,24 @@ namespace GameSquad.Migrations
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Posts_AspNetUsers_UserName",
-                table: "Posts",
-                column: "UserName",
-                principalTable: "AspNetUsers",
+                name: "FK_TeamMembers_Teams_TeamId",
+                table: "TeamMembers",
+                column: "TeamId",
+                principalTable: "Teams",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Teams_AspNetUsers_UserId",
-                table: "Teams",
+                name: "FK_TeamMembers_AspNetUsers_ApplicationUserId",
+                table: "TeamMembers",
+                column: "ApplicationUserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_UserProfs_AspNetUsers_UserId",
+                table: "UserProfs",
                 column: "UserId",
                 principalTable: "AspNetUsers",
                 principalColumn: "Id",
@@ -303,7 +331,7 @@ namespace GameSquad.Migrations
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "UserProfs");
+                name: "TeamMembers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -325,6 +353,9 @@ namespace GameSquad.Migrations
 
             migrationBuilder.DropTable(
                 name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "UserProfs");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

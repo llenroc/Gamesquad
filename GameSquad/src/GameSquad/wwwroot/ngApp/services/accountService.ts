@@ -77,9 +77,9 @@ namespace GameSquad.Services {
         }
 
         // associate external login (e.g., Twitter) with local user account
-        public registerExternal(email) {
+        public registerExternal(Username) {
             return this.$q((resolve, reject) => {
-                this.$http.post('/api/account/externalLoginConfirmation', { email: email })
+                this.$http.post('/api/account/externalLoginConfirmation', { Username: Username })
                     .then((result) => {
                         this.storeUserInfo(result.data);
                         resolve(result);

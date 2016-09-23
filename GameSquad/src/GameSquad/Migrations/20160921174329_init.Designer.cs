@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160915172437_addRemovePsot")]
-    partial class addRemovePsot
+    [Migration("20160921174329_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,6 +111,8 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("PlayStyle");
 
+                    b.Property<string>("TeamLeader");
+
                     b.Property<string>("TeamName");
 
                     b.Property<string>("UserId");
@@ -119,11 +121,24 @@ namespace GameSquad.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.HasIndex("UserProfId");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("GameSquad.Models.TeamMembers", b =>
+                {
+                    b.Property<int>("TeamId");
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.HasKey("TeamId", "ApplicationUserId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamMembers");
                 });
 
             modelBuilder.Entity("GameSquad.Models.UserProf", b =>
@@ -262,13 +277,22 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.Team", b =>
                 {
-                    b.HasOne("GameSquad.Models.ApplicationUser", "TeamLeader")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.HasOne("GameSquad.Models.UserProf")
                         .WithMany("UserTeam")
                         .HasForeignKey("UserProfId");
+                });
+
+            modelBuilder.Entity("GameSquad.Models.TeamMembers", b =>
+                {
+                    b.HasOne("GameSquad.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GameSquad.Models.Team", "Team")
+                        .WithMany("TeamMembers")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GameSquad.Models.UserProf", b =>

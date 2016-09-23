@@ -9,7 +9,6 @@ namespace GameSquad.ViewModels.Account
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        public string Username { get; set; }
     }
 }

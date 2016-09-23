@@ -1,5 +1,5 @@
 ﻿namespace GameSquad.Services {
-    export class UserSearchService {
+    export class UserService {
         private usersResource;
         constructor(private $resource: angular.resource.IResourceService) {
             this.usersResource = $resource('/api/user');
@@ -9,9 +9,9 @@
             return this.usersResource.query();
         }
         //return a user by id 
-        //public getUserById(id) {
-        //    return this.usersResource.get({ id: id });
-        //}
+        public getUserById(id) {
+            return this.usersResource.get({ id: id });
+        }
     }
-    angular.module('GameSquad').service('userSearchService', UserSearchService);
+    angular.module('GameSquad').service('userService', UserService);
 }
