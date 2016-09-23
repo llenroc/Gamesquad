@@ -125,3 +125,61 @@ textarea {
 }
 
 
+/*Chat window test*/
+.chat-window {
+    
+    
+    background-image:none;
+    margin-left: 5px;
+    margin-right: 5px;
+    pointer-events:all;
+    width: 375px;
+    
+
+    
+    
+}
+
+.chat-panel {
+    margin-bottom: 0px;
+    
+}
+
+.chat-item-container{
+    
+    
+    overflow-y: scroll; 
+    max-height:400px;
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-panel-body {
+    overflow: hidden;
+    background-image: none;
+    background-color: black;
+}
+
+.friendslist {
+    pointer-events:all;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-image:none;
+    width: 250px;
+    
+    
+    
+}
+
+.chatsection {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap:wrap-reverse;
+    align-items: flex-start;
+    position: fixed;
+    bottom: 0px;
+    right: 15px;
+    pointer-events:none;
+    z-index:9999;
+}
