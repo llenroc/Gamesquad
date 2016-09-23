@@ -8,9 +8,10 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160923151043_TeamMemberEdit")]
+    partial class TeamMemberEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -109,6 +110,8 @@ namespace GameSquad.Migrations
                     b.Property<string>("TeamLeader");
 
                     b.Property<string>("TeamName");
+
+                    b.Property<string>("UserId");
 
                     b.Property<int?>("UserProfId");
 

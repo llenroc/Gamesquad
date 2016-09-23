@@ -18,11 +18,22 @@ namespace GameSquad.Services
         }
 
         //get team info by id
-        public Team getTeamInfo(int id)
+        public object getTeamInfo(int id)
         {
-
-            var data = _repo.Query<Team>().Where(c => c.Id == id).Include(m => m.Members).FirstOrDefault();
-            return data;
+            var _data = _repo.Query<Team>().Where(t => t.Id == id).Select(t => new
+            {
+                Id = t.Id,
+                TeamName = t.TeamName,
+                PlayStyle = t.PlayStyle,
+                TeamLeader = t.TeamLeader,
+                TeamMembers = t.TeamMembers.Select(tm => tm.ApplicationUser).Select(u => new
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Rank = u.Rank
+                }).ToList()
+            }).FirstOrDefault();
+            return _data;
         }
 
         ////get members

@@ -1,6 +1,6 @@
 namespace GameSquad {
 
-    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-filepicker', 'luegg.directives' ]).config((
+    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-filepicker']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider,

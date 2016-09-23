@@ -22,7 +22,7 @@ namespace GameSquad.Models
         public int Rank { get; set; }
 
         //teams
-        
+        public ICollection<TeamMembers> TeamMembers { get; set; }
 
         //
         //user profile (data model) removed merged with appuse.
