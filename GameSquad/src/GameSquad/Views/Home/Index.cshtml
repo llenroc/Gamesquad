@@ -8,7 +8,9 @@
     <!--  theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css">
     <base href="/" />
+
     <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/chat.css" rel="stylesheet" />
 </head>
 <body ng-controller="AccountController as account">
     <!-- NAv Bar -->
@@ -44,84 +46,88 @@
     </nav>
     <ui-view></ui-view>
     <!--SignalR chat test files-->
-
+    <!--PRIVATE CHAT-->
     <div class="chatsection" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="chat-window " ng-show="chat.isLoggedIn() && chat.openPrivateChat">
-
-            <div class="panel panel-primary chat-panel">
+            <div class="panel panel-primary chat-panel" ng-click="chat.userListAlert.alertStatus = false" ng-class="{'panel-warning': !chat.sendToUser.online }">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse3">
-                    <h3 class="panel-title">Private Chat with {{chat.sendToUser.Username}}</h3>
+                    <h3 class="panel-title">Private Chat with {{chat.sendToUser.username}} <span ng-show="!chat.sendToUser.online" class="text-muted"> (Offline)</span></h3>
                 </div>
                 <div id="collapse3" class="panel-collapse collapse in">
-                    <div class=" chat-panel-body">
-                        <div class="chat-item-container" scroll-glue>
-                            <div class="list-group-item list-group-item-success">This is the start of your conversation with {{chat.sendToUser.Username}}!</div>
-                            <div class="list-group-item" ng-repeat="msg in chat.privateMessagesDispalyed" ng-class="{'list-group-item list-group-item-info': chat.getUserName() === msg.username}"><b>{{msg.username}}</b>: {{msg.message}}</div>
+                    <div class="chat-panel-body">
+                        <div class="chat-item-container" schroll-bottom="chat.privateMessagesDispalyed">
+                            <div class="list-group-item list-group-item-success" style="margin-bottom: 10px;">This is the start of your conversation with {{chat.sendToUser.username}}!</div>
+                            <div class="chat-item" ng-repeat="msg in chat.privateMessagesDispalyed" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
+                                <p>{{msg.message}}</p>
+                                <div>{{msg.username}} at {{msg.time}}</div>
+                            </div>
+                            <div ng-init="chat.autoScroll()"></div>
                         </div>
                     </div>
                     <div class="panel-footer">
                         <form ng-submit="chat.sendPrivateMessage()" class="form-inline">
                             <div class="form-group">
-                                <input ng-model="chat.newPrivateMessage" class="form-control" type="text" />
-                                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
+                                <input ng-model="chat.newPrivateMessage" class="form-control" type="text" ng-disabled="!chat.sendToUser.online" required />
+                                <button class="btn btn-primary" ng-disabled="!chat.sendToUser.online" ng-class="{'disabled': !chat.sendToUser.online}" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <!--GLOBAL CHAT-->
         <div class="chat-window " ng-show="chat.isLoggedIn()">
-
             <div class="panel panel-primary chat-panel">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse2">
                     <h3 class="panel-title">Global Chat</h3>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
-                    <div class="panel-body chat-panel-body">
-                        <div class="chat-item-container" scroll-glue>
-                            <div class="list-group-item list-group-item-success">Hello! Welcome to Gamesquad!</div>
-                            <div class="list-group-item" 
-                                 ng-repeat="msg in chat.messages"
-                                 ng-class="{'list-group-item-info': chat.getUserName() === msg.username}">
-                                <b>{{msg.username}}</b>: {{msg.message}}
+                    <div class="chat-panel-body">
+                        <div class="chat-item-container" schroll-bottom="chat.messages">
+                            <div class="list-group-item list-group-item-success" style="margin-bottom: 10px;">Hello! Welcome to Gamesquad!</div>
+                            @*<div class="list-group-item"
+                                     ng-repeat="msg in chat.messages"
+                                     ng-class="{'list-group-item-info': chat.getUserName() === msg.username}">
+                                    <b>{{msg.username}}</b>: {{msg.message}}
+                                </div>*@
+                            <div class="chat-item" ng-repeat="msg in chat.messages" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
+                                <p>{{msg.message}}</p>
+                                <div>{{msg.username}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer">
                         <form ng-submit="chat.sendMessage()" class="form-inline">
                             <div class="form-group">
-                                <input ng-model="chat.newMessage" class="form-control" type="text" />
+                                <input ng-model="chat.newMessage" class="form-control" type="text" required />
                                 <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
-
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
-
+        <!--FRIENDSLIST-->
         <div class="friendslist" ng-show="chat.isLoggedIn()">
-            <div class="panel panel-primary chat-panel">
+            <div class="panel panel-primary chat-panel " ng-class="{'panel-success': chat.userListAlert.alertStatus}" ng-click="chat.userListAlert.alertStatus = false">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse1">
                     <h3 class="panel-title">
                         Connected Users
-
                     </h3>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
                     <div class="panel-body" style="background-image:none; background-color: black; ">
                         <div class="chat-item-container">
                             <ul class="list-group">
-                                
+
                                 <li class="list-group-item"
                                     ng-click="chat.setUserToMessage(user)"
-                                    ng-repeat="user in chat.connectedUsers"
-                                    
-                                    ng-class="chat.userListClass(user.Username)"
-                                    
-                                    >
-                                    {{user.Username}}
+                                    ng-repeat="user in chat.privateMessageArray"
+                                    ng-if="user.online"
+                                    ng-class="chat.userListClass(user.username)">
+
+                                    <div>{{user.username}}</div>
+
                                 </li>
                             </ul>
                         </div>
@@ -130,7 +136,6 @@
             </div>
         </div>
     </div>
-
     <!-- Library Files -->
     <script src="~/lib/angular/angular.js"></script>
     <script src="~/lib/angular-resource/angular-resource.js"></script>
@@ -167,6 +172,6 @@
     <!-- SignalR files -->
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
     <script src="signalr/hubs"></script>
-    @*<script src="~/lib/angularjs-scroll-glue/src/scrollglue.js"></script>*@
+    <script src="~/lib/angularjs-scroll-glue/src/scrollglue.js"></script>
 </body>
 </html>

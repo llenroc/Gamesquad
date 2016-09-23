@@ -17,8 +17,8 @@ namespace GameSquad.Hubs
 
     public class UserDetail
     {
-        public string ConnectionId { get; set; }
-        public string Username { get; set; }
+        public string connectionId { get; set; }
+        public string username { get; set; }
     }
 
     public static class ConnectedUsers
@@ -44,7 +44,7 @@ namespace GameSquad.Hubs
         public void Connect(string userName)
         {
             //var newUser = new UserDetail { ConnectionId = Context.ConnectionId, Username = userName };
-
+           
 
             // if (ConnectedUsers.Users.Count(u => u.Username == newUser.Username) > 0 || userName == null)
 
@@ -64,8 +64,8 @@ namespace GameSquad.Hubs
                 {
                     returnList.Add(new UserDetail
                     {
-                        Username = item.Key,
-                        ConnectionId = item.Value
+                        username = item.Key,
+                        connectionId = item.Value
                     });
                 }
 
@@ -76,8 +76,8 @@ namespace GameSquad.Hubs
 
                 var newUser = new UserDetail
                 {
-                    Username = userName,
-                    ConnectionId = Context.ConnectionId
+                    username = userName,
+                    connectionId = Context.ConnectionId
                 };
                 Clients.AllExcept(Context.ConnectionId).onNewUserConnected(newUser);
             }

@@ -2,6 +2,8 @@
 
     declare var $;
 
+    
+
     export class ChatController {
         //SignalR Global Messaging
         private chatHub: any
@@ -10,28 +12,52 @@
         public dupUser = false;
 
         //total connected users
-        public connectedUsers = [
-            {
-                Username: "Dummy User 1",
-                ConnectionId: "none"
-            },
-            {
-                Username: "Dummy User 2",
-                ConnectionId: "none"
+        //public connectedUsers = [
+        //    {
+        //        Username: "Dummy User 1",
+        //        ConnectionId: "none"
+        //    },
+        //    {
+        //        Username: "Dummy User 2",
+        //        ConnectionId: "none"
 
 
-            }
-        ];
+        //    }
+        //];
 
         //private messaging fields
-        public sendToUser;
+        public sendToUser = 
+        {
+            username: "",
+            connectionId: "none",
+            messages: [],
+            newMessageAlert: false
+        };
         public openPrivateChat;
         public newPrivateMessage;
         public privateMessageArray = [
-            
+            {
+                username: "Dummy User 1",
+                connectionId: "none",
+                messages: [],
+                newMessageAlert: false,
+                online: true
+            },
+            {
+                username: "Dummy User 2",
+                connectionId: "none",
+                messages: [],
+                newMessageAlert: false,
+                online: true
+            }
         ];
         public privateMessagesDispalyed;
         public newMessageAlertUser;
+
+        //for the friendslist and private message alerds
+        //needs to be an object with property for wierd scope reasons
+        public userListAlert = { alertStatus: false };
+        //public privateAlert = { alertStatus: false };
 
         public isLoggedIn() {
             return this.accountService.isLoggedIn();
@@ -44,7 +70,7 @@
 
         public setUserToMessage(user) {
             this.sendToUser = user;
-            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.Username);
+            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
 
             if (index > -1) {
                 //privateMessageArray.splice(index, 1);
@@ -53,14 +79,16 @@
             }
             else {
                 let newConversation = {
-                    username: this.sendToUser.Username,
-                    connectionId: this.sendToUser.ConnectionId,
+                    username: this.sendToUser.username,
+                    connectionId: this.sendToUser.connectionId,
                     messages: [],
-                    newMessageAlert: false
+                    newMessageAlert: false,
+                    online: true
 
                 }
                 this.privateMessageArray.push(newConversation);
-                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.Username);
+                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
+                //this.privateAlert.alertStatus = this.privateMessageArray[index].newMessageAlert;
                 this.privateMessagesDispalyed = this.privateMessageArray[index].messages;
             }
             this.openPrivateChat = true;
@@ -70,7 +98,7 @@
 
         }
 
-        //TODO: Merge the connected user and private message arrays so don't have to do as many array maps
+       
 
         //Ignore this: ng-class="{'list-group-item-success': chat.newMessageAlertUser == user.Username,'list-group-item-info': chat.sendToUser.Username == user.Username}"
 
@@ -78,12 +106,12 @@
             let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(username);
             let conversation = this.privateMessageArray[index];
 
-            console.log(conversation);
-            console.log(this.sendToUser.Username);
+            
+            //console.log(this.sendToUser.username);
 
-            if (conversation.newMessageAlert != null) {
+           // if (conversation.newMessageAlert != null) {
 
-                if (conversation.username === this.sendToUser.Username) {
+                if (conversation.username === this.sendToUser.username) {
                     conversation.newMessageAlert = false;
                     return 'list-group-item-info'
                 }
@@ -91,7 +119,7 @@
                 else if (conversation.newMessageAlert) {
                     return 'list-group-item-success'
                 }
-            }
+            //}
             
             else {
                 return ""
@@ -104,10 +132,10 @@
             let fromUsername = this.accountService.getUserName();
 
             //just in case check. Sometimes has issue
-            let index = this.connectedUsers.map((x) => { return x.Username }).indexOf(this.sendToUser.Username);
-            let userToSend = this.connectedUsers[index];
+            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
+            let userToSend = this.privateMessageArray[index];
 
-            this.chatHub.server.sendPrivateMessage(fromUsername, this.newPrivateMessage, userToSend.Username, userToSend.ConnectionId);
+            this.chatHub.server.sendPrivateMessage(fromUsername, this.newPrivateMessage, userToSend.username, userToSend.connectionId);
             this.newPrivateMessage = "";
 
         }
@@ -128,7 +156,9 @@
             let messagelist = this.messages;
             let scope = this.$scope;
             let privateMessageArray = this.privateMessageArray;
-            let messageAlert;
+            let userListAlert = this.userListAlert;
+            let getUsername = this.getUserName();
+           
 
             this.chatHub.client.newMessage = function onNewMessage(messageRecieved) {
                 console.log("Message Recieved from server!");
@@ -144,7 +174,7 @@
 
 
 
-                let newMessage = { username: fromUsername, message: privateMessage };
+                let newMessage = { username: fromUsername, message: privateMessage, time: "" };
 
                 let index = privateMessageArray.map((x) => { return x.username }).indexOf(conversationName);
                 console.log(index);
@@ -153,27 +183,57 @@
 
                     let chosenUser = privateMessageArray[index];
 
+                    //Get time
+                    var messageDate = new Date();
+                    function addZero(i) {
+                        if (i < 10) {
+                            i = "0" + i;
+                        }
+                        return i;
+                    }
+                    var messageTime = addZero(messageDate.getHours()) + ":" + addZero(messageDate.getMinutes()) ;
+
+                    newMessage.time = messageTime;
+
                     chosenUser.messages.push(newMessage);
                     chosenUser.newMessageAlert = true;
-                }
-                else {
-                    let newConversation = {
-                        username: conversationName,
-                        messages: [newMessage],
-                        newMessageAlert: true
+                   
+                    
+
+
+
+                    if (newMessage.username != getUsername) {
+                        userListAlert.alertStatus = true;
 
                     }
-                    privateMessageArray.push(newConversation);
+
+
                 }
+                //else {
+                //    let newConversation = {
+                //        username: conversationName,
+                //        messages: [newMessage],
+                //        newMessageAlert: true
+
+                //    }
+                //    privateMessageArray.push(newConversation);
+                //}
                 //console.log(messageAlert);
 
                 //messageAlert = conversationName;
                 //console.log(messageAlert);
-               
+                //console.log(userListAlert);
+
                 scope.$apply();
 
 
             };
+            //this.userListAlert = userListAlert;
+            //console.log(userListAlert);
+
+            //console.log(this.userListAlert);
+           // scope.$apply();
+
            // this.newMessageAlertUser = messageAlert;
 
         }
@@ -181,7 +241,8 @@
 
 
         public getConnectedUsers() {
-            let connectedUsers = this.connectedUsers;
+            let connectedUsers = this.privateMessageArray;
+            
             let scope = this.$scope;
             let dupUser = this.dupUser;
 
@@ -197,8 +258,11 @@
 
                 else {
                     for (var user of userList) {
+                        user.messages = [];
+                        user.newMessageAlert = false;
+                        user.online = true;
                         connectedUsers.push(user);
-                        console.log(user.Username);
+                        //console.log(user.Username);
                     }
                     console.log(connectedUsers);
                 }
@@ -206,11 +270,30 @@
 
 
             }
-
+            //{
+        //    username: "Dummy User 2",
+        //        connectionId: "none",
+        //            messages: [],
+        //                newMessageAlert: false,
+        //                    online: true
+        //}
             this.chatHub.client.onNewUserConnected = function onNewUserConnected(newUser) {
                 console.log("New user Recieved from server!");
+                console.log(newUser)
+                //let why = newUser
+                let index = connectedUsers.map((x) => { return x.username }).indexOf(newUser.username);
+                if (index > -1) {
+                    connectedUsers[index].connectionId = newUser.connectionId
+                    connectedUsers[index].online = true;
+                }
+                else {
 
-                connectedUsers.push(newUser);
+                    newUser.messages = [];
+                    newUser.newMessageAlert = false;
+                    newUser.online = true;
+                    connectedUsers.push(newUser);
+                }
+                
                 console.log(connectedUsers);
 
                 scope.$apply();
@@ -220,10 +303,16 @@
                 console.log("User has disconnected " + userToRemove);
 
 
-                let index = connectedUsers.map((x) => { return x.Username }).indexOf(userToRemove);
+                let index = connectedUsers.map((x) => { return x.username }).indexOf(userToRemove);
                 console.log(index);
                 if (index > -1) {
-                    connectedUsers.splice(index, 1);
+
+                   // if (connectedUsers[index].messages.length > 0) {
+                        connectedUsers[index].online = false;
+                    //}
+                    //else {
+                    //    connectedUsers.splice(index, 1);
+                    //}
                     scope.$apply();
                 }
 
@@ -252,8 +341,9 @@
             
         }
 
-        public signalrWait() {
-
+        public autoScroll() {
+            console.log("scroll?");
+            $("#privateChat").attr({ scrollTop: $("#privateChat").attr("scrollHeight") });
         }
 
         constructor(private accountService: GameSquad.Services.AccountService,
@@ -264,7 +354,9 @@
             this.chatHub = $.connection.chatHub;
             $.connection.hub.logging = true;
 
-            
+            $(document).ready(function () {
+                $("#privateChat").attr({ scrollTop: $("#privateChat").attr("scrollHeight") });
+            });
 
             setTimeout(function () {
                 console.log("hi!");
