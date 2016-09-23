@@ -1,6 +1,6 @@
 namespace GameSquad {
 
-    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-filepicker']).config((
+    angular.module('GameSquad', ['ui.router', 'ngResource', 'ui.bootstrap', 'angular-filepicker', 'luegg.directives' ]).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider,
@@ -142,6 +142,19 @@ namespace GameSquad {
         $httpProvider.interceptors.push('authInterceptor');
     });
 
-    
+    angular.module('GameSquad').directive('schrollBottom', function () {
+        return {
+            scope: {
+                schrollBottom: "="
+            },
+            link: function (scope, element) {
+                scope.$watchCollection('schrollBottom', function (newValue) {
+                    if (newValue) {
+                        $(element).scrollTop($(element)[0].scrollHeight);
+                    }
+                });
+            }
+        }
+    })
 
 }
