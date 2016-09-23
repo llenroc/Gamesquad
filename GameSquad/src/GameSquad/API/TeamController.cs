@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using GameSquad.Services;
 using GameSquad.Models;
 using Microsoft.AspNetCore.Identity;
+using GameSquad.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -58,6 +59,23 @@ namespace GameSquad.API
             if (ModelState.IsValid)
             {
                 _service.SaveTeam(team);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+
+            }
+        }
+
+        [HttpGet("AddMemberToTeam/{teamId}")]
+        public IActionResult AddMemberToTeam(int teamId)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
+                _service.AddMemberToTeam(userId, teamId);
                 return Ok();
             }
             else

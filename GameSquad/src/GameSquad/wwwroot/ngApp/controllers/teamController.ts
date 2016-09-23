@@ -10,6 +10,7 @@
 
         constructor(private teamService: GameSquad.Services.TeamService,
             private $state: angular.ui.IStateService) {
+
             this.teamsByUser();
             this.getTeams();
 
@@ -58,6 +59,11 @@
                 this.teams = data;
                 console.log(this.teams);
             });
+        }
+
+        public addMemberToTeam(teamId) {
+            this.teamService.addMemberToTeam(teamId);
+
         }
     }
 

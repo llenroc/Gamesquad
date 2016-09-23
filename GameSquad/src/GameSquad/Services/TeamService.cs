@@ -62,16 +62,32 @@ namespace GameSquad.Services
             var data = _repo.Query<Team>().ToList();
             return data;
         }
+
         public List<ApplicationUser> UsersByTeam(int teamId)
         {
             var users = _repo.Query<TeamMembers>().Where(tm => tm.TeamId == teamId).Select(tm => tm.ApplicationUser).ToList();
             return users;
         }
+
         public List<Team> TeamsByUser(string userId)
         {
             var teams = _repo.Query<TeamMembers>().Where(tm => tm.ApplicationUserId == userId).Select(tm => tm.Team).ToList();
             return teams;
         }
 
+        public void AddMemberToTeam( string userId, int teamId)
+        {
+            var join = new TeamMembers {
+                TeamId = teamId,
+                Team = _repo.Query<Team>().FirstOrDefault(t => t.Id == teamId),
+                ApplicationUserId = userId,
+                ApplicationUser =  _repo.Query<ApplicationUser>().FirstOrDefault( c => c.Id == userId)
+
+                
+            };
+
+            _repo.Add(join);
+            _repo.SaveChanges();
+        }
     }
 }

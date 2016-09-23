@@ -10,5 +10,6 @@ namespace GameSquad.Services
         void SaveTeam(Team team);
         List<Team> TeamsByUser(string userId);
         List<ApplicationUser> UsersByTeam(int teamId);
+        void AddMemberToTeam(string userId, int teamId);
     }
 }

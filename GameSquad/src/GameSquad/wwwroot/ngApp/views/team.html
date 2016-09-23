@@ -21,11 +21,13 @@
                             <th>Team</th>
                             <th>Team Leader</th>
                             <th>Play Style</th>
+                            <th></th>
                         </tr>
                         <tr ng-repeat="team in controller.team | filter:{teamName:nameHolder} | filter:{playStyle:holder}">
                             <td>{{team.teamName}}</td>
                             <td>{{team.teamLeader}}</td>
                             <td>{{team.playStyle}}</td>
+                            <td><button class ="btn btn-success" ng-click="controller.addMemberToTeam(team.id)">Join Team </button></td>
                         </tr>
                     </table>
                 </form>
