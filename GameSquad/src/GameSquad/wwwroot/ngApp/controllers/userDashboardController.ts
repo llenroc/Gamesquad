@@ -1,20 +1,25 @@
 ﻿namespace GameSquad.Controllers {
     export class UserDashboardController {
         public userId;
-        public posts;
+       
         constructor(
             private userDashboardService: GameSquad.Services.UserDashboardService,
             private $state: angular.ui.IStateService,
-            private accountService: GameSquad.Services.AccountService,
-            private PostService: GameSquad.Services.PostService
+            private accountService: GameSquad.Services.AccountService
+         
         ) {
             this.getUserById();
-            this.getPosts();
+            this.getUserInfo();
         }
       
         //get single id
         private getUserById() {
             this.getUserById = this.userDashboardService.getUserById(this.userId);
+        }
+
+        //
+        public getUserInfo() {
+            return this.userDashboardService.getUserInfo();
         }
 
         //get user info
@@ -34,9 +39,7 @@
             this.accountService.logout();
         }
 
-        public getPosts() {
-            this.posts = this.PostService.getPosts();
-        }
+       
         //get user profile info
         //public getUserBio() {
         //    return this.accountService.getUserBio();

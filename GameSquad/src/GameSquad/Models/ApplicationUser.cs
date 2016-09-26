@@ -20,12 +20,15 @@ namespace GameSquad.Models
 
         //TODO: update when ranking is implemented
         public int Rank { get; set; }
+        //freinds
+        public List<Friend> Friends { get; set; }
+        //messages
+        public ICollection<UserMessage> UserMessages { get; set; }
+        //message and requests inbox
+        public Inbox UserInbox { get; set; }
 
-        //teams
-        
 
-        //
-        //user profile (data model) removed merged with appuse.
+        //user profile 
         //bio for user dashboard
         public string Bio { get; set; }
         //location (optional) 
@@ -34,7 +37,5 @@ namespace GameSquad.Models
         public string Platform { get; set; }
         //profile image prop    
         public string ProfileImage { get; set; }
-
-
     }
 }

@@ -8,9 +8,10 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160926180844_added_Friends_FriendRequest_Messages")]
+    partial class added_Friends_FriendRequest_Messages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -89,11 +90,13 @@ namespace GameSquad.Migrations
                 {
                     b.Property<string>("FriendId");
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("UserId");
 
                     b.HasKey("FriendId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Friends");
                 });
@@ -105,8 +108,6 @@ namespace GameSquad.Migrations
 
                     b.Property<DateTime>("DateSent");
 
-                    b.Property<int?>("InboxId");
-
                     b.Property<string>("MessageText");
 
                     b.Property<string>("RecievingUSerId");
@@ -117,24 +118,7 @@ namespace GameSquad.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InboxId");
-
                     b.ToTable("FriendRequests");
-                });
-
-            modelBuilder.Entity("GameSquad.Models.Inbox", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("UserInbox");
                 });
 
             modelBuilder.Entity("GameSquad.Models.Post", b =>
@@ -197,8 +181,6 @@ namespace GameSquad.Migrations
 
                     b.Property<DateTime>("DateSent");
 
-                    b.Property<int?>("InboxId");
-
                     b.Property<string>("Message");
 
                     b.Property<string>("RecievingUSerId");
@@ -208,8 +190,6 @@ namespace GameSquad.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("InboxId");
 
                     b.ToTable("UserMessage");
                 });
@@ -330,23 +310,9 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.Friend", b =>
                 {
-                    b.HasOne("GameSquad.Models.ApplicationUser", "User")
+                    b.HasOne("GameSquad.Models.ApplicationUser")
                         .WithMany("Friends")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("GameSquad.Models.FriendRequest", b =>
-                {
-                    b.HasOne("GameSquad.Models.Inbox")
-                        .WithMany("FreindRequests")
-                        .HasForeignKey("InboxId");
-                });
-
-            modelBuilder.Entity("GameSquad.Models.Inbox", b =>
-                {
-                    b.HasOne("GameSquad.Models.ApplicationUser", "User")
-                        .WithOne("UserInbox")
-                        .HasForeignKey("GameSquad.Models.Inbox", "UserId");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("GameSquad.Models.TeamMembers", b =>
@@ -367,10 +333,6 @@ namespace GameSquad.Migrations
                     b.HasOne("GameSquad.Models.ApplicationUser")
                         .WithMany("UserMessages")
                         .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("GameSquad.Models.Inbox")
-                        .WithMany("Messages")
-                        .HasForeignKey("InboxId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

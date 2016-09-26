@@ -147,7 +147,7 @@
         public savePost() {
             this.PostService.savePost(this.postToEdit)
                 .then(() => {
-                    this.$state.go('home');
+                    this.$state.go('updates');
                     this.$uibModalInstance.close();
 
                 })

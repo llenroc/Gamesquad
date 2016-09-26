@@ -12,13 +12,13 @@ namespace GameSquad {
             .state('landing', {
                 url: '/',
                 templateUrl: '/ngApp/views/landing.html',
-                controller: GameSquad.Controllers.ProfileController,
+                controller: GameSquad.Controllers.UserDashboardController,
                 controllerAs: 'controller'
             })
             .state('home', {
                 url: '/dashboard',
                 templateUrl: '/ngApp/views/dashboard.html',
-                controller: GameSquad.Controllers.PostController,
+                controller: GameSquad.Controllers.UserDashboardController,
                 controllerAs: 'controller'
             })
             .state('secret', {
@@ -91,6 +91,12 @@ namespace GameSquad {
                 url: '/team/:id',
                 templateUrl: '/ngApp/views/teamInfo.html',
                 controller: GameSquad.Controllers.TeamInfoController,
+                controllerAs: 'controller'
+            })
+            .state('friends', {
+                url: '/friends',
+                templateUrl: '/ngApp/views/friends.html',
+                controller: GameSquad.Controllers.FriendController,
                 controllerAs: 'controller'
             })
             .state('notFound', {

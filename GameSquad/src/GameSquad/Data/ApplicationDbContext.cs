@@ -12,11 +12,13 @@ namespace GameSquad.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         //data tables 
-        public DbSet<UserProf> UserProfs { get; set; }
+        
         public DbSet<Team> Teams { get; set; }
         public DbSet<TeamMembers> TeamMembers { get; set; }
         public DbSet<Post> Posts { get; set; }
-
+        public DbSet<Friend> Friends { get; set; }
+        public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<Inbox> UserInbox { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
