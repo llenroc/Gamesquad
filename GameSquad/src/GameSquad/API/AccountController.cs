@@ -206,6 +206,8 @@ namespace GameSquad.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null)
         {
+            var req = this.HttpContext.Request.Query.Keys;
+            
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
             {

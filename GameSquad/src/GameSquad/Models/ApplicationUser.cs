@@ -27,8 +27,11 @@ namespace GameSquad.Models
         //message and requests inbox
         public Inbox UserInbox { get; set; }
 
+        //teams
+        public ICollection<TeamMembers> TeamMembers { get; set; }
 
-        //user profile 
+        //
+        //user profile (data model) removed merged with appuse.
         //bio for user dashboard
         public string Bio { get; set; }
         //location (optional) 

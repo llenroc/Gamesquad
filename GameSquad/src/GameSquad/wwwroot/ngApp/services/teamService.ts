@@ -15,6 +15,11 @@
                     method: 'GET',
                     url: '/api/team/getTeamsByUser',
                     isArray: true
+                },
+                addMemberToTeam: {
+                    method: 'GET',
+                    url: '/api/team/addMemberToTeam/:teamId',
+                    
                 }
             });
 
@@ -46,6 +51,11 @@
             return this.teamsResource.getTeamsByUser();
         }
 
+        public addMemberToTeam(teamId) {
+          
+            return this.teamsResource.addMemberToTeam({ teamId: teamId }).$promise;
+        }
+        
     }
 
     angular.module('GameSquad').service('teamService', TeamService);

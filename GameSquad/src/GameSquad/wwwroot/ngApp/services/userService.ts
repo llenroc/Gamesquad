@@ -12,6 +12,11 @@
         public getUserById(id) {
             return this.usersResource.get({ id: id });
         }
+
+        //Edit TeamID
+        public EditTeamId(userId, teamId) {
+
+        }
     }
     angular.module('GameSquad').service('userService', UserService);
 }

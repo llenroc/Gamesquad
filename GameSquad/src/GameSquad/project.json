@@ -51,7 +51,7 @@
     "Microsoft.EntityFrameworkCore": "1.0.0",
     "AspNet.Security.OAuth.BattleNet": "1.0.0-beta1-final"
   },
-  
+
 
   "tools": {
     "BundlerMinifier.Core": "2.0.238",
@@ -68,7 +68,7 @@
   },
 
   "frameworks": {
-      "netcoreapp1.0": {
+    "netcoreapp1.0": {
       "imports": [
         "dotnet5.6",
         "portable-net45+win8"

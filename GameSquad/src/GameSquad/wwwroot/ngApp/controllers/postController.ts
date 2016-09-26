@@ -28,6 +28,10 @@
             this.posts = this.PostService.getPostById(this.postId);
         }
 
+        public getUserName() {
+            return this.accountService.getUserName();
+        }
+
         //controller for delete posts modal
         showModalDelPost(postId) {
             this.$uibModal.open({
