@@ -5,12 +5,13 @@
             <table class="table table-striped">
                 <tr>
                     <th>My Teams</th>
+                    <th></th>
 
 
                 </tr>
                 <tr ng-repeat="team in controller.teams">
                     <td><a ng-href="/team/{{team.id}}">{{team.teamName}}</a></td>
-
+                    <td><button class="btn btn-success" ng-click="controller.removeMember(team.id)">Remove Team </button></td>
                 </tr>
             </table>
         </form>

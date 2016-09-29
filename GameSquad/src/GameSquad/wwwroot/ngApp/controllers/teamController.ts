@@ -2,25 +2,32 @@
 
     export class TeamController {
 
-        public team;
+        public team: any;
         public members;
         public users;
         public teamToCreate;
         public teams;
+        public teamId;
 
         constructor(private teamService: GameSquad.Services.TeamService,
-            private $state: angular.ui.IStateService) {
+            private $state: angular.ui.IStateService
+           
+        ) {
 
             this.teamsByUser();
             this.getTeams();
 
         }
 
-        
+
 
         public getTeams() {
 
-            this.team = this.teamService.getTeams();
+            this.teamService.getTeams().$promise.then((data) => {
+                this.team = data;
+                debugger
+
+            });
         }
 
         //get team info by ID
@@ -61,12 +68,34 @@
             });
         }
 
+        //add Member to Team
         public addMemberToTeam(teamId) {
-            this.teamService.addMemberToTeam(teamId);
+            debugger
+            this.teamService.addMemberToTeam(teamId)
+           
+                //.then(() => {
 
+                //    this.$state.go('team');
+                //    //this.$uibModalInstance.close();
+                    
+                //})
+            console.log("joined team");
         }
+
+        //Remove Member
+        public removeMember(teamId) {
+
+            this.teamService.removeMember(teamId);
+        }
+
+
+
     }
 
 
 
+  
+    
+
+    angular.module('GameSquad').controller('TeamController', TeamController);
 }
