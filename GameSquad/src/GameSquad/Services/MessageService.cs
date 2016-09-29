@@ -37,5 +37,26 @@ namespace GameSquad.Services
             }).FirstOrDefault();
             return _data;
         }
+
+
+        //save Message
+
+        public void saveMessage(Messages message)
+        {
+            if(message.Id == 0)
+            {
+                _repo.Add(message);
+            }          
+        }
+
+
+        //delete Message
+
+        public void DeleteMessage(int id)
+        {
+            var messageToDelete = this.getMessageInfo(id);
+            _repo.Delete(messageToDelete);
+
+        }
     }
 }

@@ -125,6 +125,8 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("Message");
 
+                    b.Property<string>("SendingUserId");
+
                     b.Property<string>("Subject");
 
                     b.HasKey("Id");
@@ -299,7 +301,7 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.Messages", b =>
                 {
-                    b.HasOne("GameSquad.Models.ApplicationUser")
+                    b.HasOne("GameSquad.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Messages")
                         .HasForeignKey("ApplicationUserId");
                 });

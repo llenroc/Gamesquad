@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160928214423_inboxmessages")]
-    partial class inboxmessages
+    [Migration("20160929191147_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,6 +125,8 @@ namespace GameSquad.Migrations
                     b.Property<DateTime>("DateSent");
 
                     b.Property<string>("Message");
+
+                    b.Property<string>("SendingUserId");
 
                     b.Property<string>("Subject");
 
@@ -300,7 +302,7 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.Messages", b =>
                 {
-                    b.HasOne("GameSquad.Models.ApplicationUser")
+                    b.HasOne("GameSquad.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Messages")
                         .HasForeignKey("ApplicationUserId");
                 });

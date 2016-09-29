@@ -43,6 +43,23 @@ namespace GameSquad.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FriendRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateSent = table.Column<DateTime>(nullable: false),
+                    MessageText = table.Column<string>(nullable: true),
+                    RecievingUSerId = table.Column<string>(nullable: true),
+                    RequestIsApproved = table.Column<bool>(nullable: false),
+                    SendingUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FriendRequests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -120,19 +137,22 @@ namespace GameSquad.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserInbox",
+                name: "Messages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: true)
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    DateSent = table.Column<DateTime>(nullable: false),
+                    Message = table.Column<string>(nullable: true),
+                    Subject = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInbox", x => x.Id);
+                    table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserInbox_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Messages_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -248,60 +268,6 @@ namespace GameSquad.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "FriendRequests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateSent = table.Column<DateTime>(nullable: false),
-                    InboxId = table.Column<int>(nullable: true),
-                    MessageText = table.Column<string>(nullable: true),
-                    RecievingUSerId = table.Column<string>(nullable: true),
-                    RequestIsApproved = table.Column<bool>(nullable: false),
-                    SendingUserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FriendRequests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FriendRequests_UserInbox_InboxId",
-                        column: x => x.InboxId,
-                        principalTable: "UserInbox",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserMessage",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationUserId = table.Column<string>(nullable: true),
-                    DateSent = table.Column<DateTime>(nullable: false),
-                    InboxId = table.Column<int>(nullable: true),
-                    Message = table.Column<string>(nullable: true),
-                    RecievingUserId = table.Column<string>(nullable: true),
-                    SendingUserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserMessage", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserMessage_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserMessage_UserInbox_InboxId",
-                        column: x => x.InboxId,
-                        principalTable: "UserInbox",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
@@ -319,15 +285,9 @@ namespace GameSquad.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FriendRequests_InboxId",
-                table: "FriendRequests",
-                column: "InboxId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserInbox_UserId",
-                table: "UserInbox",
-                column: "UserId",
-                unique: true);
+                name: "IX_Messages_ApplicationUserId",
+                table: "Messages",
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamMembers_ApplicationUserId",
@@ -338,16 +298,6 @@ namespace GameSquad.Migrations
                 name: "IX_TeamMembers_TeamId",
                 table: "TeamMembers",
                 column: "TeamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserMessage_ApplicationUserId",
-                table: "UserMessage",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserMessage_InboxId",
-                table: "UserMessage",
-                column: "InboxId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -389,13 +339,13 @@ namespace GameSquad.Migrations
                 name: "FriendRequests");
 
             migrationBuilder.DropTable(
+                name: "Messages");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "TeamMembers");
-
-            migrationBuilder.DropTable(
-                name: "UserMessage");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -414,9 +364,6 @@ namespace GameSquad.Migrations
 
             migrationBuilder.DropTable(
                 name: "Teams");
-
-            migrationBuilder.DropTable(
-                name: "UserInbox");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
