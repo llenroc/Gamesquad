@@ -37,7 +37,30 @@ namespace GameSquad.Controllers {
 
         }
 
-       
+        public notificationCounter = { totalCount: "" }
+        public notificationCheck() {
+            let tempNotificationCount = this.notificationCounter;
+            let scope = this.$scope;
+            
+            $.connection.notificationHub.client.notificationCount = function notificationCount(newCount) {
+                tempNotificationCount.totalCount = newCount;
+                
+                console.log(newCount);
+                scope.$apply();
+            }
+            
+            
+
+
+        }
+
+        //public notificationCount = (newCount) => {
+        //    this.notificationCounter = newCount;
+
+        //        console.log(newCount + "hi");
+
+        //        this.$scope.$apply();
+        //}
 
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService,
@@ -47,6 +70,26 @@ namespace GameSquad.Controllers {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
             });
+
+            //this.notificationCount();
+
+            setTimeout(function () {
+                console.log("notificationcheck!");
+                if (accountService.isLoggedIn()) {
+                    $.connection.notificationHub.server.notificationCheck(accountService.getUserName());
+                }
+            }, 5000);
+
+            this.notificationCheck();
+            
+
+            //$.connection.notificationHub.client.notificationCount = function notificationCount(newCount) {
+            //   .totalCount = newCount;
+                
+            //        console.log(newCount);
+
+            //    scope.$apply();
+            //}
 
         }
     }
@@ -83,8 +126,11 @@ namespace GameSquad.Controllers {
         }
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
-            private $state: ng.ui.IStateService
-        ) { }
+            private $state: ng.ui.IStateService 
+        )
+        {
+
+        }
     }
 
 
@@ -95,6 +141,7 @@ namespace GameSquad.Controllers {
         public register() {
             this.accountService.register(this.registerUser).then(() => {
                 this.$location.path('/');
+                document.location.reload();
             }).catch((results) => {
                 this.validationMessages = results;
             });
@@ -115,6 +162,7 @@ namespace GameSquad.Controllers {
             this.accountService.registerExternal(this.registerUser.username)
                 .then((result) => {
                     this.$location.path('/');
+                    document.location.reload();
                 }).catch((result) => {
                     this.validationMessages = result;
                 });

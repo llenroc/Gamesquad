@@ -13,10 +13,13 @@
                         <tr>
                             <th>Username</th>
                             <th>Rank</th>
+                            <th></th>
+
                         </tr>
                         <tr ng-repeat="user in controller.users | filter:{userName:searchUser}">
                             <td>{{user.userName}}</td>
                             <td>{{user.rank}}</td>
+                            <td><button class="btn btn-success" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Send friend request</button></td>
                         </tr>
                     </table>
                 </form>

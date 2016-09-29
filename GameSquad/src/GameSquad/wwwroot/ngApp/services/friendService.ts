@@ -6,7 +6,7 @@
 
 
         constructor(private $resource: angular.resource.IResourceService) {
-            this.friendsResource = this.$resource('/api/firends/:id');
+            this.friendsResource = this.$resource('/api/Friend/:id');
         }
 
         

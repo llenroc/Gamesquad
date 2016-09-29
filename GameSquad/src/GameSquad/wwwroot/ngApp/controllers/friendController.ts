@@ -14,6 +14,7 @@
 
         public getFriends() {
             this.friends = this.FriendService.getFriends();
+            console.log(this.friends);
         }
     }
 }

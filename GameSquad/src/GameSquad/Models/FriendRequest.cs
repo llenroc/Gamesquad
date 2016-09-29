@@ -12,6 +12,7 @@ namespace GameSquad.Models
         [ForeignKey("UserId")]
         public string SendingUserId { get; set; }
         public string RecievingUSerId { get; set; }
+
         public string MessageText { get; set; }
         public DateTime DateSent { get; set; }
         public bool RequestIsApproved { get; set; }

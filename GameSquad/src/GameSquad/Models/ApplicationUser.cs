@@ -22,6 +22,8 @@ namespace GameSquad.Models
         public int Rank { get; set; }
         //freinds
         public List<Friend> Friends { get; set; }
+
+        public ICollection<FriendRequest> FreindRequests { get; set; }
         //messages
         public ICollection<UserMessage> UserMessages { get; set; }
         //message and requests inbox

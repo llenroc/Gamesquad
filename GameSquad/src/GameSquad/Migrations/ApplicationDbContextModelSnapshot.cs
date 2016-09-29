@@ -99,6 +99,8 @@ namespace GameSquad.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<DateTime>("DateSent");
 
                     b.Property<int?>("InboxId");
@@ -112,6 +114,8 @@ namespace GameSquad.Migrations
                     b.Property<string>("SendingUserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("InboxId");
 
@@ -161,8 +165,6 @@ namespace GameSquad.Migrations
                     b.Property<string>("TeamLeader");
 
                     b.Property<string>("TeamName");
-
-                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -317,13 +319,6 @@ namespace GameSquad.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("GameSquad.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("GameSquad.Models.Team")
-                        .WithMany("Members")
-                        .HasForeignKey("TeamId");
-                });
-
             modelBuilder.Entity("GameSquad.Models.Friend", b =>
                 {
                     b.HasOne("GameSquad.Models.ApplicationUser", "User")
@@ -333,6 +328,10 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.FriendRequest", b =>
                 {
+                    b.HasOne("GameSquad.Models.ApplicationUser")
+                        .WithMany("FreindRequests")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("GameSquad.Models.Inbox")
                         .WithMany("FreindRequests")
                         .HasForeignKey("InboxId");
