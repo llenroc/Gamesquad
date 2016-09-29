@@ -1,19 +1,21 @@
 ﻿namespace GameSquad.Services {
     export class UserDashboardService {
         private usersResource;
-        private postResource;
+        
         constructor(private $resource: angular.resource.IResourceService) {
-            this.usersResource = $resource('/api/user/:id');
-            this.postResource = this.$resource('/api/post/:id');
+            this.usersResource = this.$resource('/api/profile/:id');
+        
         }
         // get user id
         public getUserById(id) {;
             return this.usersResource.get({ id: id });
        
         }
-        public getPosts() {
-            return this.postResource.query();
+       
+        public getUserInfo() {
+            return this.usersResource.query().$promise; 
         }
+
       
     }
     angular.module('GameSquad').service('userDashboardService', UserDashboardService);

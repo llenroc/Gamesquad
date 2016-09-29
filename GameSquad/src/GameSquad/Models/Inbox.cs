@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace GameSquad.Models
 {
-    public class UserProf
+    public class Inbox
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
-        [ForeignKey("UserId")]
+        public ICollection<FriendRequest> FreindRequests { get; set; }
+        //public ICollection<UserMessage> Messages { get; set; }
         public ApplicationUser User { get; set; }
-        public string  Bio { get; set; }
-        public string Location { get; set; }
-        public string Platform { get; set; }
-        public List<Team> UserTeam { get; set; }
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
     }
 }

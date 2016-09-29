@@ -11,7 +11,7 @@ namespace GameSquad.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
+
         //TODO: update when battle.net integration is implemented
         public string BattleNetUser { get; set; }
 
@@ -20,6 +20,12 @@ namespace GameSquad.Models
 
         //TODO: update when ranking is implemented
         public int Rank { get; set; }
+        //freinds
+        public List<Friend> Friends { get; set; }
+        //messages
+        public ICollection<Messages> Messages { get; set; }
+        //message and requests inbox
+        //public Inbox UserInbox { get; set; }
 
         //teams
         public ICollection<TeamMembers> TeamMembers { get; set; }
@@ -34,7 +40,5 @@ namespace GameSquad.Models
         public string Platform { get; set; }
         //profile image prop    
         public string ProfileImage { get; set; }
-
-
     }
 }

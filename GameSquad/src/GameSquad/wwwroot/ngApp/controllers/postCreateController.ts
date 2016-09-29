@@ -20,7 +20,7 @@
 
         public savePost() {
             this.PostService.savePost(this.postToSave).then(() => {
-                this.$state.go('home');
+                this.$state.go('updates');
                 console.log("infoSaved");
                
             });

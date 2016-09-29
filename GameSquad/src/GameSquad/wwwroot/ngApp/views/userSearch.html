@@ -13,10 +13,12 @@
                         <tr>
                             <th>Username</th>
                             <th>Rank</th>
+                            <th></th>
                         </tr>
                         <tr ng-repeat="user in controller.users | filter:{userName:searchUser}">
                             <td>{{user.userName}}</td>
                             <td>{{user.rank}}</td>
+                            <td><button class="btn btn-default btn-sm" ng-click="controller.showMessageModal()">Send Message</button></td>
                         </tr>
                     </table>
                 </form>
