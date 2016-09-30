@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160930034347_Praise_the_Sun")]
-    partial class Praise_the_Sun
+    [Migration("20160930171321_all")]
+    partial class all
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -140,7 +140,9 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("Message");
 
-                    b.Property<string>("SendingUserId");
+                    b.Property<string>("RecId");
+
+                    b.Property<string>("SendingUser");
 
                     b.Property<string>("Subject");
 

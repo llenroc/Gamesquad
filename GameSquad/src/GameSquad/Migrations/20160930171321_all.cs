@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GameSquad.Migrations
 {
-    public partial class Praise_the_Sun : Migration
+    public partial class all : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -157,7 +157,8 @@ namespace GameSquad.Migrations
                     DateSent = table.Column<DateTime>(nullable: false),
                     HasBeenViewed = table.Column<bool>(nullable: false),
                     Message = table.Column<string>(nullable: true),
-                    SendingUserId = table.Column<string>(nullable: true),
+                    RecId = table.Column<string>(nullable: true),
+                    SendingUser = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
