@@ -42,7 +42,7 @@ namespace GameSquad.API
         {
             if (ModelState.IsValid)
             {
-                _service.saveMessage(message);
+                _service.sendMessage(message);
                 return Ok();
             }
             else

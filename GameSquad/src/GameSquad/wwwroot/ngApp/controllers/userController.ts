@@ -9,12 +9,12 @@
         ) {
             this.getAllUsers();
         }
-        public showMessageModal(eventId: number) {
+        public showMessageModal(userId: string) {
             this.$uibModal.open({
                 templateUrl: "/ngApp/views/modals/messageModal.html",
-                controller: GameSquad.Controllers.MessageController,
+                controller: GameSquad.Controllers.MessageCreateController,
                 controllerAs: "controller",
-                resolve: { eventId: () => eventId },
+                resolve: { userId: () => userId },
                 size: "sm"
             });
         }

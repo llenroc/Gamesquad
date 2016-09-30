@@ -9,7 +9,8 @@ namespace GameSquad.Models
     {
         public int Id { get; set; }
         public string Subject { get; set; }
-        public string SendingUserId { get; set; }
+        public string SendingUser { get; set; }
+        public string RecId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         //public string RecievingUserId { get; set; }
         public string Message { get; set; }

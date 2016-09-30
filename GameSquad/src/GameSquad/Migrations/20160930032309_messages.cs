@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GameSquad.Migrations
 {
-    public partial class init : Migration
+    public partial class messages : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -145,6 +145,7 @@ namespace GameSquad.Migrations
                     ApplicationUserId = table.Column<string>(nullable: true),
                     DateSent = table.Column<DateTime>(nullable: false),
                     Message = table.Column<string>(nullable: true),
+                    SendingUser = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

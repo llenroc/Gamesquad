@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameSquad.Migrations
 {
-    public partial class init2 : Migration
+    public partial class RecId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "SendingUserId",
+                name: "RecId",
                 table: "Messages",
                 nullable: true);
         }
@@ -17,7 +17,7 @@ namespace GameSquad.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "SendingUserId",
+                name: "RecId",
                 table: "Messages");
         }
     }
