@@ -38,8 +38,17 @@ namespace GameSquad.API
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]Messages message)
         {
+            if (ModelState.IsValid)
+            {
+                _service.saveMessage(message);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         // PUT api/values/5
@@ -50,8 +59,10 @@ namespace GameSquad.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _service.DeleteMessage(id);
+            return Ok();
         }
     }
 }

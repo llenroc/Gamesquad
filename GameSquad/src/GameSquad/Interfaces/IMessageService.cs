@@ -1,11 +1,13 @@
-﻿using GameSquad.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameSquad.Models;
 
 namespace GameSquad.Services
 {
     public interface IMessageService
     {
-        List<Messages> MsgsByUser(string id);
+        void DeleteMessage(int id);
         object getMessageInfo(int id);
+        List<Messages> MsgsByUser(string id);
+        void saveMessage(Messages message);
     }
 }

@@ -8,9 +8,10 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20160928214423_inboxmessages")]
+    partial class inboxmessages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -103,8 +104,6 @@ namespace GameSquad.Migrations
 
                     b.Property<DateTime>("DateSent");
 
-                    b.Property<bool>("HasBeenViewed");
-
                     b.Property<string>("MessageText");
 
                     b.Property<string>("RecievingUSerId");
@@ -112,8 +111,6 @@ namespace GameSquad.Migrations
                     b.Property<bool>("RequestIsApproved");
 
                     b.Property<string>("SendingUserId");
-
-                    b.Property<string>("SendingUserName");
 
                     b.HasKey("Id");
 
@@ -131,11 +128,7 @@ namespace GameSquad.Migrations
 
                     b.Property<DateTime>("DateSent");
 
-                    b.Property<bool>("HasBeenViewed");
-
                     b.Property<string>("Message");
-
-                    b.Property<string>("SendingUserId");
 
                     b.Property<string>("Subject");
 
@@ -318,7 +311,7 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.Messages", b =>
                 {
-                    b.HasOne("GameSquad.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("GameSquad.Models.ApplicationUser")
                         .WithMany("Messages")
                         .HasForeignKey("ApplicationUserId");
                 });

@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160930001704_initial")]
-    partial class initial
+    [Migration("20160929191147_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,8 +100,6 @@ namespace GameSquad.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<DateTime>("DateSent");
 
                     b.Property<string>("MessageText");
@@ -113,8 +111,6 @@ namespace GameSquad.Migrations
                     b.Property<string>("SendingUserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("FriendRequests");
                 });
@@ -129,6 +125,8 @@ namespace GameSquad.Migrations
                     b.Property<DateTime>("DateSent");
 
                     b.Property<string>("Message");
+
+                    b.Property<string>("SendingUserId");
 
                     b.Property<string>("Subject");
 
@@ -302,16 +300,9 @@ namespace GameSquad.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("GameSquad.Models.FriendRequest", b =>
-                {
-                    b.HasOne("GameSquad.Models.ApplicationUser")
-                        .WithMany("FreindRequests")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("GameSquad.Models.Messages", b =>
                 {
-                    b.HasOne("GameSquad.Models.ApplicationUser")
+                    b.HasOne("GameSquad.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Messages")
                         .HasForeignKey("ApplicationUserId");
                 });

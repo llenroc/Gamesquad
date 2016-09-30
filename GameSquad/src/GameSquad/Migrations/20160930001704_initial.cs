@@ -43,6 +43,23 @@ namespace GameSquad.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FriendRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateSent = table.Column<DateTime>(nullable: false),
+                    MessageText = table.Column<string>(nullable: true),
+                    RecievingUSerId = table.Column<string>(nullable: true),
+                    RequestIsApproved = table.Column<bool>(nullable: false),
+                    SendingUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FriendRequests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -120,7 +137,7 @@ namespace GameSquad.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FriendRequests",
+                name: "Messages",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)

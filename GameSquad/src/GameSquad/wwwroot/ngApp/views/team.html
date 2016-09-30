@@ -22,12 +22,19 @@
                             <th>Team Leader</th>
                             <th>Play Style</th>
                             <th></th>
+
                         </tr>
                         <tr ng-repeat="team in controller.team | filter:{teamName:nameHolder} | filter:{playStyle:holder}">
-                            <td>{{team.teamName}}</td>
-                            <td>{{team.teamLeader}}</td>
-                            <td>{{team.playStyle}}</td>
-                            <td><button class ="btn btn-success" ng-click="controller.addMemberToTeam(team.id)">Join Team </button></td>
+                            <td>{{team.team.teamName}}</td>
+                            <td>{{team.team.teamLeader}}</td>
+                            <td>{{team.team.playStyle}}</td>
+                            <!--<td><button ng-click="controller.showModalAddMember(team.id)"  class ="btn btn-success">Join</button></td>-->
+                            <td>
+                                <button ng-click="controller.addMemberToTeam(team.team.id)" ng-show="!team.isMember"  class ="btn btn-success">Join</button>
+                                <button ng-click="controller.removeMember(team.team.id)" ng-show="team.isMember"  class ="btn btn-warning">Leave</button>
+                            </td>
+                            <!--<td><button class ="btn btn-success" ng-click="controller.addMemberToTeam(team.id)">Join Team </button></td>-->
+                            <!--<td><button class="btn btn-success" ng-click="controller.removeMember(team.id)">Remove Team </button></td>-->
                         </tr>
                     </table>
                 </form>
