@@ -25,7 +25,7 @@ namespace GameSquad.Data
                 // create user
                 chase = new ApplicationUser
                 {
-                    UserName = "Chase",
+                    UserName = "Killerpie1232",
                     FirstName = "Chase",
                     LastName = "Base",
                     Email = "Chase@CoderCamps.com"
@@ -43,7 +43,7 @@ namespace GameSquad.Data
                 // create user
                 shane = new ApplicationUser
                 {
-                    UserName = "Shane",
+                    UserName = "Valquin",
                     FirstName = "Shane",
                     LastName = "Bane",
                     Email = "Shane@CoderCamps.com"
@@ -56,7 +56,7 @@ namespace GameSquad.Data
                 // create user
                 emma = new ApplicationUser
                 {
-                    UserName = "Emma",
+                    UserName = "SleepyBear",
                     FirstName = "Emma",
                     LastName = "Delimma",
                     Email = "Emma@CoderCamps.com"
@@ -69,7 +69,7 @@ namespace GameSquad.Data
                 // create user
                 kris = new ApplicationUser
                 {
-                    UserName = "Kris",
+                    UserName = "Sirpunchkillyou",
                     FirstName = "Kris",
                     LastName = "Bliss",
                     Email = "Kris@CoderCamps.com"
@@ -82,7 +82,7 @@ namespace GameSquad.Data
                 // create user
                 reg = new ApplicationUser
                 {
-                    UserName = "Reg",
+                    UserName = "Reginator",
                     FirstName = "Reggie",
                     LastName = "Veggie",
                     Email = "Reg@CoderCamps.com"
@@ -94,12 +94,12 @@ namespace GameSquad.Data
             {
                 var listTeam = new Team[]
                         {
-            new Team {TeamName = "Ivysaur", PlayStyle = "Competitive", TeamLeader = "Venasaur"},
-            new Team {TeamName = "Wartortle", PlayStyle = "Competitive", TeamLeader = "Blastoise"},
-            new Team {TeamName = "Charmeleon", PlayStyle = "Competitive", TeamLeader = "Charizard"},
-            new Team {TeamName = "Pikachu", PlayStyle = "Competitive", TeamLeader = "Raichu"},
-            new Team {TeamName = "Gyarados", PlayStyle = "Competitive", TeamLeader = "Mega Gyarados"},
-            new Team {TeamName = "Eevee", PlayStyle = "Competitive", TeamLeader = "Can't Beat Eevee"},
+            new Team {TeamName = "Cloud9", PlayStyle = "Competitive", TeamLeader = "KillYouNow"},
+            new Team {TeamName = "RoxTigers", PlayStyle = "Competitive", TeamLeader = "CheatswithMei"},
+            new Team {TeamName = "DarkPassage", PlayStyle = "Competitive", TeamLeader = "RougeBot"},
+            new Team {TeamName = "Rouge", PlayStyle = "Competitive", TeamLeader = "XxMugenxX"},
+            new Team {TeamName = "Fnatic", PlayStyle = "Competitive", TeamLeader = "BoomBampow"},
+            new Team {TeamName = "TeamMeat", PlayStyle = "Casual", TeamLeader = "SuperMeatBoy"},
                         };
 
 
@@ -107,47 +107,47 @@ namespace GameSquad.Data
                 context.SaveChanges();
 
                 context.TeamMembers.AddRange(
-                   //Eevee
+                   //TeamMeat
                    new TeamMembers
                    {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Eevee").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Reg").Id
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "TeamMeat").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Sirpunchkillyou").Id
                    },
                    new TeamMembers
                    {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Eevee").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Shane").Id
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "TeamMeat").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Killerpie1232").Id
                    },
                    new TeamMembers
                    {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Eevee").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Kris").Id
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "TeamMeat").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Reginator").Id
                    },
                    new TeamMembers
                    {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Eevee").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Emma").Id
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "TeamMeat").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Valquin").Id
                    },
                    new TeamMembers
                    {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Eevee").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Chase").Id
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "TeamMeat").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "SleepyBear").Id
                    },
-                   //Pikachu
+                   //Cloud9
                    new TeamMembers
                    {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Pikachu").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Reg").Id
-                   },
-                   new TeamMembers
-                   {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Pikachu").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Emma").Id
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Cloud9").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Killerpie1232").Id
                    },
                    new TeamMembers
                    {
-                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Pikachu").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Shane").Id
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Cloud9").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Sirpunchkillyou").Id
+                   },
+                   new TeamMembers
+                   {
+                       TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Cloud9").Id,
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Valquin").Id
                    });
 
                 context.SaveChanges();

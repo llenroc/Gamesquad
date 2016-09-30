@@ -1,25 +1,72 @@
 ﻿namespace GameSquad.Controllers {
     export class UserDashboardController {
         public userId;
-       
+        public user;
+        public profileToSave;
+        public file;
         constructor(
             private userDashboardService: GameSquad.Services.UserDashboardService,
             private $state: angular.ui.IStateService,
-            private accountService: GameSquad.Services.AccountService
+            private accountService: GameSquad.Services.AccountService,
+            private filepickerService,
+            private $scope: ng.IScope
          
         ) {
-            this.getUserById();
-            this.getUserInfo();
+            this.getUser();
+            //this.getUserById();
+            //this.getUserInfo();
         }
-      
+
+        public getUser() {
+            this.user = this.userDashboardService.getUser();
+            
+        }
+
         //get single id
         private getUserById() {
             this.getUserById = this.userDashboardService.getUserById(this.userId);
+            
         }
 
         //
         public getUserInfo() {
-            return this.userDashboardService.getUserInfo();
+            this.userDashboardService.getUserInfo().$promise.then((data) => {
+                this.user = data;
+               
+            });
+        }
+
+        public saveProfile() {
+
+            this.userDashboardService.saveProfile(this.profileToSave)
+                .then((data) => {
+                    this.$state.go('home');
+                    console.log(data);
+
+                }).catch(() => {
+                    console.log("something went wrong");
+                })
+
+        }
+
+        public pickFile() {
+            this.filepickerService.pick(
+                { mimetype: 'image/*' },
+                this.fileUploaded.bind(this)
+            );
+        }
+        public fileUploaded(file) {
+            // save file url to database
+            this.file = file;
+            console.log(this.file);
+            console.log(this);
+            this.profileToSave["profileImage"] = this.file.url;
+            console.log(this.profileToSave);
+            this.$scope.$apply(); // force page to update
+        }
+
+        public cancel() {
+            this.$state.go('home');
         }
 
         //get user info
@@ -40,18 +87,6 @@
         }
 
        
-        //get user profile info
-        //public getUserBio() {
-        //    return this.accountService.getUserBio();
-        //}
-
-        //public getUserLocation() {
-        //    return this.accountService.getUserLocation();
-        //}
-
-        //public getUserPlatform() {
-        //    return this.accountService.getUserPlatform();
-        //}
-        //
     }
+    angular.module('GameSquad').controller('UserDashboardController',UserDashboardController);
 }

@@ -1,10 +1,20 @@
-﻿<h1>Friends</h1>
-<form>
-    <table>
-        <thead>Friends</thead>
-        <tr ng-repeat="friend in controller.friends">
-            <td>{{friend.friendId}}</td>
-        </tr>
-        
-    </table>
-</form>
+﻿<div class="container-fluid">
+    <img class="displayed" width="1000" height="350" src="../../images/friends (2).png" />
+    <br />
+    
+    <form>
+        <div class="col-lg-8 col-lg-offset-2">
+            <h1><strong>Friends</strong></h1>
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>UserName</th>
+                    <th>Rank</th>
+                </tr>
+                <tr ng-repeat="friend in controller.friends">
+                    <td>{{friend.userName}}</td>
+                    <td>{{friend.rank}}</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

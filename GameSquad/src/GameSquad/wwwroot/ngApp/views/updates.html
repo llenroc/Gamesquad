@@ -1,8 +1,11 @@
 ﻿
 <div class="container">
+    <div style="display:inline-block" class="col-lg-8 col-lg-offset-2">
+        <img style="display:inline-block" class="displayed" width="800" height="120" src="../../images/imageedit_29_6802030492.png" />
+        <img style="display:inline-block"  class="displayed"  width="125" height="125" src="../../images/feedimg.png" />
+    </div>
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <img class="displayed" width="800" height="120" src="../../images/imageedit_29_6802030492.png" />
+        <div class="col-lg-6 col-lg-offset-2">
             <br />
             <h1></h1><a style="font-size:1.5em" href="/postCreate">Create A <strong>Post</strong></a>
             <h1><strong>Recent Posts</strong></h1>
@@ -17,6 +20,10 @@
                     <div style="text-align:right">
                         <img id="displayed2" width="700" height="700" ng-src="{{post.item}}" class="img-responsive" />
                     </div>
+                    <br />
+                    <a class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
+                    <br />
+                    <a class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
                     <br />
                 </div>
             </div>

@@ -84,6 +84,7 @@ namespace GameSquad.Controllers {
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
             private $state: ng.ui.IStateService
+            
         ) { }
     }
 
@@ -97,10 +98,14 @@ namespace GameSquad.Controllers {
                 this.$location.path('/');
             }).catch((results) => {
                 this.validationMessages = results;
-            });
+                });
+                this.$state.go('profileEdit');
+           
         }
 
-        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService) { }
+        constructor(private accountService: GameSquad.Services.AccountService,
+            private $location: ng.ILocationService,
+            private $state: ng.ui.IStateService        ) { }
     }
 
 

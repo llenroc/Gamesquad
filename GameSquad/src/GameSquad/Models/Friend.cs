@@ -7,9 +7,11 @@ namespace GameSquad.Models
 {
     public class Friend
     {
+
         public string UserId { get; set; }
-        public string FriendId { get; set; }
         public ApplicationUser User { get; set; }
+        public string FriendId { get; set; }
+        
 
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GameSquad.Services;
+using Microsoft.AspNetCore.Identity;
+using GameSquad.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,15 +15,19 @@ namespace GameSquad.API
     public class FriendController : Controller
     {
         private IFriendsService _service;
-        public FriendController(IFriendsService service)
+        private UserManager<ApplicationUser> _manager;
+        public FriendController(IFriendsService service, UserManager<ApplicationUser> manager)
         {
             _service = service;
+            _manager = manager;
         }
         // GET: api/values
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_service.GetFriends());
+            //return Ok(_service.GetFriends());
+            var userId = _manager.GetUserId(User);
+            return Ok(_service.GetFriendsByUser(userId));
         }
 
         // GET api/values/5
@@ -30,7 +36,12 @@ namespace GameSquad.API
         {
             return Ok(_service.GetFriendsById(id));
         }
-
+        [HttpGet("GetFriendsByUser")]
+        public IActionResult GetFriendsByUser()
+        {
+            var userId = _manager.GetUserId(User);
+            return Ok(_service.GetFriendsByUser(userId));
+        }
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)

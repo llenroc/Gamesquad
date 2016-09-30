@@ -22,6 +22,8 @@ namespace GameSquad.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("BannerImage");
+
                     b.Property<string>("BattleNetUser");
 
                     b.Property<string>("Bio");
@@ -57,6 +59,8 @@ namespace GameSquad.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("Platform");
+
+                    b.Property<string>("PlayStyle");
 
                     b.Property<string>("ProfileImage");
 
@@ -161,8 +165,6 @@ namespace GameSquad.Migrations
                     b.Property<string>("TeamLeader");
 
                     b.Property<string>("TeamName");
-
-                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -315,13 +317,6 @@ namespace GameSquad.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("GameSquad.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("GameSquad.Models.Team")
-                        .WithMany("Members")
-                        .HasForeignKey("TeamId");
                 });
 
             modelBuilder.Entity("GameSquad.Models.Friend", b =>

@@ -40,5 +40,9 @@ namespace GameSquad.Models
         public string Platform { get; set; }
         //profile image prop    
         public string ProfileImage { get; set; }
+        //playstyle
+        public string  PlayStyle { get; set; }
+        //dashboard banner
+        public string BannerImage { get; set; }
     }
 }

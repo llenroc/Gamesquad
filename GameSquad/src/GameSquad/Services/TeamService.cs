@@ -35,24 +35,7 @@ namespace GameSquad.Services
             }).FirstOrDefault();
             return _data;
         }
-
-        ////get members
-        //public ICollection<ApplicationUser> getMembers(string id)
-        //{
-        //    var data = _repo.Query<ApplicationUser>().Where(u => u.Id == id).ToList();
-        //    return data; 
-        //}
-
-        //get user by id
-        //public Team getTeamLeaderById(string id)
-        //{
-        //    var data = _repo.Query<Team>().Where(c => c.UserId == id).Include(u => u.TeamLeader);
-        //    return data;
-        //}
-
-
-        //save Team
-
+        
         public void SaveTeam(Team team)
         {
 

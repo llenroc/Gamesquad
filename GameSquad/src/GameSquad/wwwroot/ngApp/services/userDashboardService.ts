@@ -3,19 +3,28 @@
         private usersResource;
         
         constructor(private $resource: angular.resource.IResourceService) {
-            this.usersResource = this.$resource('/api/profile/:id');
-        
+            this.usersResource = this.$resource('/api/user/:id');
+            console.log();
         }
+        public getUser() {
+            var id = "a";
+            return this.usersResource.get({ id: id });
+        }
+
         // get user id
-        public getUserById(id) {;
+        public getUserById(id) {
             return this.usersResource.get({ id: id });
        
         }
        
         public getUserInfo() {
-            return this.usersResource.query().$promise; 
+            return this.usersResource.getUserInfo(); 
         }
 
+        public saveProfile(profileToSave) {
+
+            return this.usersResource.save(profileToSave).$promise;
+        }
       
     }
     angular.module('GameSquad').service('userDashboardService', UserDashboardService);

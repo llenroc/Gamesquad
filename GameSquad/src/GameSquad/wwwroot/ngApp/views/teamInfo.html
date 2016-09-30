@@ -1,21 +1,28 @@
-﻿<h2>Team {{controller.teamDetails.teamName}}</h2>
+﻿<a href="/myTeam"><img style="margin-left:30px" width="170" height="86" src="../../images/back2teams (2).png" /></a>
 <br />
-<h4>Team Leader: {{controller.teamDetails.teamLeader}}</h4>
-<h5>Playstyle: {{controller.teamDetails.playStyle}}</h5>
-<br />
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <h1><strong>{{controller.teamDetails.teamName}}</strong></h1>
+        <h3>Leader: <strong>{{controller.teamDetails.teamLeader}}</strong></h3>
+        <h4>Playstyle: <strong>{{controller.teamDetails.playStyle}}</strong></h4>
+        <br />
+    </div>
+</div>
 
-<div>
-    <form>
-        <table class="table table-striped">
-            <tr>
-                <th>Team Members</th>
-                <th>Rank</th>
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <form>
+            <table class="table table-striped">
+                <tr>
+                    <th><strong>Team</strong> Members</th>
+                    <th>Rank</th>
 
-            </tr>
-            <tr ng-repeat="member in controller.teamDetails.teamMembers">
-                <td>{{member.userName}}</td>
-                <td>{{member.rank}}</td>
-            </tr>
-        </table>
-    </form>
+                </tr>
+                <tr ng-repeat="member in controller.teamDetails.teamMembers">
+                    <td>{{member.userName}}</td>
+                    <td>{{member.rank}}</td>
+                </tr>
+            </table>
+        </form>
+    </div>
 </div>

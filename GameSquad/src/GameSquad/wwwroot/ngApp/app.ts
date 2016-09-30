@@ -99,6 +99,12 @@ namespace GameSquad {
                 controller: GameSquad.Controllers.FriendController,
                 controllerAs: 'controller'
             })
+            .state('profileEdit', {
+                url: '/profileEdit',
+                templateUrl: '/ngApp/views/profileEdit.html',
+                controller: GameSquad.Controllers.UserDashboardController,
+                controllerAs: 'controller'
+            })
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'
