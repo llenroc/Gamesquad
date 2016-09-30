@@ -3,12 +3,20 @@ body {
     
  
 }
+table
+{
+    font-size:1em;
+}
+
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
-
+input
+{
+    background-color: lightyellow;
+}
 .dashImg
 {
     margin:50px
@@ -64,6 +72,13 @@ strong
     background-size: cover;
 }
 
+#profilepanel {
+    background-image: url('../images/regimg.jpg');
+    backface-visibility: visible;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 
 .navbar
@@ -103,8 +118,7 @@ IMG.displayed
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
-select,
-textarea {
+select {
     max-width: 280px;
 }
 
@@ -123,5 +137,13 @@ textarea {
         z-index: 10 !important;
     }
 }
+
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
 
 

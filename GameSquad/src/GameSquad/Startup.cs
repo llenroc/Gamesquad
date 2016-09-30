@@ -57,6 +57,9 @@ namespace GameSquad
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IFreindRequestService, FreindRequestService>();
+            services.AddScoped<IFriendsService, FriendsService>();
+            
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -95,6 +98,7 @@ namespace GameSquad
             app.UseWebSockets();
             app.UseSignalR();
 
+           
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

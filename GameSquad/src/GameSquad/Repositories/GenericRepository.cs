@@ -72,7 +72,7 @@ namespace GameSquad.Repositories
         /// </summary>
         public void SaveChanges()
         {
-            _db.SaveChanges();
+                _db.SaveChanges();
         }
 
 

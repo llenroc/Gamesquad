@@ -1,18 +1,18 @@
-﻿<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <br />
-            <div>
-                <form>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>My Teams</th>
+﻿
+<img class="displayed" src="../../images/imageedit_6_2270611338.png" />
+<br />
+<br />
 
-
-                        </tr>
-                        <tr ng-repeat="team in controller.teams">
-                            <td><a ng-href="/team/{{team.id}}">{{team.teamName}}</a></td>
-                            <td>{{team.teamMembers}}</td>
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <form>
+            <table class="table table-hover table-striped">
+                <tr>
+                    <th>My Teams</th>
+                </tr>
+                <tr ng-repeat="team in controller.teams">
+                    <td><a ng-href="/team/{{team.id}}"><strong>{{team.teamName}}</strong></a></td>
+                    <td>{{team.teamMembers}}</td>
 
                         </tr>
                     </table>
@@ -22,3 +22,4 @@
     </div>
 </div>
 
+</div>

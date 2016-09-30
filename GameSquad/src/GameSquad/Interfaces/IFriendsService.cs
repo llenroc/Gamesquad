@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using GameSquad.Models;
+using System;
 
 namespace GameSquad.Services
 {
     public interface IFriendsService
     {
+        List<ApplicationUser> GetFriendsById(string id);
         List<Friend> GetFriends();
-        List<ApplicationUser> GetFriendsById(string userId);
+        Object GetFriendsByUser(string userId);
     }
 }

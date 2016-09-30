@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GameSquad.Services;
+using GameSquad.Models;
+using Microsoft.AspNetCore.Identity;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,10 +14,12 @@ namespace GameSquad.API
     [Route("api/[controller]")]
     public class UserController : Controller
     {
+        private UserManager<ApplicationUser> _manager;
         private IUserService _service;
-        public UserController(IUserService service)
+        public UserController(IUserService service, UserManager<ApplicationUser> manager)
         {
             _service = service;
+            _manager = manager;
         }
 
         // GET: api/values
@@ -30,13 +34,26 @@ namespace GameSquad.API
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            return Ok(_service.GetUserById(id));
+            var uid = _manager.GetUserId(User);
+            return Ok(_service.GetUserById(uid));
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]ApplicationUser user)
         {
+            if (ModelState.IsValid)
+            {
+                var uid = _manager.GetUserId(User);
+                _service.SaveProfile(user, uid);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+
+            }
+            
         }
 
         // PUT api/values/5

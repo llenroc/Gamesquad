@@ -23,7 +23,7 @@ namespace GameSquad.Hubs
 
     public static class ConnectedUsers
     {
-        // public static HashSet<UserDetail> Users = new HashSet<UserDetail>();
+       
 
             /// <summary>
             /// Username is key, connection id is value
@@ -43,10 +43,7 @@ namespace GameSquad.Hubs
         /// <param name="userName">Gets the username </param>
         public void Connect(string userName)
         {
-            //var newUser = new UserDetail { ConnectionId = Context.ConnectionId, Username = userName };
-           
-
-            // if (ConnectedUsers.Users.Count(u => u.Username == newUser.Username) > 0 || userName == null)
+            var test = ConnectedUsers.Users;
 
             //Used in the trygetvalue for testing
            string keyTest;
@@ -56,7 +53,7 @@ namespace GameSquad.Hubs
                 Clients.Caller.onConnected(0);
 
             }
-            //else if (ConnectedUsers.Users.Count(u => u.ConnectionId == newUser.ConnectionId) == 0)
+
             else
             {
                 var returnList = new List<UserDetail>();
@@ -71,7 +68,7 @@ namespace GameSquad.Hubs
 
                 Clients.Caller.onConnected(returnList);
 
-                // ConnectedUsers.Users.Add(newUser);
+               
                 ConnectedUsers.Users.Add(userName, Context.ConnectionId);
 
                 var newUser = new UserDetail
@@ -89,11 +86,7 @@ namespace GameSquad.Hubs
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            //var userToRemove = ConnectedUsers.Users.FirstOrDefault(u => u.ConnectionId == Context.ConnectionId);
-            //var test = ConnectedUsers.Users.Contains(Context.User);                           
-
-            //string userToRemove = ConnectedUsers.Users.FirstOrDefault(;
-           // ConnectedUsers.Users.TryGetValue()
+            
 
             if (ConnectedUsers.Users.ContainsValue(Context.ConnectionId))
             {
@@ -104,24 +97,6 @@ namespace GameSquad.Hubs
                 Clients.All.onUserDisconnected(userToRemove.Key);
 
 
-                //if (ConnectedUsers.Users.Count(u => u.Username == userToRemove.Username) > 1)
-                //{
-                //    var usersToRemove = ConnectedUsers.Users.Where(u => u.Username == userToRemove.Username).ToList();
-
-                //    foreach (UserDetail user in usersToRemove)
-                //    {
-                //        ConnectedUsers.Users.Remove(user);
-                //        Clients.All.onUserDisconnected(userToRemove.Username);
-
-                //    }
-                //}
-
-                //else
-                //{
-                //    //var userToRemove = ConnectedUsers.Users.FirstOrDefault(u => u.ConnectionId == Context.ConnectionId);
-                //    ConnectedUsers.Users.Remove(userToRemove);
-                //    Clients.All.onUserDisconnected(userToRemove.Username);
-                //}
             }
             
             return base.OnDisconnected(stopCalled);

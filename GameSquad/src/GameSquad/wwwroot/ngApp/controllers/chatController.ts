@@ -53,6 +53,7 @@
         ];
         public privateMessagesDispalyed;
         public newMessageAlertUser;
+        public notificationCount = { totalCount: 0 };
 
         //for the friendslist and private message alerds
         //needs to be an object with property for wierd scope reasons
@@ -320,6 +321,8 @@
 
         }
 
+
+        //maybe not needed?
         public signalrStart() {
 
             let userName = this.accountService.getUserName();
@@ -339,6 +342,15 @@
                 this.getConnectedUsers();
             }
             
+        }
+
+        public notificationCheck() {
+            let tempNotificationCount = this.notificationCount;
+
+            $.connection.notificationHub.server.notificationCheck(this.getUserName);
+            $.connection.notificationHub.client.notificationCount = function notificationCount(newCount) {
+                tempNotificationCount.totalCount = newCount;
+            }
         }
 
         public autoScroll() {
@@ -366,6 +378,7 @@
                     $.connection.hub.start().done(function () {
                         //sends username to Server
                         $.connection.chatHub.server.connect(userName);
+                        
                     });
                     $.connection.hub.error(function (err) {
                         console.log("An error occurded: " + err);

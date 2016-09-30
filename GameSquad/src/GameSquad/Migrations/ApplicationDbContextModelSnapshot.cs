@@ -22,6 +22,8 @@ namespace GameSquad.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("BannerImage");
+
                     b.Property<string>("BattleNetUser");
 
                     b.Property<string>("Bio");
@@ -57,6 +59,8 @@ namespace GameSquad.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("Platform");
+
+                    b.Property<string>("PlayStyle");
 
                     b.Property<string>("ProfileImage");
 
@@ -99,7 +103,11 @@ namespace GameSquad.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<DateTime>("DateSent");
+
+                    b.Property<bool>("HasBeenViewed");
 
                     b.Property<string>("MessageText");
 
@@ -109,7 +117,11 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("SendingUserId");
 
+                    b.Property<string>("SendingUserName");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("FriendRequests");
                 });
@@ -122,6 +134,8 @@ namespace GameSquad.Migrations
                     b.Property<string>("ApplicationUserId");
 
                     b.Property<DateTime>("DateSent");
+
+                    b.Property<bool>("HasBeenViewed");
 
                     b.Property<string>("Message");
 
@@ -299,6 +313,13 @@ namespace GameSquad.Migrations
                     b.HasOne("GameSquad.Models.ApplicationUser", "User")
                         .WithMany("Friends")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GameSquad.Models.FriendRequest", b =>
+                {
+                    b.HasOne("GameSquad.Models.ApplicationUser")
+                        .WithMany("FreindRequests")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("GameSquad.Models.Messages", b =>

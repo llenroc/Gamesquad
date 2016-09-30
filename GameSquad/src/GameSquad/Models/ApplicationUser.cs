@@ -22,6 +22,8 @@ namespace GameSquad.Models
         public int Rank { get; set; }
         //freinds
         public List<Friend> Friends { get; set; }
+
+        public ICollection<FriendRequest> FreindRequests { get; set; }
         //messages
         public ICollection<Messages> Messages { get; set; }
         //message and requests inbox
@@ -40,5 +42,9 @@ namespace GameSquad.Models
         public string Platform { get; set; }
         //profile image prop    
         public string ProfileImage { get; set; }
+        //playstyle
+        public string  PlayStyle { get; set; }
+        //dashboard banner
+        public string BannerImage { get; set; }
     }
 }
