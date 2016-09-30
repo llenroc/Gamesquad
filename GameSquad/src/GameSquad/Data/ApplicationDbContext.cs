@@ -18,7 +18,7 @@ namespace GameSquad.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Friend> Friends { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
-        public DbSet<Inbox> UserInbox { get; set; }
+        public DbSet<Messages> Messages { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

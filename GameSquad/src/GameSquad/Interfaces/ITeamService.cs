@@ -8,6 +8,7 @@ namespace GameSquad.Services
         void AddMemberToTeam(string userId, int teamId);
         object getTeamInfo(int id);
         List<Team> getTeams();
+        void RemoveMember(string userId, int teamId);
         void SaveTeam(Team team);
         List<Team> TeamsByUser(string userId);
         List<ApplicationUser> UsersByTeam(int teamId);

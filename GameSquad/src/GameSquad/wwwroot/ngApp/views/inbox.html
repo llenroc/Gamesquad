@@ -1,0 +1,41 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <br />
+            <div>
+                <form>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>My Messages</th>
+                            <th></th>
+                        </tr>
+                        
+                        <tr ng-repeat="msg in controller.messages">
+                            <td><a ng-href="/inbox/{{msg.id}}">{{msg.subject}}</a></td>
+                            <td><button class="btn btn-warning btn-sm" ng-click="controller.deleteMessageModal()">Delete</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div>
+                <form>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Friend Requests</th>
+                            <th></th>
+                           
+                        </tr>
+
+                        <tr ng-repeat="request in controller.friendRequests">
+                            <td>{{request.sendingUserName}}</td>
+                            <td><button class="btn btn-success btn">Accept</button> <button class="btn btn-warning btn">Reject</button></td>
+                            
+
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

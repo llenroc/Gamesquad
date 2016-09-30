@@ -53,7 +53,7 @@ namespace GameSquad.Services
 
         public List<Team> getTeams()
         {
-            var data = _repo.Query<Team>().ToList();
+            var data = _repo.Query<Team>().Include(m => m.TeamMembers).ToList();
             return data;
         }
 
@@ -81,6 +81,22 @@ namespace GameSquad.Services
             };
 
             _repo.Add(join);
+            _repo.SaveChanges();
+        }
+
+        public void RemoveMember(string userId, int teamId)
+        {
+            var remove = new TeamMembers
+            {
+                TeamId = teamId,
+                Team = _repo.Query<Team>().FirstOrDefault( c => c.Id == teamId),
+                ApplicationUserId = userId,
+                ApplicationUser =  _repo.Query<ApplicationUser>().FirstOrDefault(m => m.Id == userId)
+
+            };
+
+
+            _repo.Delete(remove);
             _repo.SaveChanges();
         }
     }

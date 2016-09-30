@@ -55,7 +55,9 @@ namespace GameSquad
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IFreindRequestService, FreindRequestService>();
             services.AddScoped<IFriendsService, FriendsService>();
             
             // Add framework services.
@@ -96,6 +98,7 @@ namespace GameSquad
             app.UseWebSockets();
             app.UseSignalR();
 
+           
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

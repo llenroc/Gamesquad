@@ -20,6 +20,11 @@
                     method: 'GET',
                     url: '/api/team/addMemberToTeam/:teamId',
                     
+                },              
+                RemoveMember: {
+                    method: 'GET',
+                    url: '/api/team/RemoveMember/:teamId',
+
                 }
             });
 
@@ -54,6 +59,12 @@
         public addMemberToTeam(teamId) {
           
             return this.teamsResource.addMemberToTeam({ teamId: teamId }).$promise;
+        }
+
+        public removeMember(teamId) {
+
+            return this.teamsResource.RemoveMember({ teamId: teamId }).$promise;
+           
         }
         
     }
