@@ -37,7 +37,7 @@ namespace GameSquad.Hubs
 
 
 
-            var messageCount = user.Messages.Where(m => m.HasBeenViewed == false).Count();
+            var messageCount = user.Messages.Count();
 
             var friendRequests = user.FreindRequests.Where(f => f.HasBeenViewed == false).Count();
 
