@@ -5,8 +5,7 @@
         constructor(
             private userService: GameSquad.Services.UserService,
             private $state: angular.ui.IStateService,
-            private friendRequestService: GameSquad.Services.FriendRequestService
-            private $state: angular.ui.IStateService,
+            private friendRequestService: GameSquad.Services.FriendRequestService,
             private $uibModal: angular.ui.bootstrap.IModalService
         ) {
             this.getAllUsers();
@@ -36,7 +35,9 @@
         public sendFriendRequest(user) {
             
             this.friendRequestService.sendFriendRequest(user).then(() => {
-                angular.element(document.querySelector('#' + user.userName)).addClass('disabled');
+                var rowToChange = angular.element(document.querySelector('#' + user.userName));
+                rowToChange.addClass('btn-warning disabled');
+                rowToChange.html('Friend request sent!');
             })
         }
     }

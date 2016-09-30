@@ -31,17 +31,15 @@ namespace GameSquad.Hubs
         {
             //var user = FindUser(userName).Result;
             //var user = _repo.Query<ApplicationUser>().Where(u => u.UserName == userName);
-            var user = _repo.Query<ApplicationUser>().Where(u => u.UserName == userName).Include(u => u.FreindRequests).FirstOrDefault();
+            var user = _repo.Query<ApplicationUser>().Where(u => u.UserName == userName).Include(u => u.FreindRequests).Include(u => u.Messages).FirstOrDefault(); ;
 
-            Random r = new Random();
 
-            var testNum = r.Next(100);
 
-            
 
-            //var messageCount = user.UserInbox.Messages.Count();
 
-            var friendRequests = user.FreindRequests.Count();
+            var messageCount = user.Messages.Where(m => m.HasBeenViewed == false).Count();
+
+            var friendRequests = user.FreindRequests.Where(f => f.HasBeenViewed == false).Count();
 
             //Clients.Caller.notificationCount(testNum);
             Clients.Caller.notificationCount(friendRequests);

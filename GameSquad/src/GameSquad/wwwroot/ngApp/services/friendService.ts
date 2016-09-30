@@ -16,6 +16,8 @@
         public getPostById(id) {
             return this.friendsResource.get({ id: id });
         }
+
+        
        
     }
     angular.module('GameSquad').service('FriendService', FriendService);

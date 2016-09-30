@@ -73,7 +73,7 @@ namespace GameSquad.Controllers {
 
             //this.notificationCount();
 
-            setTimeout(function () {
+            setInterval(function () {
                 console.log("notificationcheck!");
                 if (accountService.isLoggedIn()) {
                     $.connection.notificationHub.server.notificationCheck(accountService.getUserName());

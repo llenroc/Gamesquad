@@ -28,9 +28,12 @@ namespace GameSquad.API
 
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var userId = _userManager.GetUserId(this.User);
+
+            var friendRequests = _service.FriendRequestsByUser(userId);
+            return Ok(friendRequests);
         }
 
         // GET api/values/5

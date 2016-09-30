@@ -12,6 +12,11 @@
             return this.friendRequestResource.save(user).$promise;
         }
 
+        public getFriendRequests() {
+
+            return this.friendRequestResource.query();
+        }
+
     }
 
     angular.module('GameSquad').service('friendRequestService', FriendRequestService);

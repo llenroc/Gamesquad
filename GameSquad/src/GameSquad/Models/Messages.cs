@@ -13,5 +13,12 @@ namespace GameSquad.Models
         //public string RecievingUserId { get; set; }
         public string Message { get; set; }
         public DateTime DateSent { get; set; }
+        public bool HasBeenViewed { get; set; }
+
+        public Messages()
+        {
+            HasBeenViewed = false;
+        }
+
     }
 }

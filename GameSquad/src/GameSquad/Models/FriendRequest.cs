@@ -13,9 +13,17 @@ namespace GameSquad.Models
         public string SendingUserId { get; set; }
         public string RecievingUSerId { get; set; }
 
+        public string SendingUserName { get; set; }
+
         public string MessageText { get; set; }
         public DateTime DateSent { get; set; }
         public bool RequestIsApproved { get; set; }
+        public bool HasBeenViewed { get; set; }
+
+        public FriendRequest()
+        {
+            HasBeenViewed = false;
+        }
 
     }
 }

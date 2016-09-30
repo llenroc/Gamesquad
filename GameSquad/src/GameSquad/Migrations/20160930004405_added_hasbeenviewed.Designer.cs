@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160929065731_friendReqtoUser")]
-    partial class friendReqtoUser
+    [Migration("20160930004405_added_hasbeenviewed")]
+    partial class added_hasbeenviewed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,7 +104,7 @@ namespace GameSquad.Migrations
 
                     b.Property<DateTime>("DateSent");
 
-                    b.Property<int?>("InboxId");
+                    b.Property<bool>("HasBeenViewed");
 
                     b.Property<string>("MessageText");
 
@@ -114,28 +114,35 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("SendingUserId");
 
+                    b.Property<string>("SendingUserName");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("InboxId");
-
                     b.ToTable("FriendRequests");
                 });
 
-            modelBuilder.Entity("GameSquad.Models.Inbox", b =>
+            modelBuilder.Entity("GameSquad.Models.Messages", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<DateTime>("DateSent");
+
+                    b.Property<bool>("HasBeenViewed");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("Subject");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("UserInbox");
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("GameSquad.Models.Post", b =>
@@ -185,32 +192,6 @@ namespace GameSquad.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("TeamMembers");
-                });
-
-            modelBuilder.Entity("GameSquad.Models.UserMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<DateTime>("DateSent");
-
-                    b.Property<int?>("InboxId");
-
-                    b.Property<string>("Message");
-
-                    b.Property<string>("RecievingUSerId");
-
-                    b.Property<string>("SendingUserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("InboxId");
-
-                    b.ToTable("UserMessage");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -332,17 +313,13 @@ namespace GameSquad.Migrations
                     b.HasOne("GameSquad.Models.ApplicationUser")
                         .WithMany("FreindRequests")
                         .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("GameSquad.Models.Inbox")
-                        .WithMany("FreindRequests")
-                        .HasForeignKey("InboxId");
                 });
 
-            modelBuilder.Entity("GameSquad.Models.Inbox", b =>
+            modelBuilder.Entity("GameSquad.Models.Messages", b =>
                 {
-                    b.HasOne("GameSquad.Models.ApplicationUser", "User")
-                        .WithOne("UserInbox")
-                        .HasForeignKey("GameSquad.Models.Inbox", "UserId");
+                    b.HasOne("GameSquad.Models.ApplicationUser")
+                        .WithMany("Messages")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("GameSquad.Models.TeamMembers", b =>
@@ -356,17 +333,6 @@ namespace GameSquad.Migrations
                         .WithMany("TeamMembers")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("GameSquad.Models.UserMessage", b =>
-                {
-                    b.HasOne("GameSquad.Models.ApplicationUser")
-                        .WithMany("UserMessages")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("GameSquad.Models.Inbox")
-                        .WithMany("Messages")
-                        .HasForeignKey("InboxId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

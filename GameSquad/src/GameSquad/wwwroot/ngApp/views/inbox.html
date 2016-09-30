@@ -17,6 +17,24 @@
                     </table>
                 </form>
             </div>
+            <div>
+                <form>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Friend Requests</th>
+                            <th></th>
+                           
+                        </tr>
+
+                        <tr ng-repeat="request in controller.friendRequests">
+                            <td>{{request.sendingUserName}}</td>
+                            <td><button class="btn btn-success btn">Accept</button> <button class="btn btn-warning btn">Reject</button></td>
+                            
+
+                        </tr>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
 </div>
