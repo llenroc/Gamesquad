@@ -10,7 +10,7 @@ namespace GameSquad.Models
     {
         public int Id { get; set; }
         public ICollection<FriendRequest> FreindRequests { get; set; }
-        public ICollection<UserMessage> Messages { get; set; }
+        //public ICollection<UserMessage> Messages { get; set; }
         public ApplicationUser User { get; set; }
         [ForeignKey("UserId")]
         public string UserId { get; set; }

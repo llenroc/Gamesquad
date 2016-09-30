@@ -55,6 +55,7 @@ namespace GameSquad
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IFreindRequestService, FreindRequestService>();
             // Add framework services.

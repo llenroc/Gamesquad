@@ -41,7 +41,7 @@
                     <a href="/" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <strong>{{account.getUserName()}}</strong><strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         @*<li ng-model="myTeam in team | filter{}"><a ng-href="show(myTeam, myTeam.id)" ng-show="account.isLoggedIn()">My Team</a></li>*@
-                        <li><a href="/myTeam" ng-show="account.isLoggedIn()">My Team</a></li>
+                        <li><a href="/inbox" ng-show="account.isLoggedIn()">Inbox</a></li>
                         <li><a href="#" ng-show="account.isLoggedIn()" ng-click="account.logout()">SignOut</a></li>
                     </ul>
             </ul>
@@ -162,6 +162,8 @@
     <script src="~/ngApp/controllers/userController.js"></script>
     <script src="~/ngApp/controllers/teamInfoController.js"></script>
     <script src="~/ngApp/controllers/friendController.js"></script>
+    <script src="~/ngApp/controllers/messageController.js"></script>
+    <script src="~/ngApp/controllers/messageInfoController.js"></script>
     <script src="~/ngApp/controllers/InboxController.js"></script>
     <!--services-->
     <script src="~/ngapp/services/services.js"></script>
@@ -172,6 +174,7 @@
     <script src="~/ngApp/services/userService.js"></script>
     <script src="~/ngApp/services/friendService.js"></script>
     <script src="~/ngApp/services/friendRequestService.js"></script>
+    <script src="~/ngApp/services/messageService.js"></script>
     <!-- Security -->
     <script src="~/ngapp/controllers/accountcontroller.js"></script>
     <script src="~/ngapp/services/accountservice.js"></script>

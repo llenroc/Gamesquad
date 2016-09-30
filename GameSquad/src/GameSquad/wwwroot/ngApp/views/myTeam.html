@@ -1,19 +1,24 @@
-﻿
-    <br />
-    <div>
-        <form>
-            <table class="table table-striped">
-                <tr>
-                    <th>My Teams</th>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <br />
+            <div>
+                <form>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>My Teams</th>
 
 
-                </tr>
-                <tr ng-repeat="team in controller.teams">
-                    <td><a ng-href="/team/{{team.id}}">{{team.teamName}}</a></td>
-                    <td>{{team.teamMembers}}</td>
+                        </tr>
+                        <tr ng-repeat="team in controller.teams">
+                            <td><a ng-href="/team/{{team.id}}">{{team.teamName}}</a></td>
+                            <td>{{team.teamMembers}}</td>
 
-                </tr>
-            </table>
-        </form>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 

@@ -11,7 +11,7 @@ namespace GameSquad.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
+
         //TODO: update when battle.net integration is implemented
         public string BattleNetUser { get; set; }
 
@@ -25,9 +25,9 @@ namespace GameSquad.Models
 
         public ICollection<FriendRequest> FreindRequests { get; set; }
         //messages
-        public ICollection<UserMessage> UserMessages { get; set; }
+        public ICollection<Messages> Messages { get; set; }
         //message and requests inbox
-        public Inbox UserInbox { get; set; }
+        //public Inbox UserInbox { get; set; }
 
         //teams
         public ICollection<TeamMembers> TeamMembers { get; set; }

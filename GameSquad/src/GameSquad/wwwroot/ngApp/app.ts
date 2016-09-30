@@ -102,7 +102,13 @@ namespace GameSquad {
             .state('inbox', {
                 url: '/inbox',
                 templateUrl: '/ngApp/views/inbox.html',
-                controller: GameSquad.Controllers.InboxController,
+                controller: GameSquad.Controllers.MessageController,
+                controllerAs: 'controller'
+            })
+            .state('message', {
+                url: '/inbox/:id',
+                templateUrl: '/ngApp/views/message.html',
+                controller: GameSquad.Controllers.MessageInfoController,
                 controllerAs: 'controller'
             })
             .state('notFound', {
