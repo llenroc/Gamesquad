@@ -1,4 +1,4 @@
-﻿<form>
+﻿<form ng-submit="controller.sendMessage()">
     <div class="modal-header">
         <h3 class="modal-title"><strong>Send Message</strong></h3>
     </div>
@@ -6,18 +6,18 @@
 
         <div class="row">
             <div class="col-sm-12">
-
+                
                 <div class="form-group">
                     <label>Subject</label>
-                    <input type="text" class="form-control" ng-model="" placeholder="Name" />
+                    <input type="text" class="form-control" ng-model="controller.messageToSend.subject" placeholder="Name" />
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea cols="12" rows="6" class="form-control" ng-model="" placeholder="Enter Message..."></textarea>
+                    <textarea cols="12" rows="6" class="form-control" ng-model="controller.messageToSend.message" placeholder="Enter Message..."></textarea>
                 </div>
 
-                        <input type="submit" class="btn btn-primary" value="Send" />
-                        <button type="button" class="btn btn-default" ng-click="vm.cancel()">Cancel</button>
+                        <button type="button" class="btn btn-primary" ng-click="controller.sendMessage()">Send</button>
+                        <button type="button" class="btn btn-default" ng-click="controller.exit()">Cancel</button>
 
 
             </div>

@@ -1,9 +1,11 @@
 ﻿using GameSquad.Models;
 using GameSquad.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace GameSquad.Services
@@ -11,18 +13,22 @@ namespace GameSquad.Services
     public class MessageService : IMessageService
     {
         private IGenericRepository _repo;
-        public MessageService(IGenericRepository repo)
+        private UserManager<ApplicationUser> _manager;
+        public MessageService(IGenericRepository repo, UserManager<ApplicationUser> manager)
         {
             _repo = repo;
+            _manager = manager;
         }
 
         //get messages by user
-        public List<Messages> MsgsByUser(string id)
+        public object MsgsByUser(string id)
         {
             var messages = new List<Messages>();
-            var msg = _repo.Query<ApplicationUser>().Where(a => a.Id == id).Include(m => m.Messages).FirstOrDefault();
-            messages = msg.Messages.ToList();
-            return messages;
+            var msg = _repo.Query<ApplicationUser>().Where(a => a.Id == id).Include(m => m.Messages).Select(m => new {
+                messages = m.Messages
+            }).FirstOrDefault();
+            //messages = msg.Messages.ToList();
+            return msg;
 
         }
 
@@ -33,7 +39,9 @@ namespace GameSquad.Services
             {
                 Id = m.Id,
                 Subject = m.Subject,
-                Message = m.Message
+                Message = m.Message,
+                Sender = m.SendingUser
+
             }).FirstOrDefault();
             return _data;
         }
@@ -41,12 +49,13 @@ namespace GameSquad.Services
 
         //save Message
 
-        public void saveMessage(Messages message)
+        public void sendMessage(Messages message)
         {
-            if(message.Id == 0)
-            {
-                _repo.Add(message);
-            }          
+            var rUser = _repo.Query<ApplicationUser>().Where(a => a.Id == message.RecId).Include(m => m.Messages).FirstOrDefault();
+            rUser.Messages.Add(message);
+
+            _repo.SaveChanges();
+                      
         }
 
 

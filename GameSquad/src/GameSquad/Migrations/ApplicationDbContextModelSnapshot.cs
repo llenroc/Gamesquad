@@ -139,7 +139,9 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("Message");
 
-                    b.Property<string>("SendingUserId");
+                    b.Property<string>("RecId");
+
+                    b.Property<string>("SendingUser");
 
                     b.Property<string>("Subject");
 

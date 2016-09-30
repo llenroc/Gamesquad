@@ -8,7 +8,7 @@
                 getMsgsByUser: {
                     method: 'GET',
                     url: '/api/message/getMsgsByUser',
-                    isArray: true
+                    isArray: false
                 }
             });
 
@@ -22,9 +22,9 @@
         }
 
         //save message
-        public saveMessage(messageToSave) {
+        public sendMessage(messageToSend) {
 
-            return this.messageResource.save(messageToSave).$promise;
+            return this.messageResource.save(messageToSend).$promise;
 
         }
         //delete message

@@ -9,7 +9,8 @@
             private messageService: GameSquad.Services.MessageService,
             private userService: GameSquad.Services.UserService,
             private $state: angular.ui.IStateService,
-            private friendRequestService: GameSquad.Services.FriendRequestService
+            private friendRequestService: GameSquad.Services.FriendRequestService,
+            private $uibModal: angular.ui.bootstrap.IModalService
         ) {
             this.msgsByUser();
             this.friendRequestsByUser();
@@ -18,7 +19,7 @@
 
         public msgsByUser() {
             this.messageService.getMsgsByUser().$promise.then((data) => {
-                this.messages = data;
+                this.messages = data.messages;
                 console.log(this.messages);
             });
         }
