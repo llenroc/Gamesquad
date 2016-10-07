@@ -4,17 +4,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameSquad.Migrations
 {
-    public partial class add : Migration
+    public partial class lookingfor : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "BannerImage",
-                table: "AspNetUsers",
-                nullable: true);
+            migrationBuilder.DropColumn(
+                name: "Status",
+                table: "AspNetUsers");
 
             migrationBuilder.AddColumn<string>(
-                name: "PlayStyle",
+                name: "LookingFor",
                 table: "AspNetUsers",
                 nullable: true);
         }
@@ -22,12 +21,13 @@ namespace GameSquad.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "BannerImage",
+                name: "LookingFor",
                 table: "AspNetUsers");
 
-            migrationBuilder.DropColumn(
-                name: "PlayStyle",
-                table: "AspNetUsers");
+            migrationBuilder.AddColumn<string>(
+                name: "Status",
+                table: "AspNetUsers",
+                nullable: true);
         }
     }
 }

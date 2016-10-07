@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160930032309_messages")]
-    partial class messages
+    [Migration("20161007000651_lookingfor")]
+    partial class lookingfor
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,8 @@ namespace GameSquad.Migrations
                     b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("BannerImage");
 
                     b.Property<string>("BattleNetUser");
 
@@ -45,6 +47,8 @@ namespace GameSquad.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
+                    b.Property<string>("LookingFor");
+
                     b.Property<string>("NormalizedEmail")
                         .HasAnnotation("MaxLength", 256);
 
@@ -58,6 +62,8 @@ namespace GameSquad.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("Platform");
+
+                    b.Property<string>("PlayStyle");
 
                     b.Property<string>("ProfileImage");
 
@@ -100,7 +106,11 @@ namespace GameSquad.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<DateTime>("DateSent");
+
+                    b.Property<bool>("HasBeenViewed");
 
                     b.Property<string>("MessageText");
 
@@ -110,7 +120,11 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("SendingUserId");
 
+                    b.Property<string>("SendingUserName");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("FriendRequests");
                 });
@@ -124,7 +138,11 @@ namespace GameSquad.Migrations
 
                     b.Property<DateTime>("DateSent");
 
+                    b.Property<bool>("HasBeenViewed");
+
                     b.Property<string>("Message");
+
+                    b.Property<string>("RecId");
 
                     b.Property<string>("SendingUser");
 
@@ -298,6 +316,13 @@ namespace GameSquad.Migrations
                     b.HasOne("GameSquad.Models.ApplicationUser", "User")
                         .WithMany("Friends")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("GameSquad.Models.FriendRequest", b =>
+                {
+                    b.HasOne("GameSquad.Models.ApplicationUser")
+                        .WithMany("FreindRequests")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("GameSquad.Models.Messages", b =>
