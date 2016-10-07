@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid">
     <img class="displayed" width="1000" height="350" src="../../images/friends (2).png" />
     <br />
-    
+
     <form>
         <div class="col-lg-8 col-lg-offset-2">
             <h1><strong>Friends</strong></h1>
@@ -9,10 +9,12 @@
                 <tr>
                     <th>UserName</th>
                     <th>Rank</th>
+                    <th></th>
                 </tr>
                 <tr ng-repeat="friend in controller.friends">
                     <td>{{friend.userName}}</td>
                     <td>{{friend.rank}}</td>
+                    <td><button ng-click="controller.removeFriend(friend.id)" class="btn btn-success">Remove </button></td>
                 </tr>
             </table>
         </div>
