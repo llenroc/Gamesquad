@@ -11,43 +11,44 @@
                     </div>-->
                 </div>
                 <div class="table-responsive">
-        <div class="container">
-            <h1>Search For <strong>Players</strong> </h1>
-            <br />
-            <label><strong>Search By Username</strong></label>
-            <input ng-model="searchUser" type="text" class="text-primary img-rounded"/>
-            <label><strong>Looking For</strong></label>
-            <select ng-model="searchFor" placeholder="">
-            <option value=""></option>
-            <option value="Group">Group</option>            
-            <option value="Competitive Group">Competitive Group</option>
-            <option value="Players">Players</option>
-            </select>
-            <div>
-                <form>
-                    <table class="table table-striped img-rounded">
-                        <tr>
-                            <th>Username</th>
-                            <th>Rank</th>
-                            <th>Online Status</th>
-                            <th>Looking For</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr ng-repeat="user in controller.users | orderBy:userName:reverse | filter:{userName:searchUser} | filter:{lookingFor:searchFor || undefined}">
-                            <td>{{user.userName}}</td>
-                            <td>{{user.rank}}</td>
-                            <td>{{user.isOnline ? "Online": "Offline"}}</td>
-                            <td><button class="btn btn-default btn-sm" ng-click="controller.showMessageModal(user.id)">Send Message</button></td>
-                            <td>{{user.lookingFor}}</td>
-                            <td><button class="btn btn-default btn-sm" ng-click="controller.showMessageModal(user.id)">Send Message</button></td>                            
-                            <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Send friend request</button></td>
-                        </tr>
-                    </table>
+                    <div class="container">
+                        <h1>Search For <strong>Players</strong> </h1>
+                        <br />
+                        <label><strong>Search By Username</strong></label>
+                        <input ng-model="searchUser" type="text" class="text-primary img-rounded" />
+                        <label><strong>Looking For</strong></label>
+                        <select class="img-rounded" ng-model="searchFor" placeholder="">
+                            <option value=""></option>
+                            <option value="Group">Group</option>
+                            <option value="Competitive Group">Competitive Group</option>
+                            <option value="Players">Players</option>
+                        </select>
+                        <div>
+
+                            <table class="table table-striped img-rounded">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Rank</th>
+                                    <th>Online Status</th>
+                                    <th>Looking For</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr ng-repeat="user in controller.users | orderBy:userName:reverse | filter:{userName:searchUser} | filter:{lookingFor:searchFor || undefined}">
+                                    <td>{{user.userName}}</td>
+                                    <td>{{user.rank}}</td>
+                                    <td>{{user.isOnline ? "Online": "Offline"}}</td>
+                                    <td>{{user.lookingFor}}</td>
+                                    <td><button class="btn btn-default btn-sm" ng-click="controller.showMessageModal(user.id)">Send Message</button></td>
+                                    <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Send friend request</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div id="previous"><a class="glyphicon glyphicon-chevron-left" ng-click="controller.prevPage()"></a></div>
         <div id="next"><a class="glyphicon glyphicon-chevron-right" ng-click="controller.nextPage()"></a></div>
     </div>
-    </div>
+</div>

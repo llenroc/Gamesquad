@@ -140,9 +140,9 @@ namespace GameSquad.Controllers {
 
         public register() {
             this.accountService.register(this.registerUser).then(() => {
+                document.location.reload();
                 this.$state.go('profileEdit');
                 //this.$location.path('/');
-                //document.location.reload();
             }).catch((results) => {
                 this.validationMessages = results;
                 });

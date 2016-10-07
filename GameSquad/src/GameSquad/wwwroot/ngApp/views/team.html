@@ -34,8 +34,8 @@
                                 <td>{{team.playStyle}}</td>
                                 <!--<td><button ng-click="controller.showModalAddMember(team.id)"  class ="btn btn-success">Join</button></td>-->
                                 <td>
-                                    <button ng-click="controller.addMemberToTeam(team.id)" ng-show="!team.isMember" class="btn btn-success">Join</button>
-                                    <button ng-click="controller.removeMember(team.id)" ng-show="team.isMember" class="btn btn-warning">Leave</button>
+                                    <button ng-click="controller.addMemberToTeam(team.id); team.isMember = true" ng-show="!team.isMember" class="btn btn-success">Join</button>
+                                    <button ng-click="controller.removeMember(team.id); team.isMember = false" ng-show="team.isMember" class="btn btn-warning">Leave</button>
                                 </td>
                             </tr>
                         </tbody>
