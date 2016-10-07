@@ -8,15 +8,13 @@
         public teamToCreate;
         public teams;
         public teamId;
+        public teamHolder = [];
 
-        constructor(private teamService: GameSquad.Services.TeamService,
-            private $state: angular.ui.IStateService
-           
-        ) {
+        constructor(private teamService: GameSquad.Services.TeamService, private $state: angular.ui.IStateService) {
 
             this.teamsByUser();
             this.getTeams();
-
+            console.log("teams");
         }
 
 
@@ -24,9 +22,12 @@
         public getTeams() {
 
             this.teamService.getTeams().$promise.then((data) => {
-                this.team = data;
-                debugger
-
+                //this.team = data;
+                for (var team of data) {
+                    team.team.isMember = team.isMember;
+                    this.teamHolder.push(team.team);
+                }
+                console.log(data);
             });
         }
 
@@ -70,9 +71,8 @@
 
         //add Member to Team
         public addMemberToTeam(teamId) {
-            debugger
             this.teamService.addMemberToTeam(teamId)
-           
+            
                 //.then(() => {
 
                 //    this.$state.go('team');
