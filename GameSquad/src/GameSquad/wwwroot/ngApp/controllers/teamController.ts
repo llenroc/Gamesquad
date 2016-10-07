@@ -25,7 +25,7 @@
 
             this.teamService.getTeams().$promise.then((data) => {
                 this.team = data;
-                debugger
+                //debugger
 
             });
         }

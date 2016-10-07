@@ -29,6 +29,8 @@ namespace GameSquad.Models
         //message and requests inbox
         //public Inbox UserInbox { get; set; }
 
+        public bool IsOnline { get; set; }
+
         //teams
         public ICollection<TeamMembers> TeamMembers { get; set; }
 
@@ -46,5 +48,7 @@ namespace GameSquad.Models
         public string  PlayStyle { get; set; }
         //dashboard banner
         public string BannerImage { get; set; }
+
+
     }
 }

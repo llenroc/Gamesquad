@@ -6,7 +6,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <!--  theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/slate/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/cyborg/bootstrap.min.css">
     <base href="/" />
 
     <link href="~/css/site.css" rel="stylesheet" />
@@ -53,7 +53,7 @@
     <!--PRIVATE CHAT-->
     <div class="chatsection" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="chat-window " ng-show="chat.isLoggedIn() && chat.openPrivateChat">
-            <div class="panel panel-primary chat-panel" ng-click="chat.userListAlert.alertStatus = false" ng-class="{'panel-warning': !chat.sendToUser.online }">
+            <div class="panel panel-warning chat-panel" ng-click="chat.userListAlert.alertStatus = false" ng-class="{'panel-danger': !chat.sendToUser.online }">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse3">
                     <h3 class="panel-title">Private Chat with {{chat.sendToUser.username}} <span ng-show="!chat.sendToUser.online" class="text-muted"> (Offline)</span></h3>
                 </div>
@@ -65,7 +65,7 @@
                                 <p>{{msg.message}}</p>
                                 <div>{{msg.username}} at {{msg.time}}</div>
                             </div>
-                            <div ng-init="chat.autoScroll()"></div>
+                            
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -81,7 +81,7 @@
         </div>
         <!--GLOBAL CHAT-->
         <div class="chat-window " ng-show="chat.isLoggedIn()">
-            <div class="panel panel-primary chat-panel">
+            <div class="panel panel-warning chat-panel">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse2">
                     <h3 class="panel-title">Global Chat</h3>
                 </div>
@@ -113,7 +113,7 @@
         </div>
         <!--FRIENDSLIST-->
         <div class="friendslist" ng-show="chat.isLoggedIn()">
-            <div class="panel panel-primary chat-panel " ng-class="{'panel-success': chat.userListAlert.alertStatus}" ng-click="chat.userListAlert.alertStatus = false">
+            <div class="panel chat-panel " ng-class="{'panel-success': chat.userListAlert.alertStatus, 'panel-warning': !chat.userListAlert.alertStatus}" ng-click="chat.userListAlert.alertStatus = false">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse1">
                     <h3 class="panel-title">
                         Connected Users

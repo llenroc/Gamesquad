@@ -1,5 +1,6 @@
 ﻿using GameSquad.Models;
 using GameSquad.Repositories;
+using GameSquad.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -12,38 +13,33 @@ namespace GameSquad.Hubs
 {
     public class NotificationHub : Hub
     {
-        private UserManager<ApplicationUser> _manager;
-        private IGenericRepository _repo;
-        public NotificationHub(UserManager<ApplicationUser> manager, IGenericRepository repo)
+        //private UserManager<ApplicationUser> _manager;
+        //private IGenericRepository _repo;
+        private ISignalrService _service;
+        public NotificationHub( ISignalrService service)
         {
-            _manager = manager;
-            _repo = repo;
+           
+            _service = service;
 
         }
 
-        public async Task<ApplicationUser> FindUser(string userName)
+        
+
+        public Task NotificationCheck(string userName)
         {
-            var user = await _manager.FindByNameAsync(userName);
-            return user;
+
+
+            var notificationCount = _service.NotificationCount(userName);
+
+
+            //return null;
+
+
+            return Clients.Caller.notificationCount(notificationCount);
+
+
         }
 
-        public void NotificationCheck(string userName)
-        {
-            //var user = FindUser(userName).Result;
-            //var user = _repo.Query<ApplicationUser>().Where(u => u.UserName == userName);
-            var user = _repo.Query<ApplicationUser>().Where(u => u.UserName == userName).Include(u => u.FreindRequests).Include(u => u.Messages).FirstOrDefault(); ;
-
-
-
-
-
-            var messageCount = user.Messages.Count();
-
-            var friendRequests = user.FreindRequests.Where(f => f.HasBeenViewed == false).Count();
-
-            //Clients.Caller.notificationCount(testNum);
-            Clients.Caller.notificationCount(friendRequests);
-
-        }
+        
     }
 }

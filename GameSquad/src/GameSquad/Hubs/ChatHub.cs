@@ -7,9 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
-
-
-
+using GameSquad.Repositories;
+using GameSquad.Services;
 
 namespace GameSquad.Hubs
 {
@@ -33,9 +32,27 @@ namespace GameSquad.Hubs
 
     }
 
+    
+
     public class ChatHub : Hub
     {
-        
+        private UserManager<ApplicationUser> _manager;
+        private IGenericRepository _repo;
+        private ISignalrService _service;
+        public ChatHub(UserManager<ApplicationUser> manager, IGenericRepository repo, ISignalrService service)
+        {
+            _manager = manager;
+            _repo = repo;
+            _service = service;
+
+        }
+
+        public async Task<ApplicationUser> FindUser(string userName)
+        {
+            var user = await _manager.FindByNameAsync(userName);
+            return user;
+        }
+
 
         /// <summary>
         /// What happens when a client connects to the hub
@@ -56,6 +73,14 @@ namespace GameSquad.Hubs
 
             else
             {
+                var user = FindUser(userName).Result;
+
+                //user.IsOnline = true;
+                //_repo.Update(user);
+                //_repo.SaveChanges();
+
+                _service.OnlineStatusToggle(userName, 1);
+
                 var returnList = new List<UserDetail>();
                 foreach (var item in ConnectedUsers.Users.ToList())
                 {
@@ -91,10 +116,18 @@ namespace GameSquad.Hubs
             if (ConnectedUsers.Users.ContainsValue(Context.ConnectionId))
             {
 
-                var userToRemove = ConnectedUsers.Users.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
+                var userToRemovePair = ConnectedUsers.Users.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
 
-                ConnectedUsers.Users.Remove(userToRemove.Key);
-                Clients.All.onUserDisconnected(userToRemove.Key);
+                //var user = _repo.Query<ApplicationUser>().Where(u => u.UserName == userToRemovePair.Key).FirstOrDefault();
+
+                //user.IsOnline = false;
+                //_repo.Update(user);
+                //_repo.SaveChanges();
+
+                _service.OnlineStatusToggle(userToRemovePair.Key, 0); 
+
+                ConnectedUsers.Users.Remove(userToRemovePair.Key);
+                Clients.All.onUserDisconnected(userToRemovePair.Key);
 
 
             }
@@ -106,9 +139,9 @@ namespace GameSquad.Hubs
         /// Sends message to everyone
         /// </summary>
         /// <param name="message">Recives the message object</param>
-        public void SendMessage(object message)
+        public Task SendMessage(object message)
         {
-            Clients.All.newMessage(message);
+           return Clients.All.newMessage(message);
         }
 
         public void SendPrivateMessage(string fromUsername, string privateMessage, string toUserName, string toConnectionId)
@@ -144,6 +177,38 @@ namespace GameSquad.Hubs
                 var errorMsg = "Server: Unable to deliver message";
                 Clients.Caller.getPrivateMessage(fromUsername, errorMsg, toUserName);
             }
+        }
+
+
+        //Group Messaging
+
+        public void JoinRoom (string roomName, string userName)
+        {
+            if(userName != null)
+            {
+               Groups.Add(Context.ConnectionId, roomName);
+               
+                
+
+               Clients.Group(roomName).getGroupMessage("Server", userName + " has joined the chat!", roomName);
+            }
+
+            
+            
+        }
+
+        //public Task LeaveRoom(string roomName)
+        //{
+        //    return Groups.Remove(Context.ConnectionId, roomName);
+        //}
+
+        public void SendGroupMessage(string userName, string message, string roomName)
+        {
+            if(userName != null)
+            {
+                 Clients.Group(roomName).getGroupMessage(userName, message, roomName);
+            }
+            
         }
 
     }
