@@ -59,6 +59,7 @@ namespace GameSquad
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IFreindRequestService, FreindRequestService>();
             services.AddScoped<IFriendsService, FriendsService>();
+            services.AddScoped<ISignalrService, SignalrService>();
             
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>

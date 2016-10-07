@@ -23,12 +23,30 @@ namespace GameSquad.Services
         //get messages by user
         public object MsgsByUser(string id)
         {
-            var messages = new List<Messages>();
-            var msg = _repo.Query<ApplicationUser>().Where(a => a.Id == id).Include(m => m.Messages).Select(m => new {
+            //var messages = new List<Messages>();
+            var msg2 = _repo.Query<ApplicationUser>().Where(a => a.Id == id).Include(m => m.Messages).Select(m => new
+            {
                 messages = m.Messages
             }).FirstOrDefault();
+            var msg = _repo.Query<ApplicationUser>().Where(a => a.Id == id).Include(m => m.Messages).FirstOrDefault();
+
+            var msgList = msg.Messages;
+
+            foreach (var singleMessage in msgList)
+            {
+                singleMessage.HasBeenViewed = true;
+                _repo.Update(singleMessage);
+
+            }
+
+            //var msgList = messages;
+            
+            _repo.SaveChanges();
+
+
             //messages = msg.Messages.ToList();
-            return msg;
+            //return msg;
+            return msg2;
 
         }
 

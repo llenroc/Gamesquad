@@ -69,5 +69,9 @@
                 rowToChange.html('Friend request sent!');
             })
         }
+
+        public isOnline(user) {
+               
+        }
     }
 }

@@ -46,5 +46,6 @@ namespace GameSquad.Models
         public string  PlayStyle { get; set; }
         //dashboard banner
         public string BannerImage { get; set; }
+        public string LookingFor { get; set; }
     }
 }

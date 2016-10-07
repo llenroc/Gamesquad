@@ -25,4 +25,38 @@
             </table>
         </form>
     </div>
+
+
+</div>
+
+<div class="container">
+    <div class="col-md-8 col-lg-offset-2">
+        <div class="panel panel-warning" >
+            <div class="panel-heading">
+                <h3 class="panel-title">{{controller.teamDetails.teamName}} Group Chat</h3>
+            </div>
+            <div class="panel-body chat-panel-body">
+                <div class="chat-item-container" style="height: 600px" schroll-bottom="controller.messages">
+                    <div class="list-group-item list-group-item-success" style="margin-bottom: 10px;">This is the start of your conversation with {{controller.teamDetails.teamName}} Members!</div>
+                    <div class="chat-item" >
+                        <p>Hello!</p>
+                        <div>Demo at 00:43</div>
+                    </div>
+                    
+                    <div class="chat-item" ng-repeat="msg in controller.messages" ng-class="{'chat-item-self': controller.getUserName() === msg.username}">
+                        <p>{{msg.message}}</p>
+                        <div>{{msg.username}} at {{msg.time}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <form class="form-inline" ng-submit="controller.sendGroupMessage()">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="controller.newMessage" required />
+                        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

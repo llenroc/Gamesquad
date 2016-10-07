@@ -32,7 +32,7 @@ namespace GameSquad.Services
                 request.HasBeenViewed = true;
                 _repo.Update(request);
             }
-           
+            
             _repo.SaveChanges();
             return friendRequests.ToList();
 

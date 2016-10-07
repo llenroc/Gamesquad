@@ -25,23 +25,20 @@
         </div><!--class="active"-->
         <div id="navLinks" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a ng-show="account.isLoggedIn()" href="/dashboard"><strong>Dashboard</strong></a></li>
-                <li><a ng-show="account.isLoggedIn()" href="/friends"><strong>Friends</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/updates">Player <strong> Feed</strong></a></li>
-                <li><a ng-show="account.isLoggedIn()" href="/myTeam">My <strong>Team</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/inbox"><strong> Inbox</strong><span> {{account.notificationCounter.totalCount}}</span></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
-                @*<li><a href="#" ng-show="account.isLoggedIn()" ng-click="account.logout()">SignOut</a></li>*@
             </ul>
             <ul ng-show="account.isLoggedIn()" class="nav navbar-nav pull-right">
                 <li class="dropdown">
-                    <a href="/" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <strong>{{account.getUserName()}}</strong><strong class="caret"></strong></a>
-                    <ul class="dropdown-menu">
-                        @*<li ng-model="myTeam in team | filter{}"><a ng-href="show(myTeam, myTeam.id)" ng-show="account.isLoggedIn()">My Team</a></li>*@
-                        @*<li><a href="/inbox" ng-show="account.isLoggedIn()">Inbox</a></li>*@
+                    <a href="/" class=""><span class="glyphicon glyphicon-user"></span> <strong>{{account.getUserName()}}</strong><strong class="caret"></strong></a>
+                    <ul style="min-width: 100px" class="dropdown-menu">
+                        <li><a ng-show="account.isLoggedIn()" href="/dashboard"><strong>Dashboard</strong></a></li>
+                        <li><a ng-show="account.isLoggedIn()" href="/friends"><strong>Friends</strong></a></li>
+                        <li><a ng-show="account.isLoggedIn()" href="/myTeam">My <strong>Team</strong></a></li>
                         <li><a href="#" ng-show="account.isLoggedIn()" ng-click="account.logout()">SignOut</a></li>
                     </ul>
                  </li>
@@ -53,7 +50,7 @@
     <!--PRIVATE CHAT-->
     <div class="chatsection" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="chat-window " ng-show="chat.isLoggedIn() && chat.openPrivateChat">
-            <div class="panel panel-primary chat-panel" ng-click="chat.userListAlert.alertStatus = false" ng-class="{'panel-warning': !chat.sendToUser.online }">
+            <div class="panel panel-warning chat-panel" ng-click="chat.userListAlert.alertStatus = false" ng-class="{'panel-danger': !chat.sendToUser.online }">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse3">
                     <h3 class="panel-title">Private Chat with {{chat.sendToUser.username}} <span ng-show="!chat.sendToUser.online" class="text-muted"> (Offline)</span></h3>
                 </div>
@@ -65,7 +62,7 @@
                                 <p>{{msg.message}}</p>
                                 <div>{{msg.username}} at {{msg.time}}</div>
                             </div>
-                            <div ng-init="chat.autoScroll()"></div>
+                            
                         </div>
                     </div>
                     <div class="panel-footer">
@@ -81,7 +78,7 @@
         </div>
         <!--GLOBAL CHAT-->
         <div class="chat-window " ng-show="chat.isLoggedIn()">
-            <div class="panel panel-primary chat-panel">
+            <div class="panel panel-warning chat-panel">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse2">
                     <h3 class="panel-title">Global Chat</h3>
                 </div>
@@ -113,7 +110,7 @@
         </div>
         <!--FRIENDSLIST-->
         <div class="friendslist" ng-show="chat.isLoggedIn()">
-            <div class="panel panel-primary chat-panel " ng-class="{'panel-success': chat.userListAlert.alertStatus}" ng-click="chat.userListAlert.alertStatus = false">
+            <div class="panel chat-panel " ng-class="{'panel-success': chat.userListAlert.alertStatus, 'panel-warning': !chat.userListAlert.alertStatus}" ng-click="chat.userListAlert.alertStatus = false">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse1">
                     <h3 class="panel-title">
                         Connected Users

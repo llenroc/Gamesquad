@@ -11,19 +11,7 @@
         public newMessage;
         public dupUser = false;
 
-        //total connected users
-        //public connectedUsers = [
-        //    {
-        //        Username: "Dummy User 1",
-        //        ConnectionId: "none"
-        //    },
-        //    {
-        //        Username: "Dummy User 2",
-        //        ConnectionId: "none"
-
-
-        //    }
-        //];
+        
 
         //private messaging fields
         public sendToUser = 
@@ -58,7 +46,7 @@
         //for the friendslist and private message alerds
         //needs to be an object with property for wierd scope reasons
         public userListAlert = { alertStatus: false };
-        //public privateAlert = { alertStatus: false };
+        
 
         public isLoggedIn() {
             return this.accountService.isLoggedIn();
@@ -210,32 +198,18 @@
 
 
                 }
-                //else {
-                //    let newConversation = {
-                //        username: conversationName,
-                //        messages: [newMessage],
-                //        newMessageAlert: true
-
-                //    }
-                //    privateMessageArray.push(newConversation);
-                //}
-                //console.log(messageAlert);
-
-                //messageAlert = conversationName;
-                //console.log(messageAlert);
-                //console.log(userListAlert);
+                
 
                 scope.$apply();
 
 
             };
-            //this.userListAlert = userListAlert;
-            //console.log(userListAlert);
 
-            //console.log(this.userListAlert);
-           // scope.$apply();
+            this.chatHub.client.getGroupMessage = function onNewMessage(fromUsername, groupMessage, groupName) {
 
-           // this.newMessageAlertUser = messageAlert;
+                let newMessage = {username: fromUsername, message: groupMessage}
+            }
+            
 
         }
 
@@ -344,19 +318,7 @@
             
         }
 
-        public notificationCheck() {
-            let tempNotificationCount = this.notificationCount;
-
-            $.connection.notificationHub.server.notificationCheck(this.getUserName);
-            $.connection.notificationHub.client.notificationCount = function notificationCount(newCount) {
-                tempNotificationCount.totalCount = newCount;
-            }
-        }
-
-        public autoScroll() {
-            console.log("scroll?");
-            $("#privateChat").attr({ scrollTop: $("#privateChat").attr("scrollHeight") });
-        }
+       
 
         constructor(private accountService: GameSquad.Services.AccountService,
             private $scope: ng.IScope
@@ -366,9 +328,7 @@
             this.chatHub = $.connection.chatHub;
             $.connection.hub.logging = true;
 
-            $(document).ready(function () {
-                $("#privateChat").attr({ scrollTop: $("#privateChat").attr("scrollHeight") });
-            });
+            
 
             setTimeout(function () {
                 console.log("hi!");
@@ -384,21 +344,12 @@
                         console.log("An error occurded: " + err);
                     });
 
-                    //signalr waiting methods
-                    //this.waitForMessages();
-                    //this.getConnectedUsers();
+                   
                 }
             }, 2000);
 
             this.waitForMessages();
             this.getConnectedUsers();
-            
-            
-            //function signalrWait() {
-            //    setTimeout(function () {
-                   
-            //    }, 2000);
-            //} ();
 
         }
 
