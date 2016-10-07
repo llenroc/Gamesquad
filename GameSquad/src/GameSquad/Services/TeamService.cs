@@ -56,6 +56,12 @@ namespace GameSquad.Services
             var data = _repo.Query<Team>().Include(m => m.TeamMembers).ToList();
             return data;
         }
+        //data table paging
+        public List<Team> GetTableData(int id)
+        {
+            var data = _repo.Query<Team>().Skip(5 * id).Take(5).Include(m => m.TeamMembers).ToList();
+            return data;
+        }
 
         public List<ApplicationUser> UsersByTeam(int teamId)
         {

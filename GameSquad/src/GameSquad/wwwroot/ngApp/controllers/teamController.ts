@@ -8,26 +8,64 @@
         public teamToCreate;
         public teams;
         public teamId;
+        public pageCount = 0;
+        public teamHolder = [];
+
 
         constructor(private teamService: GameSquad.Services.TeamService,
             private $state: angular.ui.IStateService
-           
+
         ) {
 
             this.teamsByUser();
-            this.getTeams();
+            this.getTeams(this.pageCount);
 
         }
 
 
 
-        public getTeams() {
+        public getTeams(pageCount) {
 
-            this.teamService.getTeams().$promise.then((data) => {
-                this.team = data;
-                debugger
+            this.teamService.getTeams(this.pageCount).$promise.then((data) => {
+                // this.team = data;
+                console.log('data');
+                console.log(data);
+                this.teamHolder = [];
+                for (var team of data) {
+                    team.team.isMember = team.isMember;
+                    this.teamHolder.push(team.team);
+                }
+                console.log(this.teamHolder);
+
+                if (pageCount <= 0) {
+
+                    document.getElementById("previous").hidden = true;
+                }
+                else if (pageCount > 0) {
+                    //re enable
+                    document.getElementById("previous").hidden = false;
+                }
+                if (this.team.count < 5) {
+
+                    document.getElementById("next").hidden = true;
+                }
+                else if (this.team.count == 5) {
+
+                    document.getElementById("next").hidden = false;
+                }
 
             });
+        }
+
+        public nextPage() {
+
+            this.pageCount++;
+            this.getTeams(this.pageCount);
+        }
+
+        public prevPage() {
+            this.pageCount--;
+            this.getTeams(this.pageCount);
         }
 
         //get team info by ID
@@ -70,15 +108,15 @@
 
         //add Member to Team
         public addMemberToTeam(teamId) {
-            debugger
-            this.teamService.addMemberToTeam(teamId)
-           
-                //.then(() => {
 
-                //    this.$state.go('team');
-                //    //this.$uibModalInstance.close();
-                    
-                //})
+            this.teamService.addMemberToTeam(teamId)
+
+            //.then(() => {
+
+            //    this.$state.go('team');
+            //    //this.$uibModalInstance.close();
+
+            //})
             console.log("joined team");
         }
 
@@ -94,8 +132,8 @@
 
 
 
-  
-    
+
+
 
     angular.module('GameSquad').controller('TeamController', TeamController);
 }

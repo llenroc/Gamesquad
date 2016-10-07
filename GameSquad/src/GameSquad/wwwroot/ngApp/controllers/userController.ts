@@ -1,6 +1,7 @@
 ﻿namespace GameSquad.Controllers {
     export class UserController {
         public users;
+        public pageCount = 0;
 
         constructor(
             private userService: GameSquad.Services.UserService,
@@ -8,7 +9,7 @@
             private friendRequestService: GameSquad.Services.FriendRequestService,
             private $uibModal: angular.ui.bootstrap.IModalService
         ) {
-            this.getAllUsers();
+            this.getAllUsers(this.pageCount);
         }
         public showMessageModal(userId: string) {
             this.$uibModal.open({
@@ -20,12 +21,40 @@
             });
         }
         //get all Users to display
-        public getAllUsers() {
-            this.users = this.userService.getAllUsers();
+        public getAllUsers(pageCount) {
+            this.users = this.userService.getAllUsers(pageCount);
+            if (pageCount <= 0) {
+
+                document.getElementById("previous").hidden = true;
+            }
+            else if (pageCount > 0) {
+
+                document.getElementById("previous").hidden = false;
+            }
+            if (this.users.count < 5) {
+
+                document.getElementById("next").hidden = true;
+            }
+            else if (this.users.count == 5) {
+
+                document.getElementById("next").hidden = false;
+            }
+            
             console.log(this.users);
         }
 
-        
+        public nextPage() {
+
+            this.pageCount++;
+            this.getAllUsers(this.pageCount);
+        }
+
+        public prevPage() {
+            this.pageCount--;
+            this.getAllUsers(this.pageCount);
+        }
+
+
 
         //get single id
         //private getUserById() {

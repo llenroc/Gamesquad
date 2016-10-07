@@ -20,7 +20,7 @@ namespace GameSquad.API
         {
             _service = service;
             _manager = manager;
-        }
+        } 
 
         // GET: api/values
         [HttpGet]
@@ -29,7 +29,7 @@ namespace GameSquad.API
             return Ok(_service.GetAllUsers());
         }
 
-
+        
         // GET api/values/5
         [HttpGet("{id}")]
         public IActionResult Get(string id)
@@ -37,6 +37,14 @@ namespace GameSquad.API
             var uid = _manager.GetUserId(User);
             return Ok(_service.GetUserById(uid));
         }
+
+        [HttpGet("GetTableData/{id}")]
+        public IActionResult GetTableData(int id)
+        {
+
+            return Ok(_service.GetTableData(id));
+        }
+
 
         // POST api/values
         [HttpPost]
