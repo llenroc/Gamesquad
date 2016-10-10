@@ -37,31 +37,32 @@ namespace GameSquad.Controllers {
 
         }
 
-        public notificationCounter = { totalCount: "" }
+        
+        
+        //Callback for notification counter
+        public notificationCount;
         public notificationCheck() {
-            let tempNotificationCount = this.notificationCounter;
-            let scope = this.$scope;
             
-            $.connection.notificationHub.client.notificationCount = function notificationCount(newCount) {
-                tempNotificationCount.totalCount = newCount;
+            $.connection.notificationHub.client.notificationCount = (newCount) => {
                 
-                console.log(newCount);
-                scope.$apply();
+                this.notificationCount = newCount;
+                console.log(this.notificationCount);
+                
+                this.$scope.$apply();
             }
-            
-            
-
-
         }
 
-        //public notificationCount = (newCount) => {
-        //    this.notificationCounter = newCount;
+       
 
-        //        console.log(newCount + "hi");
+       //Calls the server for notifications
+        public notificationChecker() {
 
-        //        this.$scope.$apply();
-        //}
+            if ($.connection.chatHub.state !== $.signalR.connectionState.connected) {
+                $.connection.notificationHub.server.notificationCheck();
+            }
+            
 
+        }
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService,
             private $uibModal: ng.ui.bootstrap.IModalService,
@@ -71,25 +72,19 @@ namespace GameSquad.Controllers {
                 this.externalLogins = results;
             });
 
-            //this.notificationCount();
-
-            setInterval(function () {
-                console.log("notificationcheck!");
-                if (accountService.isLoggedIn()) {
-                    $.connection.notificationHub.server.notificationCheck(accountService.getUserName());
-                }
-            }, 5000);
+            //Conntect to signalr
+            $.connection.hub.logging = true;
+            $.connection.hub.start().done( () => {
+                console.log("Connected to signalr");
+                //Runs notification checker and then sets it to run every x seconds
+                this.notificationChecker()
+                setInterval(() => { this.notificationChecker() }, 5000);
+            });
+            $.connection.hub.error(function (err) {
+                console.log("An error occurded: " + err);
+            });
 
             this.notificationCheck();
-            
-
-            //$.connection.notificationHub.client.notificationCount = function notificationCount(newCount) {
-            //   .totalCount = newCount;
-                
-            //        console.log(newCount);
-
-            //    scope.$apply();
-            //}
 
         }
     }

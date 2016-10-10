@@ -41,11 +41,11 @@
         ];
         public privateMessagesDispalyed;
         public newMessageAlertUser;
-        public notificationCount = { totalCount: 0 };
+        //public notificationCount = { totalCount: 0 };
 
         //for the friendslist and private message alerds
         //needs to be an object with property for wierd scope reasons
-        public userListAlert = { alertStatus: false };
+        public userListAlert = false;
         
 
         public isLoggedIn() {
@@ -116,6 +116,20 @@
 
         }
 
+        // Calculates timestamp for message
+        public getTimeStamp() {
+            var messageDate = new Date();
+            function addZero(i) {
+                if (i < 10) {
+                    i = "0" + i;
+                }
+                return i;
+            }
+            var messageTime = addZero(messageDate.getHours()) + ":" + addZero(messageDate.getMinutes());
+
+            return messageTime;
+        }
+
         //sends private message
         public sendPrivateMessage() {
             let fromUsername = this.accountService.getUserName();
@@ -142,93 +156,60 @@
 
         //Waits for messages from server
         public waitForMessages() {
-            let messagelist = this.messages;
-            let scope = this.$scope;
-            let privateMessageArray = this.privateMessageArray;
-            let userListAlert = this.userListAlert;
-            let getUsername = this.getUserName();
-           
+            
 
-            this.chatHub.client.newMessage = function onNewMessage(messageRecieved) {
+            this.chatHub.client.newMessage = (messageRecieved) {
                 console.log("Message Recieved from server!");
 
-                messagelist.push(messageRecieved);
-                console.log(messagelist);
-                scope.$apply();
+                this.messages.push(messageRecieved);
+                console.log(this.messages);
+                this.$scope.$apply();
+            }
 
-            };
 
-            this.chatHub.client.getPrivateMessage = function onNewMessage(fromUsername, privateMessage, conversationName) {
+            
+
+            this.chatHub.client.getPrivateMessage = (fromUsername, privateMessage, conversationName) => {
                 console.log("Private message Recieved from server!");
-
-
-
                 let newMessage = { username: fromUsername, message: privateMessage, time: "" };
 
-                let index = privateMessageArray.map((x) => { return x.username }).indexOf(conversationName);
+                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(conversationName);
                 console.log(index);
                 if (index > -1) {
 
 
-                    let chosenUser = privateMessageArray[index];
+                    let chosenUser = this.privateMessageArray[index];
 
-                    //Get time
-                    var messageDate = new Date();
-                    function addZero(i) {
-                        if (i < 10) {
-                            i = "0" + i;
-                        }
-                        return i;
-                    }
-                    var messageTime = addZero(messageDate.getHours()) + ":" + addZero(messageDate.getMinutes()) ;
-
-                    newMessage.time = messageTime;
+                    newMessage.time = this.getTimeStamp();
 
                     chosenUser.messages.push(newMessage);
                     chosenUser.newMessageAlert = true;
-                   
-                    
 
-
-
-                    if (newMessage.username != getUsername) {
-                        userListAlert.alertStatus = true;
+                    if (newMessage.username != this.getUserName()) {
+                        this.userListAlert = true;
 
                     }
 
-
                 }
-                
 
-                scope.$apply();
-
-
-            };
-
-            this.chatHub.client.getGroupMessage = function onNewMessage(fromUsername, groupMessage, groupName) {
-
-                let newMessage = {username: fromUsername, message: groupMessage}
+                this.$scope.$apply();
             }
-            
 
         }
 
-
+        
 
         public getConnectedUsers() {
-            let connectedUsers = this.privateMessageArray;
             
-            let scope = this.$scope;
-            let dupUser = this.dupUser;
 
-            this.chatHub.client.onConnected = function onConnected(userList) {
+            this.chatHub.client.onConnected = (userList) => {
                 console.log("Userlist Recieved from server!");
 
                 console.log(userList + typeof userList);
 
                 if (userList === 0) {
                     $.connection.hub.stop();
-                    dupUser = true;
+                    this.dupUser = true;
                 }
 
                 else {
@@ -236,89 +217,57 @@
                         user.messages = [];
                         user.newMessageAlert = false;
                         user.online = true;
-                        connectedUsers.push(user);
-                        //console.log(user.Username);
+                        this.privateMessageArray.push(user);
+                        
                     }
-                    console.log(connectedUsers);
+                    console.log(this.privateMessageArray);
                 }
-                scope.$apply();
-
+                this.$scope.$apply();
 
             }
-            //{
-        //    username: "Dummy User 2",
-        //        connectionId: "none",
-        //            messages: [],
-        //                newMessageAlert: false,
-        //                    online: true
-        //}
-            this.chatHub.client.onNewUserConnected = function onNewUserConnected(newUser) {
+
+
+            this.chatHub.client.onNewUserConnected = (newUser) => {
                 console.log("New user Recieved from server!");
                 console.log(newUser)
-                //let why = newUser
-                let index = connectedUsers.map((x) => { return x.username }).indexOf(newUser.username);
+                
+                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(newUser.username);
                 if (index > -1) {
-                    connectedUsers[index].connectionId = newUser.connectionId
-                    connectedUsers[index].online = true;
+                    this.privateMessageArray[index].connectionId = newUser.connectionId
+                    this.privateMessageArray[index].online = true;
                 }
                 else {
 
                     newUser.messages = [];
                     newUser.newMessageAlert = false;
                     newUser.online = true;
-                    connectedUsers.push(newUser);
+                    this.privateMessageArray.push(newUser);
                 }
-                
-                console.log(connectedUsers);
 
-                scope.$apply();
+                console.log(this.privateMessageArray);
+
+                this.$scope.$apply();
 
             }
-            this.chatHub.client.onUserDisconnected = function onUserDisconnected(userToRemove) {
+
+
+            this.chatHub.client.onUserDisconnected = (userToRemove) => {
                 console.log("User has disconnected " + userToRemove);
 
 
-                let index = connectedUsers.map((x) => { return x.username }).indexOf(userToRemove);
+                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(userToRemove);
                 console.log(index);
                 if (index > -1) {
 
-                   // if (connectedUsers[index].messages.length > 0) {
-                        connectedUsers[index].online = false;
-                    //}
-                    //else {
-                    //    connectedUsers.splice(index, 1);
-                    //}
-                    scope.$apply();
+                    this.privateMessageArray[index].online = false;
+                    
+                    this.$scope.$apply();
                 }
 
             }
 
         }
 
-
-        //maybe not needed?
-        public signalrStart() {
-
-            let userName = this.accountService.getUserName();
-
-
-            if (this.accountService.isLoggedIn()) {
-                $.connection.hub.start().done(function () {
-                    //sends username to Server
-                    $.connection.chatHub.server.connect(userName);
-                });
-                $.connection.hub.error(function (err) {
-                    console.log("An error occurded: " + err);
-                });
-
-                //signalr waiting methods
-                this.waitForMessages();
-                this.getConnectedUsers();
-            }
-            
-        }
-
-       
 
         constructor(private accountService: GameSquad.Services.AccountService,
             private $scope: ng.IScope
@@ -326,30 +275,10 @@
 
             console.log("Chat Constructor Running!");
             this.chatHub = $.connection.chatHub;
-            $.connection.hub.logging = true;
 
-            
-
-            setTimeout(function () {
-                console.log("hi!");
-                if (accountService.isLoggedIn()) {
-                    let userName = accountService.getUserName();
-
-                    $.connection.hub.start().done(function () {
-                        //sends username to Server
-                        $.connection.chatHub.server.connect(userName);
-                        
-                    });
-                    $.connection.hub.error(function (err) {
-                        console.log("An error occurded: " + err);
-                    });
-
-                   
-                }
-            }, 2000);
-
-            this.waitForMessages();
+            //Starts the waiting functions for chat
             this.getConnectedUsers();
+            this.waitForMessages();
 
         }
 

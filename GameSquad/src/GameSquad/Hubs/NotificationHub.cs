@@ -25,17 +25,17 @@ namespace GameSquad.Hubs
 
         
 
-        public Task NotificationCheck(string userName)
+        public Task NotificationCheck()
         {
+            var userName = Context.User.Identity.Name;
 
+            if(userName != null)
+            {
+                var notificationCount = _service.NotificationCount(userName);
+                return Clients.Caller.notificationCount(notificationCount);
 
-            var notificationCount = _service.NotificationCount(userName);
-
-
-            //return null;
-
-
-            return Clients.Caller.notificationCount(notificationCount);
+            }
+            return null;
 
 
         }

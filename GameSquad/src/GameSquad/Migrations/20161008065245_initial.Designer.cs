@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161005064756_online_status")]
-    partial class online_status
+    [Migration("20161008065245_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,8 @@ namespace GameSquad.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("LookingFor");
 
                     b.Property<string>("NormalizedEmail")
                         .HasAnnotation("MaxLength", 256);

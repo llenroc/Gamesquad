@@ -97,7 +97,6 @@ namespace GameSquad
             app.UseFileServer();
 
             app.UseWebSockets();
-            app.UseSignalR();
 
            
 
@@ -116,6 +115,7 @@ namespace GameSquad
             }
 
             app.UseIdentity();
+            app.UseSignalR();
 
             app.UseBattleNetAuthentication(options => {
                 options.ClientId = "pcgjuk4snvtbmsz8n8dy9q8aegc84z99";
@@ -144,8 +144,10 @@ namespace GameSquad
                 );
             });
 
-           // initialize sample data
-           SampleData.Initialize(app.ApplicationServices).Wait();
+
+
+            // initialize sample data
+            SampleData.Initialize(app.ApplicationServices).Wait();
 
         }
     }

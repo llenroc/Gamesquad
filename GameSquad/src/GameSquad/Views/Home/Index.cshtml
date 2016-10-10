@@ -28,7 +28,7 @@
                 <li><a ng-show="account.isLoggedIn()" href="/updates">Player <strong> Feed</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
-                <li><a ng-show="account.isLoggedIn()" href="/inbox"><strong> Inbox</strong><span> {{account.notificationCounter.totalCount}}</span></a></li>
+                <li><a ng-show="account.isLoggedIn()" href="/inbox"><strong> Inbox</strong><span> {{account.notificationCount}}</span></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
             </ul>
@@ -50,7 +50,7 @@
     <!--PRIVATE CHAT-->
     <div class="chatsection" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="chat-window " ng-show="chat.isLoggedIn() && chat.openPrivateChat">
-            <div class="panel panel-warning chat-panel" ng-click="chat.userListAlert.alertStatus = false" ng-class="{'panel-danger': !chat.sendToUser.online }">
+            <div class="panel panel-warning chat-panel" ng-click="chat.userListAlert = false" ng-class="{'panel-danger': !chat.sendToUser.online }">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse3">
                     <h3 class="panel-title">Private Chat with {{chat.sendToUser.username}} <span ng-show="!chat.sendToUser.online" class="text-muted"> (Offline)</span></h3>
                 </div>
@@ -110,7 +110,7 @@
         </div>
         <!--FRIENDSLIST-->
         <div class="friendslist" ng-show="chat.isLoggedIn()">
-            <div class="panel chat-panel " ng-class="{'panel-success': chat.userListAlert.alertStatus, 'panel-warning': !chat.userListAlert.alertStatus}" ng-click="chat.userListAlert.alertStatus = false">
+            <div class="panel chat-panel " ng-class="{'panel-success': chat.userListAlert, 'panel-warning': !chat.userListAlert}" ng-click="chat.userListAlert = false">
                 <div class="panel-heading" data-toggle="collapse" href="#collapse1">
                     <h3 class="panel-title">
                         Connected Users

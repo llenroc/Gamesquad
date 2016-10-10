@@ -17,7 +17,7 @@ namespace GameSquad.Models
 
         //TODO: update when uploading items is implmented
         //public List<string> UploadedItems { get; set; }
-
+        public bool IsOnline { get; set; }
         //TODO: update when ranking is implemented
         public int Rank { get; set; }
         //freinds

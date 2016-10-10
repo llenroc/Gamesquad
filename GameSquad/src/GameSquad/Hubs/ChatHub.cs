@@ -54,33 +54,31 @@ namespace GameSquad.Hubs
         }
 
 
+        
         /// <summary>
-        /// What happens when a client connects to the hub
+        /// When connecting to hub adds to user list and sends the info to connected clients
         /// </summary>
-        /// <param name="userName">Gets the username </param>
-        public void Connect(string userName)
+        /// <returns></returns>
+        public override Task OnConnected()
         {
-            var test = ConnectedUsers.Users;
+            var userName = Context.User.Identity.Name;
 
-            //Used in the trygetvalue for testing
-           string keyTest;
-            if (ConnectedUsers.Users.TryGetValue(userName, out keyTest))
+
+            //Checks if the client is already in the user list
+            string keyTest;
+            if (userName == null || ConnectedUsers.Users.TryGetValue(userName, out keyTest))
             {
-                //Tells the client side to disconnect client. Current crappy way of fixing multiple browser tab issue
+                //Tells the client side to disconnect client. Current way of fixing multiple browser tab issue
                 Clients.Caller.onConnected(0);
 
             }
 
             else
             {
-                var user = FindUser(userName).Result;
-
-                //user.IsOnline = true;
-                //_repo.Update(user);
-                //_repo.SaveChanges();
-
+                //Changes online status to online
                 _service.OnlineStatusToggle(userName, 1);
 
+                //Creates a list of the users to send to the connecting client
                 var returnList = new List<UserDetail>();
                 foreach (var item in ConnectedUsers.Users.ToList())
                 {
@@ -93,20 +91,21 @@ namespace GameSquad.Hubs
 
                 Clients.Caller.onConnected(returnList);
 
-               
+
+                //Adds new user to client list
                 ConnectedUsers.Users.Add(userName, Context.ConnectionId);
+
 
                 var newUser = new UserDetail
                 {
                     username = userName,
                     connectionId = Context.ConnectionId
                 };
+
                 Clients.AllExcept(Context.ConnectionId).onNewUserConnected(newUser);
             }
 
-
-
-
+            return base.OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
@@ -115,17 +114,13 @@ namespace GameSquad.Hubs
 
             if (ConnectedUsers.Users.ContainsValue(Context.ConnectionId))
             {
+                //Gets set from user list to remove
+                var userToRemovePair = ConnectedUsers.Users.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();  
 
-                var userToRemovePair = ConnectedUsers.Users.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
-
-                //var user = _repo.Query<ApplicationUser>().Where(u => u.UserName == userToRemovePair.Key).FirstOrDefault();
-
-                //user.IsOnline = false;
-                //_repo.Update(user);
-                //_repo.SaveChanges();
-
+                //sets online status to false
                 _service.OnlineStatusToggle(userToRemovePair.Key, 0); 
-
+                
+                //Removes client from userlist and lets clients know
                 ConnectedUsers.Users.Remove(userToRemovePair.Key);
                 Clients.All.onUserDisconnected(userToRemovePair.Key);
 
