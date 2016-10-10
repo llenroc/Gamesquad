@@ -8,10 +8,14 @@
         }
 
         public sendFriendRequest(user) {
-            console.log('Test ' + user);
+
             return this.friendRequestResource.save(user).$promise;
         }
 
+        public removeFriendRequest(id) {
+
+            return this.friendRequestResource.delete({ id: id }).$promise;
+        }
         public getFriendRequests() {
 
             return this.friendRequestResource.query();

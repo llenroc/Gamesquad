@@ -83,8 +83,11 @@ namespace GameSquad.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(string id)
         {
+            var userTo = _userManager.GetUserId(User);
+            _service.RemoveRequest(userTo, id);
+            return Ok();
         }
     }
    

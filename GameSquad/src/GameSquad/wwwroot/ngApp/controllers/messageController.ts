@@ -6,6 +6,7 @@
 
 
         constructor(
+            private FriendService: GameSquad.Services.FriendService,
             private messageService: GameSquad.Services.MessageService,
             private userService: GameSquad.Services.UserService,
             private $state: angular.ui.IStateService,
@@ -14,6 +15,7 @@
         ) {
             this.msgsByUser();
             this.friendRequestsByUser();
+            console.log(this.friendRequests);
         }
 
 
@@ -26,7 +28,28 @@
 
         public friendRequestsByUser() {
             this.friendRequests = this.friendRequestService.getFriendRequests();
-            
+
+        }
+
+        public addFriendToUser(friendId) {
+            this.FriendService.addFriendToUser(friendId).then(() => {
+                this.friendRequestsByUser();
+            });
+
+        }
+
+        public deleteMessage(id) {
+            this.messageService.deleteMessage(id).then(() => {
+                this.msgsByUser();
+            });
+        }
+
+        public removeFriendRequest(sendingUserId) {
+
+            this.friendRequestService.removeFriendRequest(sendingUserId).then(() => {
+
+                this.friendRequestsByUser();
+            });
         }
     }
 }
