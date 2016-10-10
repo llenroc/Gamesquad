@@ -9,6 +9,7 @@
         public teams;
         public teamId;
         public pageCount = 0;
+        
         public teamHolder = [];
 
 
@@ -39,19 +40,19 @@
 
                 if (pageCount <= 0) {
 
-                    document.getElementById("previous").hidden = true;
+                    document.getElementById("previous").style.visibility = "hidden";
                 }
                 else if (pageCount > 0) {
                     //re enable
-                    document.getElementById("previous").hidden = false;
+                    document.getElementById("previous").style.visibility = "visible";
                 }
                 if (this.team.count < 5) {
 
-                    document.getElementById("next").hidden = true;
+                    document.getElementById("next").style.visibility = "hidden";
                 }
                 else if (this.team.count == 5) {
 
-                    document.getElementById("next").hidden = false;
+                    document.getElementById("next").style.visibility = "visible";
                 }
 
             });

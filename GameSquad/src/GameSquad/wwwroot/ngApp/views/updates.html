@@ -2,31 +2,49 @@
 <div class="container">
     <div style="display:inline-block" class="col-lg-8 col-lg-offset-2">
         <img style="display:inline-block" class="displayed" width="800" height="120" src="../../images/imageedit_29_6802030492.png" />
-        <img style="display:inline-block"  class="displayed"  width="125" height="125" src="../../images/feedimg.png" />
+        <img style="display:inline-block" class="displayed" width="125" height="125" src="../../images/feedimg.png" />
     </div>
     <div class="row">
-        <div class="col-lg-6 col-lg-offset-2">
+        <div class="col-lg-8 col-lg-offset-2">
             <br />
-            <h1></h1><a style="font-size:1.5em" href="/postCreate">Create A <strong>Post</strong></a>
-            <h1><strong>Recent Posts</strong></h1>
-            <div ng-repeat="post in controller.posts" class="list-group">
-                <br />
-                <div href="#" class="list-group-item active">
-                    <h3><strong>{{post.user}}</strong></h3>
+            <div class="img-rounded" style="background-color:darkslategrey ">
+                <div style="margin:20px;">
+                    <h1 style="font-family: 'Orbitron'; padding-top:20px;"><strong>Recent Posts</strong></h1>
+                    <h1></h1><a class="glyphicon glyphicon-comment" style="font-size:1.5em; margin:30px; color:orange;"  href="/postCreate"></a>
                     <br />
+                    <div ng-repeat="post in controller.posts" class="list-group">
+                        <ul href="#" style="list-style:none " class="list-group ">
+                            <li class="img-rounded" style="background-color:dimgray; padding:3px;" >
+                            <h3 style="font-family: 'Orbitron';"><b>{{post.user}}</b></h3>
+                            </li>
+                            <li style="margin:20px; ">{{post.comment}}</li>
+                            <li style="text-align:right">
+                                <img id="displayed2" width="700" height="700" ng-src="{{post.item}}" class=" img-rounded" />
+                            </li>
+                            <!--<br />
+                <a class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
+                <br />
+                <a class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
+                <br />-->
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div href="#" class="list-group-item active">
+                    <h3><b>{{post.user}}</b  ></h3>
                     {{post.comment}}
                     <br />
                     <br />
                     <div style="text-align:right">
-                        <img id="displayed2" width="700" height="700" ng-src="{{post.item}}" class="img-responsive" />
+                        <img id="displayed2" width="700" height="700" ng-src="{{post.item}}" class=" img-rounded" />
                     </div>
                     <br />
                     <a class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
                     <br />
                     <a class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
                     <br />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                </div>-->

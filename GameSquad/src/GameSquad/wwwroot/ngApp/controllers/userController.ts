@@ -25,19 +25,19 @@
             this.users = this.userService.getAllUsers(pageCount);
             if (pageCount <= 0) {
 
-                document.getElementById("previous").hidden = true;
+                document.getElementById("previous").style.visibility = "hidden";
             }
             else if (pageCount > 0) {
 
-                document.getElementById("previous").hidden = false;
+                document.getElementById("previous").style.visibility = "visible";
             }
             if (this.users.count < 5) {
 
-                document.getElementById("next").hidden = true;
+                document.getElementById("next").style.visibility = "hidden";
             }
             else if (this.users.count == 5) {
 
-                document.getElementById("next").hidden = false;
+                document.getElementById("next").style.visibility = "visible";
             }
             
             console.log(this.users);

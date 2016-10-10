@@ -21,6 +21,7 @@
         public savePost() {
             this.PostService.savePost(this.postToSave).then(() => {
                 this.$state.go('updates');
+                //this.$state.go('home');
                 console.log("infoSaved");
                
             });
