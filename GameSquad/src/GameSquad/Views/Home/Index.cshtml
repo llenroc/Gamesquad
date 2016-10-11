@@ -8,11 +8,23 @@
     <!--  theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css">
     <base href="/" />
+    <!---google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron" rel="stylesheet">
 
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/chat.css" rel="stylesheet" />
 </head>
 <body ng-controller="AccountController as account">
+    <!----FB script-->
+    <div id="fb-root"></div>
+    <script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
     <!-- NAv Bar -->
     <nav class="navbar navbar-default">
         <div class="navbar-header">
@@ -45,7 +57,7 @@
             </ul>
         </div>
     </nav>
-    <div style="padding-bottom:50px"><ui-view></ui-view></div>
+    <div style="padding-bottom:70px"><ui-view></ui-view></div>
     <!--SignalR chat test files-->
     <!--PRIVATE CHAT-->
     <div class="chatsection" ng-controller="ChatController as chat" ng-show="!chat.dupUser">

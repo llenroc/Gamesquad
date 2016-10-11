@@ -1,22 +1,34 @@
-﻿
-<div>
-    <h2><strong>Post</strong></h2>
-</div>
+﻿<div style="margin-top:60px" class="col-lg-10 col-md-offset-1">
+    <div id="registerContainer" class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Create Post</h1>
+                </div>
+                <div id="postpanel" class="panel-body">
 
-<div>
-    <form ng-submit="controller.savePost()">
-       
-        <div class="form-group">
-            <label>Comment</label>
-            <textarea rows="5" cols="50" type="text" class="form-control" ng-model="controller.postToSave.comment" placeholder="Enter Comment here..."></textarea>
+                    <fieldset>
+
+                        <form ng-submit="controller.savePost()">
+
+                            <div class="form-group">
+                                <label>Comment</label>
+                                <textarea rows="5" cols="20" type="text" class="form-control" ng-model="controller.postToSave.comment" placeholder="Enter Comment here..."></textarea>
+                            </div>
+                            <button type="button" ng-click="controller.pickFile()" class="btn btn-warning">Upload Snapshot</button>
+                            <img ng-src="{{controller.file.url | fpConvert:{w: 400} }}" alt="{{controller.file.filename}}" />
+                            <br />
+                            <button style="margin-bottom:40px; margin-top:20px;" type="submit" class="btn btn-info ">Submit</button>
+                        </form>
+
+                    </fieldset>
+
+                </div>
+
+            </div>
         </div>
-        <button type="button" ng-click="controller.pickFile()" class="btn btn-primary">Upload Snapshot</button>
-        <img ng-src="{{controller.file.url | fpConvert:{w: 400} }}" alt="{{controller.file.filename}}" />
+    </div>
 
-        <br />
-        <button type="submit" class="btn btn-info ">Submit</button>
-    </form>
+
+
 </div>
-
-
-

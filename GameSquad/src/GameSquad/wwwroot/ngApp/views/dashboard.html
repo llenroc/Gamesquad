@@ -1,24 +1,54 @@
 <div class="col-lg-8 col-lg-offset-2">
     <div class="dashImg">
-        <img width="800" height="120" src="../../images/dashboardimg.png" />
+        <img width="600" height="80" src="../../images/dashboardimg.png" />
         <br />
         <br />
         <div style="display:inline" ng-controller="UserDashboardController as profile" class="userName" ng-show="controller.isLoggedIn()">
             <h2> <img style="display:inline" width="80" height="80" ng-src="{{profile.user.profileImage}}" class="img-responsive" /> <!--class="glyphicon glyphicon-user"--> <strong> {{controller.getUserName()}} </strong></h2>
         </div>
         <br />
-        
+
         <form>
             <div class="textblock1">
                 <ul class="list-unstyled " ng-controller="UserDashboardController as profile">
                     <li><strong>Bio:</strong> {{profile.user.bio}}</li>
+                </ul>
+                <div><a style="color:orange" class="glyphicon glyphicon-pencil" href="/profileEdit"></a></div>
+            </div>
+            <div class="textblock1">
+                <ul class="list-unstyled " ng-controller="UserDashboardController as profile">
                     <li><strong>Location:</strong> {{profile.user.location}}</li>
                     <li><strong>Play Platform:</strong> {{profile.user.platform}}</li>
                     <li><strong>Play-Style:</strong> Casual</li>
                     <li><strong>Rank:</strong> {{profile.user.rank}}</li>
                 </ul>
-                <div><a class="glyphicon glyphicon-pencil" href="/profileEdit"></a></div>
+                <div><a style="color:orange" class="glyphicon glyphicon-pencil" href="/profileEdit"></a></div>
             </div>
         </form>
+        <h1></h1><a style="font-size:1.5em" href="/postCreate">Create A <strong>Post</strong></a>
+        <!----Post for this user-->
+        <div ng-controller="PostController as controller">
+            <div ng-repeat="post in controller.posts" class="list-group">
+                <br />
+                <div class="col-lg-6">
+                    <div href="#" class="list-group-item active">
+                        <h3><strong>{{post.user}}</strong></h3>
+                        <br />
+                        {{post.comment}}
+                        <br />
+                        <br />
+                        <div style="text-align:right">
+                            <img id="" width="700" height="700" ng-src="{{post.item}}" class="img-responsive" />
+                        </div>
+                        <br />
+                        <a class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
+                        <br />
+                        <a class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-----------end---------->
     </div>
 </div>

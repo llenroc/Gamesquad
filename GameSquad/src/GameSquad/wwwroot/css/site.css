@@ -1,14 +1,23 @@
 body {
-    font-size: 2em;
+    font-size:2em;
+    font-family: 'Audiowide'
+ 
 }
-
+h1{
+    font-family:Orbitron; 
+}
 .dropdown:hover .dropdown-menu {
     display: block;
+
     margin-top: 0; /* remove the gap so it does not close */
+ }
+table
+{
+    font-size:1em;
 }
 
-table {
-    font-size: 1em;
+a{
+    display:inline;
 }
 
 /* Set some basic padding to keep content from hitting the edges */
@@ -16,37 +25,39 @@ table {
     padding-left: 15px;
     padding-right: 15px;
 }
-
-input {
+input
+{
     background-color: lightyellow;
 }
-
-.dashImg {
-    margin: 50px;
+.dashImg
+{
+    margin:50px
+}
+.container
+{
+    width:100%;
+    display:block;
+  
+    
+}
+.textHeader1{
+    position:center;
+    margin-top:5%;
+}
+.textblock1
+{
+     border:solid;
+     padding:15px;
+     width:auto;
+     margin:auto;
 }
 
-.container {
-    width: 100%;
-    display: block;
+.textblock2
+{
+     border:solid;
+     padding:10px;
+    
 }
-
-.textHeader1 {
-    position: center;
-    margin-top: 50%;
-}
-
-.textblock1 {
-    border: solid;
-    padding: 15px;
-    width: auto;
-    margin: auto;
-}
-
-.textblock2 {
-    border: solid;
-    padding: 10px;
-}
-
 #headImg {
     background-image: url('../images/game squad.png');
     background-repeat: no-repeat;
@@ -59,9 +70,9 @@ input {
     height: 475px;
     z-index: -1;
 }
-
-strong {
-    color: #f89406;
+strong
+{
+    color:#f89406;
 }
 
 
@@ -79,31 +90,39 @@ strong {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-
-
-.navbar {
-    padding: 0;
-    margin: 0;
+#postpanel {
+    background-image: url('../images/ow_overwatch_flag_header.jpg');
+    backface-visibility: visible;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-#top-wrapper {
-    width: 800px;
-    margin-left: 26%;
-}
 
-.invisible {
+.navbar
+{
+    padding:0;
+    margin:0;
+}
+#top-wrapper
+{
+    width:800px;
+   margin-left:26%
+
+}
+.invisible
+{
     display: none;
 }
-
-IMG.displayed {
-    margin-top: 40px;
+IMG.displayed
+{
+    margin-top:40px;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-#displayed2 {
+#displayed2
+{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -111,10 +130,12 @@ IMG.displayed {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
+   
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
+textarea,
 select {
     max-width: 280px;
 }
@@ -135,20 +156,12 @@ select {
     }
 }
 
-@media (min-width:320px) { /* smartphones, iPhone, portrait 480x320 phones */
-}
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
 
-@media (min-width:481px) { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-}
 
-@media (min-width:641px) { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-}
 
-@media (min-width:961px) { /* tablet, landscape iPad, lo-res laptops ands desktops */
-}
-
-@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */
-}
-
-@media (min-width:1281px) { /* hi-res laptops and desktops */
-}
