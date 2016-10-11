@@ -127,18 +127,6 @@ namespace GameSquad {
 
         // Enable HTML5 navigation
         $locationProvider.html5Mode(true);
-
-        //SignalR Stuff
-        //$(function () {
-        //   // $.connection.hub.stop();
-        //    $.connection.hub.logging = true;
-        //    $.connection.hub.start();
-            
-
-        //});
-        //$.connection.hub.error(function (err) {
-        //    console.log("An error occurded: " + err);
-        //});
     });
 
     

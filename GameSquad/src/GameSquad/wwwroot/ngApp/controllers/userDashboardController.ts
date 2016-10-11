@@ -4,49 +4,34 @@
         public user;
         public profileToSave;
         public file;
-        constructor(
-            private userDashboardService: GameSquad.Services.UserDashboardService,
-            private $state: angular.ui.IStateService,
-            private accountService: GameSquad.Services.AccountService,
-            private filepickerService,
-            private $scope: ng.IScope
-         
-        ) {
+        constructor(private userDashboardService: GameSquad.Services.UserDashboardService, private $state: angular.ui.IStateService, private accountService: GameSquad.Services.AccountService, private filepickerService, private $scope: ng.IScope) {
             this.getUser();
-            //this.getUserById();
-            //this.getUserInfo();
         }
 
         public getUser() {
             this.user = this.userDashboardService.getUser();
-            
         }
 
         //get single id
         private getUserById() {
             this.getUserById = this.userDashboardService.getUserById(this.userId);
-            
         }
 
         //
         public getUserInfo() {
             this.userDashboardService.getUserInfo().$promise.then((data) => {
                 this.user = data;
-               
             });
         }
 
         public saveProfile() {
-
             this.userDashboardService.saveProfile(this.profileToSave)
                 .then((data) => {
+                    document.location.reload();
                     this.$state.go('home');
-                    console.log(data);
-
                 }).catch(() => {
                     console.log("something went wrong");
                 })
-
         }
 
         public pickFile() {
@@ -55,6 +40,7 @@
                 this.fileUploaded.bind(this)
             );
         }
+
         public fileUploaded(file) {
             // save file url to database
             this.file = file;
@@ -85,8 +71,6 @@
         public logout() {
             this.accountService.logout();
         }
-
-       
     }
-    angular.module('GameSquad').controller('UserDashboardController',UserDashboardController);
+    angular.module('GameSquad').controller('UserDashboardController', UserDashboardController);
 }

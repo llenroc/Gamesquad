@@ -1,139 +1,76 @@
 ﻿namespace GameSquad.Controllers {
 
     export class TeamController {
-
         public team: any;
         public members;
         public users;
         public teamToCreate;
         public teams;
         public teamId;
-        public pageCount = 0;
+        public data = { pageCount: 0, nameFilter: "", typeFilter: "", leaderFilter: "" };
         public teamHolder = [];
 
-
-        constructor(private teamService: GameSquad.Services.TeamService,
-            private $state: angular.ui.IStateService
-
-        ) {
-
-            this.teamsByUser();
-            this.getTeams(this.pageCount);
-
+        constructor(private teamService: GameSquad.Services.TeamService, private $state: angular.ui.IStateService) {
+            this.getTeams();
         }
 
-
-
-        public getTeams(pageCount) {
-
-            this.teamService.getTeams(this.pageCount).$promise.then((data) => {
-                // this.team = data;
-                console.log('data');
-                console.log(data);
+        public getTeams() {
+            this.teamService.getTeams(this.data).then((_data) => {
                 this.teamHolder = [];
-                for (var team of data) {
+                var holder = _data.data;
+                for (var team of holder) {
                     team.team.isMember = team.isMember;
                     this.teamHolder.push(team.team);
                 }
-                console.log(this.teamHolder);
-
-                if (pageCount <= 0) {
-
+                if (this.data.pageCount <= 0) {
                     document.getElementById("previous").hidden = true;
                 }
-                else if (pageCount > 0) {
-                    //re enable
+                else if (this.data.pageCount > 0) {
                     document.getElementById("previous").hidden = false;
                 }
-                if (this.team.count < 5) {
-
+                if (holder.count < 5) {
                     document.getElementById("next").hidden = true;
                 }
-                else if (this.team.count == 5) {
-
+                else if (holder.count == 5) {
                     document.getElementById("next").hidden = false;
                 }
-
             });
         }
 
         public nextPage() {
-
-            this.pageCount++;
-            this.getTeams(this.pageCount);
+            this.data.pageCount++;
+            this.getTeams();
         }
 
         public prevPage() {
-            this.pageCount--;
-            this.getTeams(this.pageCount);
+            this.data.pageCount--;
+            this.getTeams();
         }
 
         //get team info by ID
         public getTeamInfoById(id) {
-
-            this.teamService.getTeamInfo(id)
-                .then((data) => {
-                    console.log(data);
-
-                }).catch(() => {
-                    console.log("something went wrong");
-                })
-
+            this.teamService.getTeamInfo(id);
         }
 
         public saveTeam() {
-
             this.teamService.saveTeam(this.teamToCreate)
                 .then((data) => {
                     this.$state.go('team');
-                    console.log(data);
-
                 }).catch(() => {
                     console.log("something went wrong");
                 })
-
-        }
-
-        public UserByTeam(members, id) {
-            this.members = members;
-            this.users = this.teamService.getUsersByTeam(id);
-        }
-
-        public teamsByUser() {
-            this.teamService.getTeamsByUser().$promise.then((data) => {
-                this.teams = data;
-                console.log(this.teams);
-            });
         }
 
         //add Member to Team
         public addMemberToTeam(teamId) {
-
             this.teamService.addMemberToTeam(teamId)
-
-            //.then(() => {
-
-            //    this.$state.go('team');
-            //    //this.$uibModalInstance.close();
-
-            //})
-            console.log("joined team");
         }
 
         //Remove Member
         public removeMember(teamId) {
-
             this.teamService.removeMember(teamId);
         }
-
-
-
     }
-
-
-
-
-
 
     angular.module('GameSquad').controller('TeamController', TeamController);
 }

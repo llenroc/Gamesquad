@@ -19,29 +19,17 @@ namespace GameSquad.Services {
         public getUserName() {
             return this.$window.sessionStorage.getItem('userName');
         }
-        //get profile data
-        //public getUserBio() {
-        //    return this.$window.sessionStorage.getItem('bio');
-        //}
-        //public getUserLocation() {
-        //    return this.$window.sessionStorage.getItem('location');
-        //}
-        //public getUserPlatform() {
-        //    return this.$window.sessionStorage.getItem('platform');
-        //}
-        ///
 
         public getClaim(type) {
             var allClaims = JSON.parse(this.$window.sessionStorage.getItem('claims'));
             return allClaims ? allClaims[type] : null;
         }
 
-
         public login(loginUser) {
             return this.$q((resolve, reject) => {
                 this.$http.post('/api/account/login', loginUser).then((result) => {
-                        this.storeUserInfo(result.data);
-                        resolve();
+                    this.storeUserInfo(result.data);
+                    resolve();
                 }).catch((result) => {
                     var messages = this.flattenValidation(result.data);
                     reject(messages);
@@ -63,11 +51,9 @@ namespace GameSquad.Services {
             });
         }
 
-
         public logout() {
             // clear all of session storage (including claims)
             this.$window.sessionStorage.clear();
-
             // logout on the server
             return this.$http.post('/api/account/logout', null);
         }
@@ -92,8 +78,6 @@ namespace GameSquad.Services {
             });
         }
 
-
-
         getExternalLogins(): ng.IPromise<{}> {
             return this.$q((resolve, reject) => {
                 let url = `api/Account/getExternalLogins?returnUrl=%2FexternalLogin&generateState=true`;
@@ -104,7 +88,6 @@ namespace GameSquad.Services {
                 });
             });
         }
-
 
         // checks whether the current user is authenticated on the server and returns user info
         public checkAuthentication() {
@@ -130,7 +113,6 @@ namespace GameSquad.Services {
             });
         }
 
-
         // extract access token from response
         parseOAuthResponse(token) {
             let results = {};
@@ -141,7 +123,6 @@ namespace GameSquad.Services {
             return results;
         }
 
-
         private flattenValidation(modelState) {
             let messages = [];
             for (let prop in modelState) {
@@ -150,18 +131,11 @@ namespace GameSquad.Services {
             return messages;
         }
 
-        constructor
-        (
-            private $q: ng.IQService,
-            private $http: ng.IHttpService,
-            private $window: ng.IWindowService
-        ) {
-          // in case we are redirected from a social provider
-          // we need to check if we are authenticated.
-          this.checkAuthentication();
+        constructor(private $q: ng.IQService, private $http: ng.IHttpService, private $window: ng.IWindowService) {
+            // in case we are redirected from a social provider
+            // we need to check if we are authenticated.
+            this.checkAuthentication();
         }
-
     }
-
     angular.module('GameSquad').service('accountService', AccountService);
 }

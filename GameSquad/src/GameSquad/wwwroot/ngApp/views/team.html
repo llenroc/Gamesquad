@@ -1,24 +1,20 @@
 ﻿<img class="displayed" width="1000" height="300" src="../../images/TeamUPUP.png" />
-
 <br />
-
 <div class="container">
     <div class="col-lg-8 col-lg-offset-2">
         <div class="row">
             <div class="panel panel-primary filterable">
                 <div class="panel-heading">
                     <h3 class="panel-title"><strong></strong>Player Teams</h3>
-                    <!--<div class="pull-right">
-                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                    </div>-->
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-list ">
                         <thead>
                             <tr class="filters">
-                                <th><input ng-model="searchTeam" type="text" class="form-control" placeholder="Team"></th>
-                                <th><input ng-model="searchLeader" type="text" class="form-control" placeholder="TeamLeader"></th>
-                                <th><input ng-model="searchPlayStyle" type="text" class="form-control" placeholder="Play-Style"></th>
+                                <th><input ng-model="controller.data.nameFilter" type="text" class="form-control" placeholder="Team"></th>
+                                <th><input ng-model="controller.data.leaderFilter" type="text" class="form-control" placeholder="TeamLeader"></th>
+                                <th><input ng-model="controller.data.typeFilter" type="text" class="form-control" placeholder="Play-Style"></th>
+                                <th><button class="btn btn-primary" ng-click="controller.getTeams()">Search</button></th>
                             </tr>
                         </thead>
                         <tbody id="mytable">
@@ -28,11 +24,10 @@
                                 <th>Play Style</th>
                                 <th></th>
                             </tr>
-                            <tr ng-repeat="team in controller.teamHolder | filter:{teamName:searchTeam} | filter:{teamLeader:searchLeader} | filter:{playStyle:searchPlayStyle}">
+                            <tr ng-repeat="team in controller.teamHolder">
                                 <td>{{team.teamName}}</td>
                                 <td>{{team.teamLeader}}</td>
                                 <td>{{team.playStyle}}</td>
-                                <!--<td><button ng-click="controller.showModalAddMember(team.id)"  class ="btn btn-success">Join</button></td>-->
                                 <td>
                                     <button ng-click="controller.addMemberToTeam(team.id); team.isMember = true" ng-show="!team.isMember" class="btn btn-success">Join</button>
                                     <button ng-click="controller.removeMember(team.id); team.isMember = false" ng-show="team.isMember" class="btn btn-warning">Leave</button>
@@ -42,11 +37,9 @@
                     </table>
                 </div>
             </div>
-
             <div id="previous"><a class="glyphicon glyphicon-chevron-left" ng-click="controller.prevPage()"></a></div>
             <div id="next"><a class="glyphicon glyphicon-chevron-right" ng-click="controller.nextPage()"></a></div>
         </div>
     </div>
 </div>
-
 <br />
