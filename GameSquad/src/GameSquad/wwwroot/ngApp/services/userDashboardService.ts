@@ -4,8 +4,8 @@
         
         constructor(private $resource: angular.resource.IResourceService) {
             this.usersResource = this.$resource('/api/user/:id');
-            console.log();
         }
+
         public getUser() {
             var id = "a";
             return this.usersResource.get({ id: id });
@@ -14,7 +14,6 @@
         // get user id
         public getUserById(id) {
             return this.usersResource.get({ id: id });
-       
         }
        
         public getUserInfo() {
@@ -22,10 +21,8 @@
         }
 
         public saveProfile(profileToSave) {
-
             return this.usersResource.save(profileToSave).$promise;
         }
-      
     }
     angular.module('GameSquad').service('userDashboardService', UserDashboardService);
 }

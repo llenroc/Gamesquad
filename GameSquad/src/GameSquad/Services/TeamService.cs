@@ -57,9 +57,13 @@ namespace GameSquad.Services
             return data;
         }
         //data table paging
-        public List<Team> GetTableData(int id)
+        public List<Team> GetTableData(tsearch _data)
         {
-            var data = _repo.Query<Team>().Skip(5 * id).Take(5).Include(m => m.TeamMembers).ToList();
+            var id = _data.PageCount;
+            string nFilter = _data.NameFilter ?? "";
+            string tFilter = _data.TypeFilter ?? "";
+            string lFilter = _data.LeaderFilter ?? "";
+            var data = _repo.Query<Team>().Where(t => t.TeamName.Contains(nFilter) && t.PlayStyle.Contains(tFilter) && t.TeamLeader.Contains(lFilter)).Skip(5 * id).Take(5).Include(m => m.TeamMembers).ToList();
             return data;
         }
 

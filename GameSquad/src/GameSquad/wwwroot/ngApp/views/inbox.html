@@ -1,42 +1,32 @@
-﻿<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <br />
-            <div>
-                <form>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>My Messages</th>
-                            <th></th>
-                        </tr>
-
-                        <tr ng-repeat="msg in controller.messages">
-                            <td><a ng-href="/inbox/{{msg.id}}">{{msg.subject}}</a></td>
-                            <td><button class="btn btn-warning btn-sm" ng-click="controller.deleteMessage(msg.id)">Delete</button></td>
-                        </tr>
-                    </table>
-                </form>
+﻿<br />
+<br />
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="row">
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My Messages</h3>
+                </div>
+                <table class="table table-hover table-striped">
+                    <tr ng-repeat="msg in controller.messages">
+                        <td><a ng-href="/inbox/{{msg.id}}">{{msg.subject}} from {{msg.sendingUser}}</a></td>
+                        <td><button class="btn btn-warning btn-sm" ng-click="controller.deleteMessage(msg.id)">Delete</button></td>
+                    </tr>
+                </table>
             </div>
-            <div>
-                <form>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Friend Requests</th>
-                            <th></th>
-
-                        </tr>
-
-                        <tr ng-repeat="request in controller.friendRequests">
-                            <td>{{request.sendingUserName}}</td>
-                            <td>
-                                <button class="btn btn-success btn" ng-click="controller.addFriendToUser(request.sendingUserId)">Accept</button>
-                                <button class="btn btn-warning btn" ng-click="controller.removeFriendRequest(request.sendingUserId)">Reject</button>
-                            </td>
-
-
-                        </tr>
-                    </table>
-                </form>
+            <div class="panel panel-primary filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Friend Requests</h3>
+                </div>
+                <table class="table table-striped">
+                    <tr ng-repeat="request in controller.friendRequests">
+                        <td>{{request.sendingUserName}}</td>
+                        <td>
+                            <button class="btn btn-success btn" ng-click="controller.addFriendToUser(request.sendingUserId)">Accept</button>
+                            <button class="btn btn-warning btn" ng-click="controller.removeFriendRequest(request.sendingUserId)">Reject</button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

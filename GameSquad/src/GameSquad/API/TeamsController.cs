@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using GameSquad.Services;
 using GameSquad.Models;
 using Microsoft.AspNetCore.Identity;
+using GameSquad.Services;
 using GameSquad.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,55 +13,26 @@ using GameSquad.ViewModels;
 namespace GameSquad.API
 {
     [Route("api/[controller]")]
-    public class TeamController : Controller
+    public class TeamsController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private ITeamService _service;
-        public TeamController(ITeamService service, UserManager<ApplicationUser> userManager)
+        public TeamsController(ITeamService service, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _service = service;
         }
 
-
         // GET: api/values
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<string> Get()
         {
-            var teams = _service.getTeams();
-            var userId = _userManager.GetUserId(User);
-            var vms = new List<CheckTeamMemberVM>();
-            foreach (var team in teams)
-            {
-                var isMember = false;
-                foreach (var member in team.TeamMembers)
-                {
-                    if (member.ApplicationUserId == userId)
-                    {
-                        isMember = true;
-                    }
-                }
-                var vm = new CheckTeamMemberVM()
-                {
-                    Team = team,
-                    IsMember = isMember
-                };
-                vms.Add(vm);
-
-            }
-            return Ok(vms);
+            return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            return Ok(_service.getTeamInfo(id));
-        }
-        //
-        //path for table data API
-        [HttpGet("GetTableData")]
-        public IActionResult GetTableData([FromBody] tsearch _data)
+        [HttpGet("{_data}")]
+        public IActionResult Get(tsearch _data)
         {
             var teams = _service.GetTableData(_data);
             var userId = _userManager.GetUserId(User);
@@ -85,74 +55,43 @@ namespace GameSquad.API
                 vms.Add(vm);
 
             }
-            
             return Ok(vms);
-        }
-        //
-        [HttpGet("GetUsersByTeam/{id}")]
-        public IActionResult GetUsersByTeam(int id)
-        {
-            return Ok(_service.UsersByTeam(id));
-        }
-        [HttpGet("GetTeamsByUser")]
-        public IActionResult GetTeamsByUser()
-        {
-            var userId = _userManager.GetUserId(User);
-            return Ok(_service.TeamsByUser(userId));
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]Team team)
+        public IActionResult Post([FromBody]tsearch _data)
         {
-
-            if (ModelState.IsValid)
+            var teams = _service.GetTableData(_data);
+            var userId = _userManager.GetUserId(User);
+            var vms = new List<CheckTeamMemberVM>();
+            foreach (var team in teams)
             {
-                _service.SaveTeam(team);
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
+                var isMember = false;
+                foreach (var member in team.TeamMembers)
+                {
+                    if (member.ApplicationUserId == userId)
+                    {
+                        isMember = true;
+                    }
+                }
+                var vm = new CheckTeamMemberVM()
+                {
+                    Team = team,
+                    IsMember = isMember
+                };
+                vms.Add(vm);
 
             }
+            var value = new { data = vms };
+            return Ok(value);
         }
 
-        [HttpGet("AddMemberToTeam/{teamId}")]
-        public IActionResult AddMemberToTeam(int teamId)
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody]string value)
         {
-
-            if (ModelState.IsValid)
-            {
-                var userId = _userManager.GetUserId(User);
-                _service.AddMemberToTeam(userId, teamId);
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-
-            }
         }
-
-        [HttpGet("RemoveMember/{teamId}")]
-        public IActionResult RemoveMember(int teamId)
-        {
-
-            if (ModelState.IsValid)
-            {
-                var userId = _userManager.GetUserId(User);
-                _service.RemoveMember(userId, teamId);
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-
-            }
-        }
-
-
 
         // DELETE api/values/5
         [HttpDelete("{id}")]

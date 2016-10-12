@@ -8,11 +8,23 @@
     <!--  theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css">
     <base href="/" />
+    <!---google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron" rel="stylesheet">
 
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/chat.css" rel="stylesheet" />
 </head>
 <body ng-controller="AccountController as account">
+    <!----FB script-->
+    <div id="fb-root"></div>
+    <script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
     <!-- NAv Bar -->
     <nav class="navbar navbar-default">
         <div class="navbar-header">
@@ -28,7 +40,7 @@
                 <li><a ng-show="account.isLoggedIn()" href="/updates">Player <strong> Feed</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
-                <li><a ng-show="account.isLoggedIn()" href="/inbox"><strong> Inbox</strong><span> {{account.notificationCount}}</span></a></li>
+                <li><a ng-show="account.isLoggedIn()" href="/inbox">Inbox<strong></strong><span> {{account.notificationCounter.totalCount}}</span></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
             </ul>

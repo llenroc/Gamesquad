@@ -1,40 +1,50 @@
 ﻿
 <img class="displayed" width="800" height="130" src="../../images/player123.png" />
+
 <<div class="container">
     <div class="col-lg-8 col-lg-offset-2">
         <div class="row">
-            <div class="panel panel-primary filterable">
+            <div class="panel panel-warning filterable">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><strong></strong>Player Teams</h3>
+                    <h3 style="font-family:Audiowide; color:black;" class="panel-title"><strong></strong><b>Players </b></h3>
                     <!--<div class="pull-right">
                         <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                     </div>-->
                 </div>
                 <div class="table-responsive">
                     <div class="container">
+
                         <h1>Search For <strong>Players</strong> </h1>
                         <br />
-                        <label><strong>Search By Username</strong></label>
-                        <input ng-model="searchUser" type="text" class="text-primary img-rounded" />
-                        <label><strong>Looking For</strong></label>
-                        <select class="img-rounded" ng-model="searchFor" placeholder="">
-                            <option value=""></option>
-                            <option value="Group">Group</option>
-                            <option value="Competitive Group">Competitive Group</option>
-                            <option value="Players">Players</option>
-                        </select>
                         <div>
-
                             <table class="table table-striped img-rounded">
+                                <thead>
+                                    <tr class="filters">
+                                        <th><input ng-model="searchUser" type="text" class="form-control" placeholder="UserName"></th>
+                                        <th><input ng-model="searchRank" type="number" value="" class="form-control" placeholder="Rank"></th>
+                                        <th>
+                                            <select ng-model="searchStatus" type="text" class="form-control" placeholder="Status">
+                                                <option value=""></option>
+                                                <option value="Online">Online</option>
+                                            </select>
+                                        </th>
+                                        <th><select ng-model="searchFor" type="text" class="form-control" placeholder="Looking For..">
+                                                <option value=""></option>
+                                                <option value="Team">Team</option>
+                                                <option value="Competitive Team">Competitive Team</option>
+                                                <option value="Players">Players</option>
+                                            </select></th>
+                                    </tr>
+                                </thead>
                                 <tr>
                                     <th>Username</th>
                                     <th>Rank</th>
-                                    <th>Online Status</th>
+                                    <th>Status</th>
                                     <th>Looking For</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="user in controller.users | orderBy:userName:reverse | filter:{userName:searchUser} | filter:{lookingFor:searchFor || undefined}">
+                                <tr ng-repeat="user in controller.users | orderBy:userName:reverse | filter:{userName:searchUser} | filter:{lookingFor:searchFor || undefined} | filter:{rank:searchRank} | filter:{isOnline:searchStatus}">
                                     <td>{{user.userName}}</td>
                                     <td>{{user.rank}}</td>
                                     <td>{{user.isOnline ? "Online": "Offline"}}</td>
@@ -48,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div id="previous"><a class="glyphicon glyphicon-chevron-left" ng-click="controller.prevPage()"></a></div>
-        <div id="next"><a class="glyphicon glyphicon-chevron-right" ng-click="controller.nextPage()"></a></div>
+        <a id="previous" class="glyphicon glyphicon-chevron-left" ng-click="controller.prevPage();"></a>
+        <a id="next" class="glyphicon glyphicon-chevron-right" ng-click="controller.nextPage()"></a>
     </div>
 </div>

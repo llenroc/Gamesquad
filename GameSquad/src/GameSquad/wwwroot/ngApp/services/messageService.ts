@@ -11,8 +11,8 @@
                     isArray: false
                 }
             });
-
         }
+
         public getMsgsByUser() {
             return this.messageResource.getMsgsByUser();
         }
@@ -23,17 +23,13 @@
 
         //save message
         public sendMessage(messageToSend) {
-
             return this.messageResource.save(messageToSend).$promise;
-
         }
+
         //delete message
-
         public deleteMessage(id) {
-
             return this.messageResource.delete({ id: id }).$promise;
         }
-
     }
     angular.module('GameSquad').service('messageService', MessageService);
 }

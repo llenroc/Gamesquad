@@ -12,6 +12,6 @@ namespace GameSquad.Services
         void SaveTeam(Team team);
         List<Team> TeamsByUser(string userId);
         List<ApplicationUser> UsersByTeam(int teamId);
-        List<Team> GetTableData(int id);
+        List<Team> GetTableData(tsearch id);
     }
 }

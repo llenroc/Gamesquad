@@ -5,12 +5,7 @@
         public file;
         public logged;
 
-        constructor(
-            private PostService: GameSquad.Services.PostService,
-            private $state: angular.ui.IStateService,
-            private filepickerService, private $scope: ng.IScope,
-            private accountService: GameSquad.Services.AccountService
-        ) {
+        constructor( private PostService: GameSquad.Services.PostService, private $state: angular.ui.IStateService, private filepickerService, private $scope: ng.IScope, private accountService: GameSquad.Services.AccountService) {
             this.logged = this.isLoggedIn();
         }
 
@@ -21,14 +16,10 @@
         public savePost() {
             this.PostService.savePost(this.postToSave).then(() => {
                 this.$state.go('updates');
-                console.log("infoSaved");
-               
             });
             if (!this.logged) {
 
-                console.log('need to sign in');
             }
-
         }
 
         public pickFile() {
@@ -37,6 +28,7 @@
                 this.fileUploaded.bind(this)
             );
         }
+
         public fileUploaded(file) {
             // save file url to database
             this.file = file;
@@ -46,7 +38,6 @@
             console.log(this.postToSave);
             this.$scope.$apply(); // force page to update
         }
-
     }
 
     angular.module("GameSquad").controller('postCreateController', PostCreateController);

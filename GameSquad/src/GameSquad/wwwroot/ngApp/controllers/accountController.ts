@@ -24,17 +24,14 @@ namespace GameSquad.Controllers {
         public getExternalLogins() {
             return this.accountService.getExternalLogins();
         }
-       
 
         //Launch Login Modal
         public loginModal() {
-            
             this.$uibModal.open({
                 templateUrl: 'ngApp/views/modals/modalLogin.html',
                 controller: LoginController,
                 controllerAs: 'modal',
-            })
-
+            });
         }
 
         
@@ -91,13 +88,10 @@ namespace GameSquad.Controllers {
 
     angular.module('GameSquad').controller('AccountController', AccountController);
 
-
     export class LoginController {
         public loginUser;
         public validationMessages;
         public emailOrUser;
-
-        
 
         public login() {
             if (this.emailOrUser.includes("@")) {
@@ -106,24 +100,14 @@ namespace GameSquad.Controllers {
             else {
                 this.loginUser.userName = this.emailOrUser;
             }
-
-            console.log(this.loginUser);
-
             this.accountService.login(this.loginUser).then(() => {
-                //this.$location.path('/');
-                //this.AccountController.signalrLogin();
-                document.location.reload();
                 this.$uibModalInstance.close();
-                
             }).catch((results) => {
                 this.validationMessages = results;
             });
         }
 
-        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
-            private $state: ng.ui.IStateService 
-        )
-        {
+        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $state: ng.ui.IStateService) {
 
         }
     }
@@ -140,14 +124,12 @@ namespace GameSquad.Controllers {
                 //this.$location.path('/');
             }).catch((results) => {
                 this.validationMessages = results;
-                });
-                
-           
+            });
         }
 
         constructor(private accountService: GameSquad.Services.AccountService,
             private $location: ng.ILocationService,
-            private $state: ng.ui.IStateService        ) { }
+            private $state: ng.ui.IStateService) { }
     }
 
 
@@ -168,19 +150,14 @@ namespace GameSquad.Controllers {
                 });
         }
 
-        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService) {}
+        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService) { }
 
     }
 
     export class ConfirmEmailController {
         public validationMessages;
 
-        constructor(
-            private accountService: GameSquad.Services.AccountService,
-            private $http: ng.IHttpService,
-            private $stateParams: ng.ui.IStateParamsService,
-            private $location: ng.ILocationService
-        ) {
+        constructor(private accountService: GameSquad.Services.AccountService, private $http: ng.IHttpService, private $stateParams: ng.ui.IStateParamsService, private $location: ng.ILocationService) {
             let userId = $stateParams['userId'];
             let code = $stateParams['code'];
             accountService.confirmEmail(userId, code)
@@ -191,5 +168,4 @@ namespace GameSquad.Controllers {
                 });
         }
     }
-
 }

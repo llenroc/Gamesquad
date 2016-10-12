@@ -3,7 +3,6 @@
     declare var $;
 
     export class TeamInfoController {
-
         public teamDetails;
         public chatHub;
         public messages = [];
@@ -24,7 +23,5 @@
             this.teamDetails = this.teamService.getTeamInfo($stateParams['id']);
             
         }
-
     }
-
 }
