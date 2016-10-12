@@ -11,6 +11,6 @@ namespace GameSquad.Services
         List<ApplicationUser> GetAllUsers();
         Object GetUserById(string id);
         void SaveProfile(ApplicationUser user, string id);
-        List<ApplicationUser> GetTableData(int pId);
+        List<ApplicationUser> GetTableData(USearch _data);
     }
 }

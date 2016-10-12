@@ -27,7 +27,7 @@ namespace GameSquad.Services
 
         public List<ApplicationUser> GetTableData(USearch _data)
         {
-            //var data = _repo.Query<ApplicationUser>().Skip(5 * pId).Take(5).ToList();
+            List<ApplicationUser> data = null; // = _repo.Query<ApplicationUser>().Skip(5 * pId).Take(5).ToList();
             return data;
         }
 
