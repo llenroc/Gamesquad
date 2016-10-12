@@ -19,12 +19,17 @@
                 addMemberToTeam: {
                     method: 'GET',
                     url: '/api/team/addMemberToTeam/:teamId',
-                    
-                },              
+
+                },
                 RemoveMember: {
                     method: 'GET',
                     url: '/api/team/RemoveMember/:teamId',
 
+                },
+                getTableData: {
+                    method: 'GET',
+                    url: '/api/team/getTableData/:id',
+                    isArray: true
                 }
             });
 
@@ -43,9 +48,9 @@
             return this.teamsResource.save(teamToSave).$promise;
         }
 
-        public getTeams() {
+        public getTeams(id) {
 
-            return this.teamsResource.query();
+            return this.teamsResource.getTableData({ id: id });
         }
 
         public getUsersByTeam(id) {
@@ -57,16 +62,16 @@
         }
 
         public addMemberToTeam(teamId) {
-          
+
             return this.teamsResource.addMemberToTeam({ teamId: teamId }).$promise;
         }
 
         public removeMember(teamId) {
 
             return this.teamsResource.RemoveMember({ teamId: teamId }).$promise;
-           
+
         }
-        
+
     }
 
     angular.module('GameSquad').service('teamService', TeamService);

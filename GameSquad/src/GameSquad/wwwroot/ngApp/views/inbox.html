@@ -9,10 +9,10 @@
                             <th>My Messages</th>
                             <th></th>
                         </tr>
-                        
+
                         <tr ng-repeat="msg in controller.messages">
                             <td><a ng-href="/inbox/{{msg.id}}">{{msg.subject}}</a></td>
-                            <td><button class="btn btn-warning btn-sm" ng-click="controller.deleteMessageModal()">Delete</button></td>
+                            <td><button class="btn btn-warning btn-sm" ng-click="controller.deleteMessage(msg.id)">Delete</button></td>
                         </tr>
                     </table>
                 </form>
@@ -23,13 +23,16 @@
                         <tr>
                             <th>Friend Requests</th>
                             <th></th>
-                           
+
                         </tr>
 
                         <tr ng-repeat="request in controller.friendRequests">
                             <td>{{request.sendingUserName}}</td>
-                            <td><button class="btn btn-success btn">Accept</button> <button class="btn btn-warning btn">Reject</button></td>
-                            
+                            <td>
+                                <button class="btn btn-success btn" ng-click="controller.addFriendToUser(request.sendingUserId)">Accept</button>
+                                <button class="btn btn-warning btn" ng-click="controller.removeFriendRequest(request.sendingUserId)">Reject</button>
+                            </td>
+
 
                         </tr>
                     </table>

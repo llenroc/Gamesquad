@@ -2,11 +2,8 @@
   "userSecretsId": "aspnet-GameSquad-f69a4d30-713d-11e6-9979-e1b0698ab822",
 
   "dependencies": {
-    "Microsoft.NETCore.App": {
-      "version": "1.0.0",
-      "type": "platform"
-    },
-    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
+    "AspNet.Security.OAuth.BattleNet": "1.0.0-beta1-final",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.1.0-alpha1-22299",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
@@ -17,7 +14,12 @@
     },
     "Microsoft.AspNetCore.Server.IISIntegration": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
+    "Microsoft.AspNetCore.SignalR.Messaging": "0.2.0-alpha1-22091",
+    "Microsoft.AspNetCore.SignalR.Server": "0.2.0-alpha1-22091",
+    "Microsoft.AspNetCore.SignalR.SqlServer": "0.2.0-alpha1-22091",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
+    "Microsoft.AspNetCore.WebSockets": "0.2.0-alpha1-22091",
+    "Microsoft.EntityFrameworkCore": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer.Design": {
       "version": "1.0.0",
@@ -30,10 +32,14 @@
     "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Configuration.UserSecrets": "1.0.0",
-    "Microsoft.Extensions.Logging": "1.0.0",
+    "Microsoft.Extensions.Logging": "1.1.0-alpha1-22299",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Microsoft.NETCore.App": {
+      "version": "1.0.0",
+      "type": "platform"
+    },
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "Microsoft.VisualStudio.Web.CodeGeneration.Tools": {
       "version": "1.0.0-preview2-final",
@@ -43,13 +49,7 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "Microsoft.AspNetCore.SignalR.Server": "0.2.0-alpha1-22091",
-    "Microsoft.AspNetCore.SignalR.SqlServer": "0.2.0-alpha1-22091",
-    "Microsoft.AspNetCore.SignalR.Messaging": "0.2.0-alpha1-22091",
-    "Microsoft.AspNetCore.WebSockets": "0.2.0-alpha1-22091",
-    "signalr.TypeScript.DefinitelyTyped": "0.4.1",
-    "Microsoft.EntityFrameworkCore": "1.0.0",
-    "AspNet.Security.OAuth.BattleNet": "1.0.0-beta1-final"
+    "signalr.TypeScript.DefinitelyTyped": "0.4.1"
   },
 
 

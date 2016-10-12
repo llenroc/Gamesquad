@@ -21,7 +21,7 @@ namespace GameSquad.Models
         //TODO: update when ranking is implemented
         public int Rank { get; set; }
         //freinds
-        public List<Friend> Friends { get; set; }
+        public ICollection<Friend> Friends { get; set; }
 
         public ICollection<FriendRequest> FreindRequests { get; set; }
         //messages

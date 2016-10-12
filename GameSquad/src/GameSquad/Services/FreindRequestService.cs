@@ -32,11 +32,11 @@ namespace GameSquad.Services
                 request.HasBeenViewed = true;
                 _repo.Update(request);
             }
-            
+
             _repo.SaveChanges();
             return friendRequests.ToList();
 
-        } 
+        }
 
 
         public void SendRequest(string userTo, string userFrom)
@@ -60,7 +60,14 @@ namespace GameSquad.Services
                 _repo.SaveChanges();
             }
 
-            
+        }
+
+        public void RemoveRequest(string userTo, string userFrom)
+        {
+            var userFromSent = _repo.Query<FriendRequest>().Where(u => u.SendingUserId == userFrom).Where(c => c.RecievingUSerId == userTo).FirstOrDefault();
+
+            _repo.Delete(userFromSent);
+            _repo.SaveChanges();
 
         }
 

@@ -15,11 +15,13 @@ namespace GameSquad.API
     public class FriendController : Controller
     {
         private IFriendsService _service;
+        private IFreindRequestService _requestService;
         private UserManager<ApplicationUser> _manager;
-        public FriendController(IFriendsService service, UserManager<ApplicationUser> manager)
+        public FriendController(IFriendsService service, UserManager<ApplicationUser> manager, IFreindRequestService requestService)
         {
             _service = service;
             _manager = manager;
+            _requestService = requestService;
         }
         // GET: api/values
         [HttpGet]
@@ -42,10 +44,41 @@ namespace GameSquad.API
             var userId = _manager.GetUserId(User);
             return Ok(_service.GetFriendsByUser(userId));
         }
+
+        [HttpPost("AddFriendToUser/{friendId}")]
+        public IActionResult AddFriendToUser(string friendId)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var userId = _manager.GetUserId(User);
+                _service.addFriendToUser(friendId, userId);
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+
+            }
+        }
+
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody] _data friendId)
         {
+            if (ModelState.IsValid)
+            {
+                var userId = _manager.GetUserId(User);
+                _service.addFriendToUser(friendId.FriendId, userId);
+                _requestService.RemoveRequest(userId, friendId.FriendId);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+
+            }
         }
 
         // PUT api/values/5
@@ -56,8 +89,11 @@ namespace GameSquad.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
+            var userId = _manager.GetUserId(User);
+            _service.RemoveFriend(userId, id);
+
         }
     }
 }

@@ -81,7 +81,7 @@ namespace GameSquad.Services
 
         public void DeleteMessage(int id)
         {
-            var messageToDelete = this.getMessageInfo(id);
+            var messageToDelete = _repo.Query<Messages>().Where(m => m.Id == id).FirstOrDefault();
             _repo.Delete(messageToDelete);
 
         }

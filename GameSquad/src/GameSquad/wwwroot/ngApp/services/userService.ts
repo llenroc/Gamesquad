@@ -2,11 +2,18 @@
     export class UserService {
         private usersResource;
         constructor(private $resource: angular.resource.IResourceService) {
-            this.usersResource = $resource('/api/user');
+            this.usersResource = $resource('/api/user', null, {
+
+                getTableData: {
+                    method: 'GET',
+                    url: '/api/user/getTableData/:id',
+                    isArray: true
+                }
+            });
         }
         //return all users
-        public getAllUsers() {
-            return this.usersResource.query();
+        public getAllUsers(id) {
+            return this.usersResource.getTableData({id:id});
         }
         //return a user by id 
         public getUserById(id) {
@@ -17,6 +24,8 @@
         public EditTeamId(userId, teamId) {
 
         }
+
+
     }
     angular.module('GameSquad').service('userService', UserService);
 }

@@ -59,7 +59,35 @@ namespace GameSquad.API
         {
             return Ok(_service.getTeamInfo(id));
         }
+        //
+        //path for table data API
+        [HttpGet("GetTableData/{id}")]
+        public IActionResult GetTableData(int id)
+        {
+            var teams = _service.GetTableData(id);
+            var userId = _userManager.GetUserId(User);
+            var vms = new List<CheckTeamMemberVM>();
+            foreach (var team in teams)
+            {
+                var isMember = false;
+                foreach (var member in team.TeamMembers)
+                {
+                    if (member.ApplicationUserId == userId)
+                    {
+                        isMember = true;
+                    }
+                }
+                var vm = new CheckTeamMemberVM()
+                {
+                    Team = team,
+                    IsMember = isMember
+                };
+                vms.Add(vm);
 
+            }
+            return Ok(vms);
+        }
+        //
         [HttpGet("GetUsersByTeam/{id}")]
         public IActionResult GetUsersByTeam(int id)
         {

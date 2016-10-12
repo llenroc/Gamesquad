@@ -1,11 +1,12 @@
-﻿using GameSquad.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GameSquad.Models;
 
 namespace GameSquad.Services
 {
     public interface IFreindRequestService
     {
-        void SendRequest(string userTo, string userFrom);
         List<FriendRequest> FriendRequestsByUser(string userId);
+        void RemoveRequest(string userTo, string userFrom);
+        void SendRequest(string userTo, string userFrom);
     }
 }

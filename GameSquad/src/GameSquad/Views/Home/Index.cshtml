@@ -6,7 +6,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <!--  theme -->
-    <link rel="stylesheet" href="https://bootswatch.com/cyborg/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/cyborg/bootstrap.min.css">
     <base href="/" />
 
     <link href="~/css/site.css" rel="stylesheet" />
@@ -45,7 +45,7 @@
             </ul>
         </div>
     </nav>
-    <ui-view></ui-view>
+    <div style="padding-bottom:50px"><ui-view></ui-view></div>
     <!--SignalR chat test files-->
     <!--PRIVATE CHAT-->
     <div class="chatsection" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
