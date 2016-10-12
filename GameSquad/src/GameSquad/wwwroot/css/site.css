@@ -71,7 +71,8 @@ strong
 
 
 .panel-body {
-    background-image: url('../images/overwatch-logo-hd-pic.jpg');
+    /*background-image: url('../images/overwatch-logo-hd-pic.jpg');*/
+    background-color: black;
     backface-visibility: visible;
     background-repeat: no-repeat;
     background-size: cover;

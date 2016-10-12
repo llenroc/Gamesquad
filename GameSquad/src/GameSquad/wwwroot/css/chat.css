@@ -1,90 +1,67 @@
-﻿/*Chat window test*/
-.chat-window {
-    
-    
-    background-image:none;
-    margin-left: 5px;
-    margin-right: 5px;
-    pointer-events:all;
-    width: 375px;
-    
+﻿.chat-section {
+    position:fixed;
+    bottom: 0px;
+    right: 15px;
+    z-index: 9999;
+    width: 95%;
+    max-width: 1000px;
+    margin-bottom: -20px;
+    margin-right: -10px;
 
-    
-    
 }
 
-.chat-panel {
-    margin-bottom: 0px;
-    
-}
-
-.chat-item-container{
-    
-    
-    overflow-y: auto; 
-    overflow-x: hidden;
-    max-height:400px;
-    
+.chat-panel-body {
+    height: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    padding: 5px;
+
 }
 
-.chat-item-container::-webkit-scrollbar-track{
+.chat-message-section {
+    height: 500px;
+    width:100%;
+    max-width:1000px;
+    overflow-x: hidden;
+}
+
+chat-item-container {
+    overflow-y: auto;
+    background-image: none;
+    
+    
+}
+
+.chat-scrollbar::-webkit-scrollbar-track{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
    
 }
 
-.chat-item-container::-webkit-scrollbar{
+.chat-scrollbar::-webkit-scrollbar{
     width: 12px;
 	background-color: #F5F5F5;
 }
 
- .chat-item-container::-webkit-scrollbar-thumb {
+.chat-scrollbar::-webkit-scrollbar-thumb {
      border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #555;
-    }
-
-
- 
-
- 
-
-.chat-panel-body {
-    overflow: hidden;
-    background-image: none;
-    background-color: #101112;
 }
 
-.friendslist {
-    pointer-events:all;
-    margin-left: 5px;
-    margin-right: 5px;
-    background-image:none;
+.chat-input {
+    max-width: 100%;
+}
+
+.user-list {
     width: 250px;
-    
-    
-    
+    height: 600px;
+    overflow-x: hidden;
+    margin-right: 20px;
 }
 
-.chatsection {
-    display: -ms-flexbox;
-	-ms-flex-direction: row;
-    -ms-flex-wrap: wrap;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    flex-wrap:wrap-reverse;
-  
-    align-items: flex-start;
-    position: fixed;
-    bottom: 0px;
-    right: 15px;
-    pointer-events:none;
-    z-index: 9999;
-}
+
 
 /*Chat Items*/
 .chat-item {
@@ -146,9 +123,3 @@
      font-size: small;
      margin-right: 5px;
 }
-
-/*#region Group Chat */
-
-
-
-/*#endregion */

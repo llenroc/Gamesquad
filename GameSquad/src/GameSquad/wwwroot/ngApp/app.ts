@@ -6,7 +6,7 @@ namespace GameSquad {
         $locationProvider: ng.ILocationProvider,
         filepickerProvider
     ) => {
-        filepickerProvider.setKey('AYcH3ThlIS2qD7OcTjF8Iz');
+        //filepickerProvider.setKey('AYcH3ThlIS2qD7OcTjF8Iz');
         // Define routes
         $stateProvider
             .state('landing', {

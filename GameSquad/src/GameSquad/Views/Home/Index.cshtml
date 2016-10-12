@@ -46,97 +46,112 @@
         </div>
     </nav>
     <div style="padding-bottom:50px"><ui-view></ui-view></div>
-    <!--SignalR chat test files-->
-    <!--PRIVATE CHAT-->
-    <div class="chatsection" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
-        <div class="chat-window " ng-show="chat.isLoggedIn() && chat.openPrivateChat">
-            <div class="panel panel-warning chat-panel" ng-click="chat.userListAlert = false" ng-class="{'panel-danger': !chat.sendToUser.online }">
-                <div class="panel-heading" data-toggle="collapse" href="#collapse3">
-                    <h3 class="panel-title">Private Chat with {{chat.sendToUser.username}} <span ng-show="!chat.sendToUser.online" class="text-muted"> (Offline)</span></h3>
-                </div>
-                <div id="collapse3" class="panel-collapse collapse in">
-                    <div class="chat-panel-body">
-                        <div class="chat-item-container" schroll-bottom="chat.privateMessagesDispalyed">
-                            <div class="list-group-item list-group-item-success" style="margin-bottom: 10px;">This is the start of your conversation with {{chat.sendToUser.username}}!</div>
-                            <div class="chat-item" ng-repeat="msg in chat.privateMessagesDispalyed" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
-                                <p>{{msg.message}}</p>
-                                <div>{{msg.username}} at {{msg.time}}</div>
+
+    <!--SignalR -->
+    <div class="chat-section" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
+        <div class="panel panel-warning">
+            <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1">
+                <h3 class="panel-title">Chat</h3>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body chat-panel-body">
+
+                    <!--Friends/userlist-->
+                    
+
+
+                    <div class="user-list chat-scrollbar">
+                        <div class="chat-item-container ">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default" ng-click="chat.setGlobalToMessage()" ng-class="{'panel-warning': chat.conversationName === 'Global Chat'}">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            Global Chat
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <h4 class="panel-title">
+                                            Friends
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <ul class="list-group">
+
+                                                <li class="list-group-item"
+                                                    ng-click="chat.setUserToMessage(user)"
+                                                    ng-repeat="user in chat.privateMessageArray"
+                                                    ng-if="user.online"
+                                                    ng-class="chat.userListClass(user.username)">
+
+                                                    <div>{{user.username}}</div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading collapsed" role="tab" id="headingTwo"  data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <h4 class="panel-title" >
+                                            Teams
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            <ul class="list-group">
+
+                                                <li class="list-group-item"
+                                                    ng-click="chat.setTeamToMesssage(team.teamName)"
+                                                    ng-repeat="team in chat.teamList"
+                                                    ng-class="{'list-group-item-warning': chat.conversationName === team.teamName}">
+                                                    
+                                                    <div>{{team.teamName}}</div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                            
+
                         </div>
                     </div>
-                    <div class="panel-footer">
-                        <form ng-submit="chat.sendPrivateMessage()" class="form-inline">
-                            <div class="form-group">
-                                <input ng-model="chat.newPrivateMessage" class="form-control" type="text" ng-disabled="!chat.sendToUser.online" required />
-                                <button class="btn btn-primary" ng-disabled="!chat.sendToUser.online" ng-class="{'disabled': !chat.sendToUser.online}" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--GLOBAL CHAT-->
-        <div class="chat-window " ng-show="chat.isLoggedIn()">
-            <div class="panel panel-warning chat-panel">
-                <div class="panel-heading" data-toggle="collapse" href="#collapse2">
-                    <h3 class="panel-title">Global Chat</h3>
-                </div>
-                <div id="collapse2" class="panel-collapse collapse">
-                    <div class="chat-panel-body">
-                        <div class="chat-item-container" schroll-bottom="chat.messages">
-                            <div class="list-group-item list-group-item-success" style="margin-bottom: 10px;">Hello! Welcome to Gamesquad!</div>
-                            @*<div class="list-group-item"
-                                     ng-repeat="msg in chat.messages"
-                                     ng-class="{'list-group-item-info': chat.getUserName() === msg.username}">
-                                    <b>{{msg.username}}</b>: {{msg.message}}
-                                </div>*@
-                            <div class="chat-item" ng-repeat="msg in chat.messages" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
-                                <p>{{msg.message}}</p>
-                                <div>{{msg.username}}</div>
+
+                    <!--Chat Section-->
+                    <div style="width:100%">
+                        <div class="chat-message-section chat-scrollbar" schroll-bottom="chat.privateMessagesDispalyed">
+                            <div class="chat-item-container" >
+                                <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning" style="margin-bottom: 10px;">This is the start of your conversation with {{chat.conversationName}}!</div>
+                                <div class="chat-item" ng-repeat="msg in chat.messagesDispalyed" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
+                                    <p>{{msg.message}}</p>
+                                    <div>{{msg.username}} at {{msg.time}}</div>
+                                </div>
+
                             </div>
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <form ng-submit="chat.sendMessage()" class="form-inline">
-                            <div class="form-group">
-                                <input ng-model="chat.newMessage" class="form-control" type="text" required />
-                                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--FRIENDSLIST-->
-        <div class="friendslist" ng-show="chat.isLoggedIn()">
-            <div class="panel chat-panel " ng-class="{'panel-success': chat.userListAlert, 'panel-warning': !chat.userListAlert}" ng-click="chat.userListAlert = false">
-                <div class="panel-heading" data-toggle="collapse" href="#collapse1">
-                    <h3 class="panel-title">
-                        Connected Users
-                    </h3>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse">
-                    <div class="panel-body" style="background-image:none; background-color: black; ">
-                        <div class="chat-item-container">
-                            <ul class="list-group">
-
-                                <li class="list-group-item"
-                                    ng-click="chat.setUserToMessage(user)"
-                                    ng-repeat="user in chat.privateMessageArray"
-                                    ng-if="user.online"
-                                    ng-class="chat.userListClass(user.username)">
-
-                                    <div>{{user.username}}</div>
-
-                                </li>
-                            </ul>
+                        <div class="panel-footer">
+                            <form ng-submit="chat.sendMessage()" class="form-inline" >
+                                <div class="form-group chat-input" style="width:100%;">
+                                    <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" required />
+                                    <button class="btn btn-primary"  type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
+                    
                 </div>
+                
             </div>
+            
         </div>
     </div>
+    
     <!-- Library Files -->
     <script src="~/lib/angular/angular.js"></script>
     <script src="~/lib/angular-resource/angular-resource.js"></script>

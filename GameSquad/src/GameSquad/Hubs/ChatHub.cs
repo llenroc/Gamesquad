@@ -177,8 +177,9 @@ namespace GameSquad.Hubs
 
         //Group Messaging
 
-        public void JoinRoom (string roomName, string userName)
+        public void JoinRoom (string roomName)
         {
+            var userName = Context.User.Identity.Name;
             if(userName != null)
             {
                Groups.Add(Context.ConnectionId, roomName);
