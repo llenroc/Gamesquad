@@ -35,7 +35,8 @@ namespace GameSquad.API
         public IActionResult Get(string id)
         {
             var uid = _manager.GetUserId(User);
-            return Ok(_service.GetUserById(id,uid));
+            var data = _service.GetUserById(id, uid);
+            return Ok(data);
         }
 
 

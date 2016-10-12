@@ -2,7 +2,6 @@
     export class UserDashboardController {
         public userId;
         public user;
-        public profileToSave;
         public file;
         constructor(private userDashboardService: GameSquad.Services.UserDashboardService, private $state: angular.ui.IStateService, private accountService: GameSquad.Services.AccountService, private filepickerService, private $scope: ng.IScope) {
             this.getUserById();
@@ -10,7 +9,9 @@
 
         //get single id
         private getUserById() {
-            this.user = this.userDashboardService.getUserById(this.isLoggedIn());
+            this.userDashboardService.getUserById(this.isLoggedIn()).then((data) => {
+                this.user = data;
+            });
         }
 
         //
@@ -21,9 +22,9 @@
         }
 
         public saveProfile() {
-            this.userDashboardService.saveProfile(this.profileToSave)
+            this.userDashboardService.saveProfile(this.user)
                 .then((data) => {
-                    document.location.reload();
+                    //document.location.reload();
                     this.$state.go('home');
                 }).catch(() => {
                     console.log("something went wrong");
@@ -38,12 +39,6 @@
         }
 
         public fileUploaded(file) {
-            // save file url to database
-            this.file = file;
-            console.log(this.file);
-            console.log(this);
-            this.profileToSave["profileImage"] = this.file.url;
-            console.log(this.profileToSave);
             this.$scope.$apply(); // force page to update
         }
 

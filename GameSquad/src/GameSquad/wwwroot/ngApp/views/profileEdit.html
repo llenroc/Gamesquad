@@ -13,12 +13,12 @@
                         <div class="form-group ">
                             <label>Bio</label>
                             <br />
-                            <textarea class="text-primary img-rounded" style="background-color:lightyellow" type="text img-rounded" rows="6" cols="35" ng-model="controller.profileToSave.bio" placeholder="..."></textarea>
+                            <textarea class="text-primary img-rounded" style="background-color:lightyellow" type="text img-rounded" rows="6" cols="35" ng-model="controller.user.bio" placeholder="..."></textarea>
                         </div>
                         <div class="form-group">
                             <label>Location</label>
                             <br />
-                            <select class="text-primary img-rounded" style="background-color:lightyellow" ng-model="controller.profileToSave.location">
+                            <select class="text-primary img-rounded" style="background-color:lightyellow" ng-model="controller.user.location">
                                 <option value="USA">USA</option>
                                 <option value="Korea">Korea</option>
                                 <option value="UK">UK</option>
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label>Platform</label>
                             <br />
-                            <select class="text-primary img-rounded" style="background-color:lightyellow" ng-model="controller.profileToSave.platform">
+                            <select class="text-primary img-rounded" style="background-color:lightyellow" ng-model="controller.user.platform">
                                 <option value="PC">PC</option>
                                 <option value="XBOX One">Xbox One</option>
                                 <option value="PS4">Playstation 4</option>
@@ -42,21 +42,21 @@
                         <div class="form-group">
                             <label>Play-Style</label>
                             <br />
-                            <select class="text-primary img-rounded" style="background-color:lightyellow" >
+                            <select class="text-primary img-rounded" style="background-color:lightyellow" ng-model="controller.user.playStyle">
                                 <option>Casual</option>
                                 <option>Competetive</option>
-                                <option>na</option>
+                                <option value="">na</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Rank</label>
                             <br />
-                            <input class="text-primary img-rounded" ng-model="controller.profileToSave.rank" style="background-color:lightyellow" type="number" placeholder="...">
+                            <input class="text-primary img-rounded" ng-model="controller.user.rank" style="background-color:lightyellow" type="number" placeholder="...">
                         </div>
                         <div>
                             <label>Avatar</label>
                             <button type="button" ng-click="controller.pickFile()" class="btn btn-primary">Upload Image</button>
-                            <img ng-src="{{controller.file.url | fpConvert:{w: 400} }}" alt="{{controller.file.filename}}" />
+                            <img ng-src="{{controller.user.profileImage | fpConvert:{w: 100} }}" alt="{{controller.file.filename}}" />
                         </div>
                         <br />
                         <div class="form-group">

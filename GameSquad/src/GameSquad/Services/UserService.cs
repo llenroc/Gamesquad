@@ -73,7 +73,8 @@ namespace GameSquad.Services
                 ProfileImage = u.ProfileImage,
                 PlayStyle = u.PlayStyle,
                 BannerImage = u.BannerImage,
-                Rank = u.Rank
+                Rank = u.Rank,
+                Posts = _repo.Query<Post>().Where(p => p.UserId == id).ToList()
             }).FirstOrDefault();
             return data;
         }
