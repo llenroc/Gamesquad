@@ -12,5 +12,6 @@ namespace GameSquad.Models
         public int RankTo { get; set; }
         public bool OnlineOnly { get; set; }
         public string LookingFor { get; set; }
+        public int PageCount { get; set; }
     }
 }

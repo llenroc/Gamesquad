@@ -27,13 +27,44 @@ namespace GameSquad.Services
 
         public List<ApplicationUser> GetTableData(USearch _data)
         {
-            List<ApplicationUser> data = null; // = _repo.Query<ApplicationUser>().Skip(5 * pId).Take(5).ToList();
+            var pageCount = _data.PageCount;
+            var username = _data.Username ?? "";
+            var rankFrom = _data.RankFrom;
+            var rankTo = _data.RankTo;
+            
+            List<ApplicationUser> data;
+            if(_data.OnlineOnly)
+            {
+                if(_data.LookingFor == "")
+                {
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.IsOnline == true).Skip(5 * pageCount).Take(5).ToList();
+                }
+                else
+                {
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.IsOnline == true && u.LookingFor.Contains(_data.LookingFor)).Skip(5 * pageCount).Take(5).ToList();
+                }
+            }
+            else
+            {
+                if(_data.LookingFor == "")
+                {
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo).Skip(5 * pageCount).Take(5).ToList();
+                }
+                else
+                {
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.LookingFor.Contains(_data.LookingFor)).Skip(5 * pageCount).Take(5).ToList();
+                }
+            }
             return data;
         }
 
-        public Object GetUserById(string id)
+        public Object GetUserById(string id, string uid)
         {
-            
+            var check = _repo.Query<ApplicationUser>().Where(u => u.Id == uid).FirstOrDefault();
+            if(id == check.UserName)
+            {
+                id = uid;
+            }
             var data = _repo.Query<ApplicationUser>().Where(u => u.Id == id).Select(u => new {
                 UserName = u.UserName,
                 Bio = u.Bio,

@@ -5,16 +5,12 @@
         public profileToSave;
         public file;
         constructor(private userDashboardService: GameSquad.Services.UserDashboardService, private $state: angular.ui.IStateService, private accountService: GameSquad.Services.AccountService, private filepickerService, private $scope: ng.IScope) {
-            this.getUser();
-        }
-
-        public getUser() {
-            this.user = this.userDashboardService.getUser();
+            this.getUserById();
         }
 
         //get single id
         private getUserById() {
-            this.getUserById = this.userDashboardService.getUserById(this.userId);
+            this.user = this.userDashboardService.getUserById(this.isLoggedIn());
         }
 
         //
