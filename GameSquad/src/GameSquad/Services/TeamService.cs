@@ -57,7 +57,7 @@ namespace GameSquad.Services
             return data;
         }
         //data table paging
-        public List<Team> GetTableData(tsearch _data)
+        public List<Team> GetTableData(TSearch _data)
         {
             var id = _data.PageCount;
             string nFilter = _data.NameFilter ?? "";

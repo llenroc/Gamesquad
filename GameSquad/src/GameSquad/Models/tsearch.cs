@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GameSquad.Models
 {
-    public class tsearch
+    public class TSearch
     {
         public int PageCount { get; set; }
         public string LeaderFilter { get; set; }

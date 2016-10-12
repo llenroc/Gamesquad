@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using GameSquad.Services;
 using GameSquad.Models;
 using Microsoft.AspNetCore.Identity;
+using GameSquad.Services;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GameSquad.API
 {
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class UserSearchController : Controller
     {
         private UserManager<ApplicationUser> _manager;
         private IUserService _service;
@@ -20,49 +20,26 @@ namespace GameSquad.API
         {
             _service = service;
             _manager = manager;
-        } 
-
+        }
         // GET: api/values
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<string> Get()
         {
-            return Ok(_service.GetAllUsers());
+            return new string[] { "value1", "value2" };
         }
 
-        
         // GET api/values/5
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        public string Get(int id)
         {
-            var uid = _manager.GetUserId(User);
-            var _id = id ?? uid;
-            return Ok(_service.GetUserById(_id));
+            return "value";
         }
-
-        [HttpGet("GetTableData/{id}")]
-        public IActionResult GetTableData(int id)
-        {
-
-            return Ok(_service.GetTableData(id));
-        }
-
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]ApplicationUser user)
+        public void Post([FromBody]USearch _data)
         {
-            if (ModelState.IsValid)
-            {
-                var uid = _manager.GetUserId(User);
-                _service.SaveProfile(user, uid);
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-
-            }
-            
+            return Ok(_service.GetTableData(_data));
         }
 
         // PUT api/values/5
