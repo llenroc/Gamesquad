@@ -15,6 +15,11 @@
                     method: 'POST',
                     url: '/api/team/RemoveMember/:teamId',
                 },
+                getTeamsByUser: {
+                    method: 'GET',
+                    url: '/api/team/getTeamsByUser',
+                    isArray: true
+                },
                 getTableData: {
                     method: 'GET',
                     url: '/api/team/getTableData',
@@ -31,6 +36,10 @@
         //save
         public saveTeam(teamToSave) {
             return this.teamsResource.save(teamToSave).$promise;
+        }
+
+        public getTeamsByUser() {
+            return this.teamsResource.getTeamsByUser();
         }
 
         public getTeams(_data) {

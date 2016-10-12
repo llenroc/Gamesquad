@@ -12,6 +12,7 @@
 
         constructor(private teamService: GameSquad.Services.TeamService, private $state: angular.ui.IStateService) {
             this.getTeams();
+            this.teamsByUser();
         }
 
         public getTeams() {
@@ -59,6 +60,13 @@
                 }).catch(() => {
                     console.log("something went wrong");
                 })
+        }
+
+        public teamsByUser() {
+            this.teamService.getTeamsByUser().$promise.then((data) => {
+                this.teams = data;
+                console.log(this.teams);
+            });
         }
 
         //add Member to Team

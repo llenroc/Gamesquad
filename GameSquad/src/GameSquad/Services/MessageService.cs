@@ -58,7 +58,8 @@ namespace GameSquad.Services
                 Id = m.Id,
                 Subject = m.Subject,
                 Message = m.Message,
-                Sender = m.SendingUser
+                SendingUser = m.SendingUser,
+                DateSent = m.DateSent
 
             }).FirstOrDefault();
             return _data;
