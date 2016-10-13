@@ -5,15 +5,17 @@
 <br />
 
 <div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
+    <div style="padding:30px; background-color:#505454;" class="col-lg-8 col-lg-offset-2 img-rounded">
         <form>
-            <table class="table table-hover table-striped">
-                <tr>
-                    <th>My Teams</th>
-                </tr>
+            <table class="table table-hover table-striped img-rounded">
+              <tr>
+                  <th class="img-rounded">
+                      My Teams
+                  </th>
+              </tr>
                 <tr ng-repeat="team in controller.teams">
                     <td><a ng-href="/team/{{team.id}}"><strong>{{team.teamName}}</strong></a></td>
-                    <td>{{team.teamMembers}}</td>
+                    <!--<td>{{team.teamMembers}}</td>-->
 
                         </tr>
                     </table>

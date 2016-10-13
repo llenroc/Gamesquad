@@ -22,8 +22,8 @@
                                     <tr class="filters">
                                         <th><input ng-model="controller.data.username" type="text" class="form-control" placeholder="UserName"></th>
                                         <th style="">
-                                            <input style="width:100px; display:inline;" ng-model="controller.data.rankFrom" type="number" id="minValue"  class="form-control" placeholder="Rank"/> - 
-                                            <input style="width:100px; display:inline;" ng-model="controller.data.rankTo" type="number" id="maxValue"  class="form-control" placeholder="Rank" />
+                                            <input style="width:75px; display:inline;"  name="quantity" min="1" max="400" ng-model="controller.data.rankFrom" type="number" id="minValue"  class="form-control" placeholder="Rank"/> - 
+                                            <input style="width:75px; display:inline;" name="quantity" min="1" max="400" ng-model="controller.data.rankTo" type="number" id="maxValue"  class="form-control" placeholder="Rank" />
                                         </th>
                                         <th>
                                             <input ng-model="controller.data.onlineOnly" type="checkbox" class="form-control" placeholder="Status"/>
