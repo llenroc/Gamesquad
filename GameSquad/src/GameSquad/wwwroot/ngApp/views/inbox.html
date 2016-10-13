@@ -27,7 +27,7 @@
                 <tr  ng-repeat="request in controller.friendRequests">
                     <td style="margin-right:30px;">{{request.sendingUserName}}</td>
                     <td>
-                        <a style="cursor:pointer; margin-right:20%;" class="glyphpcon glyphicon-remove pull-right"ng-click="controller.removeFriendRequest(request.sendingUserId)"></a>
+                        <a style="cursor:pointer; margin-right:20%;" class="glyphicon glyphicon-remove pull-right"ng-click="controller.removeFriendRequest(request.sendingUserId)"></a>
 
                         <a style="cursor:pointer; margin-right:33%;" class="glyphicon glyphicon-check pull-right" ng-click="controller.addFriendToUser(request.sendingUserId)"></a>
                      

@@ -16,10 +16,12 @@ namespace GameSquad.Controllers {
         }
 
         public logout() {
-            this.accountService.logout();
-            $.connection.hub.stop();
-            this.$location.path('/');
-            document.location.reload();
+            this.accountService.logout().then(() => {
+                $.connection.hub.stop();
+                this.$location.path('/');
+                document.location.reload();
+            });
+            
         }
 
         public getExternalLogins() {
