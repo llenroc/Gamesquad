@@ -1,5 +1,7 @@
-﻿using GameSquad.Models;
+﻿using GameSquad.Hubs;
+using GameSquad.Models;
 using GameSquad.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,12 @@ namespace GameSquad.Services
 {
     public class TeamService : ITeamService
     {
-
+        private IHubContext _hubManager;
         private IGenericRepository _repo;
         public TeamService(IGenericRepository repo)
         {
             _repo = repo;
+            _hubManager = Startup.ConnectionManager.GetHubContext<ChatHub>();
         }
 
         //get team info by id
@@ -81,17 +84,27 @@ namespace GameSquad.Services
 
         public void AddMemberToTeam( string userId, int teamId)
         {
+            var user = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId);
+            var team = _repo.Query<Team>().FirstOrDefault(t => t.Id == teamId);
+
             var join = new TeamMembers {
                 TeamId = teamId,
-                Team = _repo.Query<Team>().FirstOrDefault(t => t.Id == teamId),
+                Team = team,
                 ApplicationUserId = userId,
-                ApplicationUser =  _repo.Query<ApplicationUser>().FirstOrDefault( c => c.Id == userId)
+                ApplicationUser = user
 
                 
             };
 
             _repo.Add(join);
             _repo.SaveChanges();
+
+            //Signalr Stuff for insta add new group to chag
+            _hubManager.Clients.User(user.UserName).joinNewGroup(team.TeamName);
+          
+
+
+
         }
 
         public void RemoveMember(string userId, int teamId)

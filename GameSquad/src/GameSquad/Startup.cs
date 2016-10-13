@@ -17,11 +17,14 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Infrastructure;
 
 namespace GameSquad
 {
     public class Startup
     {
+        public static IConnectionManager ConnectionManager;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -89,9 +92,9 @@ namespace GameSquad
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
-            //SignalR Stuff
+            //SignalR Stuff (also below the useidentity)
             loggerFactory.AddConsole(LogLevel.Debug);
 
             app.UseFileServer();
@@ -116,6 +119,7 @@ namespace GameSquad
 
             app.UseIdentity();
             app.UseSignalR();
+            ConnectionManager = serviceProvider.GetService<IConnectionManager>();
 
             app.UseBattleNetAuthentication(options => {
                 options.ClientId = "pcgjuk4snvtbmsz8n8dy9q8aegc84z99";

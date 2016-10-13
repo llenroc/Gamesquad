@@ -1,5 +1,7 @@
-﻿using GameSquad.Models;
+﻿using GameSquad.Hubs;
+using GameSquad.Models;
 using GameSquad.Repositories;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,12 @@ namespace GameSquad.Services
 {
     public class FriendsService : IFriendsService
     {
-
+        private IHubContext _hubManager;
         private IGenericRepository _repo;
         public FriendsService(IGenericRepository repo)
         {
             _repo = repo;
+            _hubManager = Startup.ConnectionManager.GetHubContext<ChatHub>();
         }
         public List<Friend> GetFriends()
         {
@@ -56,15 +59,18 @@ namespace GameSquad.Services
 
         public void addFriendToUser(string friendId, string userId)
         {
+            var user = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId);
+            var friend = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == friendId);
+
             var add = new Friend
             {
-                User = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId),
+                User = user,
                 UserId = userId,
                 FriendId = friendId
             };
             var data = new Friend
             {
-                User = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == friendId),
+                User = friend,
                 UserId = friendId,
                 FriendId = userId
             };
@@ -78,6 +84,11 @@ namespace GameSquad.Services
 
 
             _repo.SaveChanges();
+
+            //Signalr Test stuff for insta updating friends list
+            _hubManager.Clients.User(user.UserName).onNewUserConnected(friend.UserName);
+            _hubManager.Clients.User(friend.UserName).onNewUserConnected(user.UserName);
+
         }
 
         public void RemoveFriend(string userId, string friendId)
@@ -92,6 +103,13 @@ namespace GameSquad.Services
             _repo.SaveChanges();
             _repo.Delete(remove2);
             _repo.SaveChanges();
+
+            //Signalr Test stuff for insta updating friends list
+            var user = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId);
+            var friend = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == friendId);
+            _hubManager.Clients.User(user.UserName).onUserDisconnected(friend.UserName);
+            _hubManager.Clients.User(friend.UserName).onUserDisconnected(user.UserName);
+
         }
 
 

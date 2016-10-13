@@ -1,7 +1,9 @@
-﻿using GameSquad.Models;
+﻿using GameSquad.Hubs;
+using GameSquad.Models;
 using GameSquad.Repositories;
 using GameSquad.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ namespace GameSquad.Services
 {
     public class FreindRequestService : IFreindRequestService
     {
-
+        private IHubContext _hubManager;
         private IGenericRepository _repo;
         private UserManager<ApplicationUser> _manager;
 
@@ -20,6 +22,7 @@ namespace GameSquad.Services
         {
             _repo = repo;
             _manager = manager;
+            _hubManager = Startup.ConnectionManager.GetHubContext<NotificationHub>();
         }
 
         public List<FriendRequest> FriendRequestsByUser(string userId)
@@ -58,6 +61,9 @@ namespace GameSquad.Services
                 userToSend.FreindRequests.Add(newRequest);
 
                 _repo.SaveChanges();
+
+                //Signalr Stuff for push notifications
+                _hubManager.Clients.User(userToSend.UserName).newNotification();
             }
 
         }

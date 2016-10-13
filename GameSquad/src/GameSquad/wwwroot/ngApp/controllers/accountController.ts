@@ -52,6 +52,13 @@ namespace GameSquad.Controllers {
                 
                 this.$scope.$apply();
             }
+
+            $.connection.notificationHub.client.newNotification = () => {
+                this.notificationCount++;
+                this.$scope.$apply();
+
+            }
+
         }
 
        
@@ -80,7 +87,7 @@ namespace GameSquad.Controllers {
                 console.log("Connected to signalr");
                 //Runs notification checker and then sets it to run every x seconds
                 this.notificationChecker()
-                setInterval(() => { this.notificationChecker() }, 5000);
+                //setInterval(() => { this.notificationChecker() }, 5000);
             });
             $.connection.hub.error(function (err) {
                 console.log("An error occurded: " + err);
