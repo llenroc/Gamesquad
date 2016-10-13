@@ -5,17 +5,19 @@
     <form>
         <div style="background-color:#505454; border:solid; padding:20px; " class="col-lg-8 col-lg-offset-2 img-rounded">
             <div style="background-color:grey; padding-left:10px; padding-right:10px; padding-bottom:10px;" class="img-rounded">
-                <h2 id="innerText" style="font-family:Audiowide;"><b>Friends List</b></h2>
+                <h2 id="" style="font-family:Audiowide; color:ghostwhite;"><b>Friends List</b></h2>
                 <table class="table table-hover table-striped img-rounded">
-                    <tr>
-                        <th>UserName</th>
-                        <th>Rank</th>
-                        <th></th>
-                    </tr>
-                    <tr ng-repeat="friend in controller.friends">
-                        <td>{{friend.userName}}</td>
+                    <thead class="img-rounded">
+                        <tr class="img-rounded">
+                            <th>UserName</th>
+                            <th>Rank</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tr class="img-rounded" ng-repeat="friend in controller.friends">
+                        <td class="img-rounded">{{friend.userName}}</td>
                         <td>{{friend.rank}}</td>
-                        <td><button ng-click="controller.removeFriend(friend.id)" class="btn btn-success">Remove </button></td>
+                        <td class="img-rounded"><button ng-click="controller.removeFriend(friend.id)" class="btn btn-success">Remove </button></td>
                     </tr>
                 </table>
             </div>

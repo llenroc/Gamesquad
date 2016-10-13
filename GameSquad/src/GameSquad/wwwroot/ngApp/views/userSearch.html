@@ -49,7 +49,7 @@
                                     <th></th>
                                 </tr>
                                 <tr ng-repeat="user in controller.users">
-                                    <td><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
+                                    <td style="text-transform:capitalize;"><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
                                     <td>{{user.rank}}</td>
                                     <td>{{user.isOnline ? "Online": "Offline"}}</td>
                                     <td>{{user.lookingFor}}</td>

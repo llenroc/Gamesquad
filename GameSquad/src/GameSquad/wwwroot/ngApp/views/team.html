@@ -1,7 +1,7 @@
 ﻿<img class="displayed" width="1000" height="300" src="../../images/TeamUPUP.png" />
 <br />
 <div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
+    <div class="col-lg-10 col-lg-offset-1">
         <div class="row">
             <div class="panel panel-default filterable">
                 <div class="panel-heading">
@@ -31,8 +31,8 @@
                                         <th></th>
                                     </tr>
                                     <tr ng-repeat="team in controller.teamHolder">
-                                        <td>{{team.teamName}}</td>
-                                        <td>{{team.teamLeader}}</td>
+                                        <td style="text-transform:capitalize;">{{team.teamName}}</td>
+                                        <td style="text-transform:capitalize;">{{team.teamLeader}}</td>
                                         <td>{{team.playStyle}}</td>
                                         <td>
                                             <button ng-click="controller.addMemberToTeam(team.id); team.isMember = true" ng-show="!team.isMember" class="btn btn-success">Join</button>

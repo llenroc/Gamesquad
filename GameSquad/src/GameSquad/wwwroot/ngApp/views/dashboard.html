@@ -2,7 +2,8 @@
     <div class="dashImg">
         <img  width="600" height="80" src="../../images/dashboardimg.png" />
     </div>
-    <img style="display:inline" width="80" height="80" ng-src="{{controller.user.profileImage}}" class="img-responsive" /><h1 style="display:inline;">{{controller.user.userName}}</h1>
+    <img style="display:inline" width="80" height="80" ng-src="{{controller.user.profileImage}}" class="img-responsive" />
+    <h1  style="display:inline; text-transform:capitalize;">{{controller.user.userName}}</h1>
     <br />
     <div style="border:solid; background-color:#505454; margin-top:20px; padding:20px;" class="img-rounded">
         <ul id="innerText" class="list-unstyled " ng-controller="UserDashboardController as profile">
@@ -28,7 +29,7 @@
                         <div ng-repeat="post in controller.user.posts" class="list-group">
                             <ul href="#" style="list-style:none " class="list-group ">
                                 <li class="img-rounded" style="background-color:darkgray; padding:3px;">
-                                    <h3 style="padding-left:10px; color:black; font-family: 'Orbitron';"><b>{{post.user}}</b></h3>
+                                    <h3 style="padding-left:10px; color:black; font-family: 'Orbitron';"><b style="text-transform:capitalize;">{{post.user}}</b></h3>
                                 </li>
                                 <li id="innerText" style="margin:20px; ">{{post.comment}}</li>
                                 <li style="text-align:right">
