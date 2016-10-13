@@ -62,6 +62,8 @@ namespace GameSquad.Services
             var user = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId);
             var friend = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == friendId);
 
+
+
             var add = new Friend
             {
                 User = user,

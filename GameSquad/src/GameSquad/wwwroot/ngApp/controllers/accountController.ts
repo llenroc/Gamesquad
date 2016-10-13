@@ -16,9 +16,12 @@ namespace GameSquad.Controllers {
         }
 
         public logout() {
-            this.accountService.logout();
-            $.connection.hub.stop();
-            this.$location.path('/');
+            this.accountService.logout().then(() => {
+                $.connection.hub.stop();
+                this.$location.path('/');
+                document.location.reload();
+            });
+            
         }
 
         public getExternalLogins() {
@@ -75,7 +78,8 @@ namespace GameSquad.Controllers {
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService,
             private $uibModal: ng.ui.bootstrap.IModalService,
-            private $scope: ng.IScope
+            private $scope: ng.IScope,
+            private $state: ng.ui.IStateService
         ) {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
@@ -93,6 +97,9 @@ namespace GameSquad.Controllers {
                 console.log("An error occurded: " + err);
             });
 
+            if (!accountService.isLoggedIn()) {
+                this.$location.path('/');
+            }
             this.notificationCheck();
 
         }
@@ -108,15 +115,14 @@ namespace GameSquad.Controllers {
         public login() {
             if (this.emailOrUser.includes("@")) {
                 this.loginUser.email = this.emailOrUser;
-                this.$state.go('/landing');
             }
             else {
                 this.loginUser.userName = this.emailOrUser;
             }
             this.accountService.login(this.loginUser).then(() => {
                 this.$location.path('/');
+                document.location.reload();
                 this.$uibModalInstance.close();
-                this.$state.go('/landing');
             }).catch((results) => {
                 this.validationMessages = results;
             });

@@ -6,12 +6,12 @@
     <h1  style="display:inline; text-transform:capitalize;">{{controller.user.userName}}</h1>
     <br />
     <div style="border:solid; background-color:#505454; margin-top:20px; padding:20px;" class="img-rounded">
-        <ul id="innerText" class="list-unstyled " ng-controller="UserDashboardController as profile">
-            <li><strong>Bio:</strong> {{profile.user.bio}}</li>
-            <li><strong>Location:</strong> {{profile.user.location}}</li>
-            <li><strong>Play Platform:</strong> {{profile.user.platform}}</li>
-            <li><strong>Play-Style:</strong> Casual</li>
-            <li><strong>Rank:</strong> {{profile.user.rank}}</li>
+        <ul id="innerText" class="list-unstyled ">
+            <li><strong>Bio:</strong> {{controller.user.bio}}</li>
+            <li><strong>Location:</strong> {{controller.user.location}}</li>
+            <li><strong>Play Platform:</strong> {{controller.user.platform}}</li>
+            <li><strong>Play-Style:</strong> {{controller.user.playStyle}}</li>
+            <li><strong>Rank:</strong> {{controller.user.rank}}</li>
         </ul>
         <div><a style="color:orange" class="glyphicon glyphicon-pencil" href="/profileEdit"></a></div>
     </div>
