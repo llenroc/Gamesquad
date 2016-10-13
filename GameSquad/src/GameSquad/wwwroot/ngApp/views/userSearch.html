@@ -33,7 +33,11 @@
                                                 <option >Player</option>
                                                 <option >Competitive</option>
                                                 <option >Casual</option>
-                                            </select></th>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <button class="btn btn-primary" ng-click="controller.getAllUsers()">Search</button>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tr>
@@ -44,7 +48,7 @@
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="user in controller.users | orderBy:userName:reverse | filter:{userName:searchUser} | filter:{lookingFor:searchFor || undefined} | filter:{rank:searchRank} | filter:{isOnline:searchStatus}">
+                                <tr ng-repeat="user in controller.users">
                                     <td><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
                                     <td>{{user.rank}}</td>
                                     <td>{{user.isOnline ? "Online": "Offline"}}</td>

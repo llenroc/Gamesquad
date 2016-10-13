@@ -23,6 +23,7 @@
 /// <reference path="ngapp/controllers/messageinfocontroller.js" />
 /// <reference path="ngapp/controllers/postcontroller.js" />
 /// <reference path="ngapp/controllers/postcreatecontroller.js" />
+/// <reference path="ngapp/controllers/profilecontroller.js" />
 /// <reference path="ngapp/controllers/teamcontroller.js" />
 /// <reference path="ngapp/controllers/teaminfocontroller.js" />
 /// <reference path="ngapp/controllers/usercontroller.js" />
