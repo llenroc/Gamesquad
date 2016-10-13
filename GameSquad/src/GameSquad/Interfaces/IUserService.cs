@@ -9,7 +9,7 @@ namespace GameSquad.Services
     public interface IUserService
     {
         List<ApplicationUser> GetAllUsers();
-        Object GetUserById(string id);
+        Object GetUserById(string id, string uid);
         void SaveProfile(ApplicationUser user, string id);
         List<ApplicationUser> GetTableData(USearch _data);
     }

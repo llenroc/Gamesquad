@@ -6,14 +6,10 @@
             this.usersResource = this.$resource('/api/user/:id');
         }
 
-        public getUser() {
-            var id = "a";
-            return this.usersResource.get({ id: id });
-        }
-
         // get user id
         public getUserById(id) {
-            return this.usersResource.get({ id: id });
+            var user = this.usersResource.get({ id: id }).$promise;
+            return user;
         }
        
         public getUserInfo() {

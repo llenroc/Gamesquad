@@ -37,9 +37,11 @@ namespace GameSquad.API
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]USearch _data)
+        public IActionResult Post([FromBody]USearch _data)
         {
-            //return Ok(_service.GetTableData(_data));
+            var holder = _service.GetTableData(_data);
+            var value = new { data = holder };
+            return Ok(value);
         }
 
         // PUT api/values/5

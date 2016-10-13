@@ -44,8 +44,8 @@
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="user in controller.users">
-                                    <td>{{user.userName}}</td>
+                                <tr ng-repeat="user in controller.users | orderBy:userName:reverse | filter:{userName:searchUser} | filter:{lookingFor:searchFor || undefined} | filter:{rank:searchRank} | filter:{isOnline:searchStatus}">
+                                    <td><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
                                     <td>{{user.rank}}</td>
                                     <td>{{user.isOnline ? "Online": "Offline"}}</td>
                                     <td>{{user.lookingFor}}</td>

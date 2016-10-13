@@ -4,8 +4,7 @@ namespace GameSquad {
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider,
-        filepickerProvider
-    ) => {
+        filepickerProvider) => {
         filepickerProvider.setKey('AYcH3ThlIS2qD7OcTjF8Iz');
         // Define routes
         $stateProvider
@@ -19,6 +18,12 @@ namespace GameSquad {
                 url: '/dashboard',
                 templateUrl: '/ngApp/views/dashboard.html',
                 controller: GameSquad.Controllers.UserDashboardController,
+                controllerAs: 'controller'
+            })
+            .state('profile', {
+                url: '/profile/:id',
+                templateUrl: '/ngApp/views/profile.html',
+                controller: GameSquad.Controllers.ProfileController,
                 controllerAs: 'controller'
             })
             .state('secret', {

@@ -1,20 +1,16 @@
 ﻿namespace GameSquad.Services {
     export class UserService {
         private usersResource;
+        private userSearchResource;
 
         constructor(private $resource: angular.resource.IResourceService) {
-            this.usersResource = $resource('/api/user', null, {
-                getTableData: {
-                    method: 'GET',
-                    url: '/api/user/getTableData/:id',
-                    isArray: true
-                }
-            });
+            this.usersResource = $resource('/api/user');
+            this.userSearchResource = $resource('/api/userSearch');
         }
 
         //return all users
-        public getAllUsers(id) {
-            return this.usersResource.getTableData({ id: id });
+        public getAllUsers(_data) {
+            return this.userSearchResource.save(_data).$promise;
         }
 
         //return a user by id 
