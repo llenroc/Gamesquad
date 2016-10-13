@@ -69,7 +69,7 @@
                 <h3 class="panel-title">Chat <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span></h3>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body chat-panel-body">
+                <div class="panel-body chat-panel-body" >
                     <!--Friends/userlist-->
 
                     <div class="user-list chat-scrollbar">
@@ -89,14 +89,14 @@
                                         </h4>
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                        <div class="panel-body">
+                                        <div class="panel-body userlist-panel-body">
                                             <ul class="list-group">
-                                                <li class="list-group-item"
+                                                <li class="list-group-item "
                                                     ng-click="chat.setUserToMessage(user)"
                                                     ng-repeat="user in chat.privateMessageArray"
                                                     ng-class="chat.userListClass(user)">
 
-                                                    <div>{{user.username}}<p ng-show="!user.online" class="text-danger">(Offline)</p></div>
+                                                    <div class="userlist-user">{{user.username}}<p ng-show="!user.online" class="text-danger">(Offline)</p></div>
 
                                                 </li>
                                             </ul>
@@ -110,14 +110,14 @@
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                        <div class="panel-body">
+                                        <div class="panel-body userlist-panel-body">
                                             <ul class="list-group">
-                                                <li class="list-group-item"
+                                                <li class="list-group-item userlist-user"
                                                     ng-click="chat.setTeamToMesssage(team.teamName)"
                                                     ng-repeat="team in chat.teamList"
                                                     ng-class="{'list-group-item-warning': chat.conversationName === team.teamName}">
 
-                                                    <div>{{team.teamName}}</div>
+                                                    <div class="userlist-user">{{team.teamName}}</div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -128,16 +128,16 @@
                     </div>
                     <!--Chat Section-->
                     <div style="width:100%">
-                        <div class="chat-message-section chat-scrollbar" schroll-bottom="chat.privateMessagesDispalyed">
-                            <div class="chat-item-container">
-                                <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning" style="margin-bottom: 10px;">This is the start of your conversation with {{chat.conversationName}}!</div>
+                        <div class="chat-message-section chat-scrollbar" >
+                            <div class="chat-item-container" schroll-bottom="chat.privateMessagesDispalyed">
+                                <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning userlist-user" style="margin-bottom: 10px;">This is the start of your conversation with <u>{{chat.conversationName}}</u>!</div>
                                 <div class="chat-item" ng-repeat="msg in chat.messagesDispalyed" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
                                     <p>{{msg.message}}</p>
                                     <div>{{msg.username}} at {{msg.time}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer">
+                        <div class="panel-footer" style="height:100px;">
                             <form ng-submit="chat.sendMessage()" class="form-inline">
                                 <div class="form-group chat-input" style="width:100%;">
                                     <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" required />
