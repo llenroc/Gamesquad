@@ -43,7 +43,7 @@ namespace GameSquad.API
         public IActionResult GetTableData(int id)
         {
 
-            return Ok(_service.GetTableData(id));
+            return Ok();
         }
 
 

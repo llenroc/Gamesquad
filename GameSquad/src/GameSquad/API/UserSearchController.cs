@@ -16,7 +16,7 @@ namespace GameSquad.API
     {
         private UserManager<ApplicationUser> _manager;
         private IUserService _service;
-        public UserController(IUserService service, UserManager<ApplicationUser> manager)
+        public UserSearchController(IUserService service, UserManager<ApplicationUser> manager)
         {
             _service = service;
             _manager = manager;
@@ -39,7 +39,7 @@ namespace GameSquad.API
         [HttpPost]
         public void Post([FromBody]USearch _data)
         {
-            return Ok(_service.GetTableData(_data));
+            //return Ok(_service.GetTableData(_data));
         }
 
         // PUT api/values/5
