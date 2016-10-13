@@ -1,22 +1,24 @@
 ﻿<div class="container-fluid">
-    <img class="displayed" width="1000" height="350" src="../../images/friends (2).png" />
+    <img class="displayed" width="800" height="200" src="../../images/friendsBanner.png" />
     <br />
 
     <form>
-        <div class="col-lg-8 col-lg-offset-2">
-            <h1><strong>Friends</strong></h1>
-            <table class="table table-hover table-striped">
-                <tr>
-                    <th>UserName</th>
-                    <th>Rank</th>
-                    <th></th>
-                </tr>
-                <tr ng-repeat="friend in controller.friends">
-                    <td>{{friend.userName}}</td>
-                    <td>{{friend.rank}}</td>
-                    <td><button ng-click="controller.removeFriend(friend.id)" class="btn btn-success">Remove </button></td>
-                </tr>
-            </table>
+        <div style="background-color:#505454; border:solid; padding:20px; " class="col-lg-8 col-lg-offset-2 img-rounded">
+            <div style="background-color:grey; padding-left:10px; padding-right:10px; padding-bottom:10px;" class="img-rounded">
+                <h2 id="innerText" style="font-family:Audiowide;"><b>Friends List</b></h2>
+                <table class="table table-hover table-striped img-rounded">
+                    <tr>
+                        <th>UserName</th>
+                        <th>Rank</th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="friend in controller.friends">
+                        <td>{{friend.userName}}</td>
+                        <td>{{friend.rank}}</td>
+                        <td><button ng-click="controller.removeFriend(friend.id)" class="btn btn-success">Remove </button></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </form>
 </div>

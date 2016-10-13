@@ -35,7 +35,7 @@
                 resolve: {
                     postId: () => postId,
                 },
-                size: 'md'
+                size: 'lg'
             }).result.then(() => {
                 this.getPosts();
             });
@@ -50,7 +50,7 @@
                 resolve: {
                     postId: () => postId,
                 },
-                size: 'md'
+                size: 'lg'
             }).result.then(() => {
                 this.getPosts();
             });
