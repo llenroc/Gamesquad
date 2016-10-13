@@ -19,6 +19,7 @@ namespace GameSquad.Controllers {
             this.accountService.logout();
             $.connection.hub.stop();
             this.$location.path('/');
+            document.location.reload();
         }
 
         public getExternalLogins() {
@@ -108,15 +109,14 @@ namespace GameSquad.Controllers {
         public login() {
             if (this.emailOrUser.includes("@")) {
                 this.loginUser.email = this.emailOrUser;
-                this.$state.go('/landing');
             }
             else {
                 this.loginUser.userName = this.emailOrUser;
             }
             this.accountService.login(this.loginUser).then(() => {
                 this.$location.path('/');
+                document.location.reload();
                 this.$uibModalInstance.close();
-                this.$state.go('/landing');
             }).catch((results) => {
                 this.validationMessages = results;
             });

@@ -125,8 +125,8 @@ namespace GameSquad.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.UserName,
-                    Email = model.Email,
+                    UserName = model.UserName.ToLower(),
+                    Email = model.Email.ToLower(),
                     FirstName = model.FirstName,
                     LastName = model.LastName
                    
