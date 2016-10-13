@@ -41,11 +41,13 @@
         public groupMessageArray = [];
         public messagesDispalyed;
         public newMessagePanelAlert;
+        public newGroupMessagePanelAlert;
         public chatWindowOpen = false
         public sendTo;
         public teamToSend;
         public userListAlert = false;
         public conversationName;
+        public userOnlineCheck;
 
         //CHecks if logged in
         public isLoggedIn() {
@@ -62,6 +64,7 @@
         public setPanelAlert() {
             this.chatWindowOpen = !this.chatWindowOpen;
             this.newMessagePanelAlert = false;
+            this.newGroupMessagePanelAlert = false;
         }
 
         //Sets which user you are messaging
@@ -69,7 +72,7 @@
             this.sendToUser = user;
             this.conversationName = user.username;
             let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
-
+            
             if (index > -1) {
 
                 this.messagesDispalyed = this.privateMessageArray[index].messages;
@@ -85,8 +88,9 @@
                 this.privateMessageArray.push(newConversation);
                 let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
                 this.messagesDispalyed = this.privateMessageArray[index].messages;
+                
             }
-            
+            this.userOnlineCheck = user.online;
             this.sendTo = "private";
             //this.$scope.$apply;
 
@@ -103,6 +107,7 @@
                 this.messagesDispalyed = this.groupMessageArray[index].messages;
                 this.sendTo = "team";
                 this.teamToSend = team;
+                this.userOnlineCheck = true;
             }
 
             //this.$scope.$apply;
@@ -115,7 +120,7 @@
             
             this.messagesDispalyed = this.globalMessages;
             this.sendTo = "global";
-            
+            this.userOnlineCheck = true;
             
 
             //this.$scope.$apply;
@@ -259,6 +264,14 @@
                     let chosenGroup = this.groupMessageArray[index];
 
                     chosenGroup.messages.push(newMessage);
+
+                    if (newMessage.username != this.getUserName() && newMessage.username != 'Server'){
+
+                        if (!this.chatWindowOpen) {
+                            this.newGroupMessagePanelAlert = true;
+                        }
+
+                    }
                 }
 
                 this.$scope.$apply();

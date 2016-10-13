@@ -66,7 +66,11 @@
     <div class="chat-section" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="panel panel-warning">
             <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1" ng-click="chat.setPanelAlert()">
-                <h3 class="panel-title">Chat <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span></h3>
+                <h3 class="panel-title">
+                    Chat
+                    <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span>
+                    <span ng-show="chat.newGroupMessagePanelAlert" class="label label-info">New Group Messages!</span>
+                </h3>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
                 <div class="panel-body chat-panel-body" >
@@ -128,8 +132,8 @@
                     </div>
                     <!--Chat Section-->
                     <div style="width:100%">
-                        <div class="chat-message-section chat-scrollbar" >
-                            <div class="chat-item-container" schroll-bottom="chat.privateMessagesDispalyed">
+                        <div class="chat-message-section chat-scrollbar" schroll-bottom="chat.messagesDispalyed">
+                            <div class="chat-item-container" >
                                 <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning userlist-user" style="margin-bottom: 10px;">This is the start of your conversation with <u>{{chat.conversationName}}</u>!</div>
                                 <div class="chat-item" ng-repeat="msg in chat.messagesDispalyed" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
                                     <p>{{msg.message}}</p>
@@ -140,8 +144,9 @@
                         <div class="panel-footer" style="height:100px;">
                             <form ng-submit="chat.sendMessage()" class="form-inline">
                                 <div class="form-group chat-input" style="width:100%;">
-                                    <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" required />
-                                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
+                                    <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" ng-disabled="!chat.userOnlineCheck" required />
+                                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true" ng-disabled="!chat.userOnlineCheck"></span> Send</button>
+                                    <p class="text-danger" ng-show="!chat.userOnlineCheck">User is offline</p>
                                 </div>
                             </form>
                         </div>
