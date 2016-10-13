@@ -1,7 +1,7 @@
 ﻿namespace GameSquad.Controllers {
     export class UserController {
         public users;
-        public data = { pageCount: 0, username: "", rankFrom: 0, rankTo: 0, onlineOnly: false, lookingFor: "" };
+        public data = { pageCount: 0, username: "", rankFrom: 0, rankTo: 400, onlineOnly: false, lookingFor: "" };
 
         constructor(private userService: GameSquad.Services.UserService, private $state: angular.ui.IStateService, private friendRequestService: GameSquad.Services.FriendRequestService, private $uibModal: angular.ui.bootstrap.IModalService) {
             this.getAllUsers(this.data.pageCount);

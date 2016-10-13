@@ -8,7 +8,7 @@ namespace GameSquad.ViewModels
 {
     public class CheckTeamMemberVM
     {
-        public Team Team { get; set; }
+        public Object Team { get; set; }
         public bool IsMember { get; set; }
 
 

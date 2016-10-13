@@ -91,11 +91,14 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.Friend", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("FriendId");
 
                     b.Property<string>("UserId");
 
-                    b.HasKey("FriendId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 

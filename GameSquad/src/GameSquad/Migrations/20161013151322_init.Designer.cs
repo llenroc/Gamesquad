@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161008065245_initial")]
-    partial class initial
+    [Migration("20161013151322_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -92,11 +92,14 @@ namespace GameSquad.Migrations
 
             modelBuilder.Entity("GameSquad.Models.Friend", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("FriendId");
 
                     b.Property<string>("UserId");
 
-                    b.HasKey("FriendId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 

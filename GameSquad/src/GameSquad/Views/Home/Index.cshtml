@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="GameSquad">
 <head>
     <title>GameSquad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     @*<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="~/lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />*@
     <!-- Latest compiled and minified CSS -->
@@ -39,7 +40,7 @@
                 <li><a ng-show="account.isLoggedIn()" href="/updates">Player <strong> Feed</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
-                <li><a style="font-size:1.5em; font-family:Audiowide;" class="glyphicon glyphicon-envelope" ng-show="account.isLoggedIn()" href="/inbox"><span> {{account.notificationCount}}</span></a></li>
+                <li><a style="font-size:1.5em; font-family:Audiowide;" class="glyphicon glyphicon-envelope" ng-show="account.isLoggedIn()" href="/inbox" ng-click="account.notificationCount = ''"><span><strong> {{account.notificationCount}}</strong> </span></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
             </ul>
@@ -64,13 +65,12 @@
     <!--SignalR -->
     <div class="chat-section" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="panel panel-warning">
-            <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1">
-                <h3 class="panel-title">Chat</h3>
+            <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1" ng-click="chat.setPanelAlert()">
+                <h3 class="panel-title">Chat <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span></h3>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
                 <div class="panel-body chat-panel-body">
                     <!--Friends/userlist-->
-
 
                     <div class="user-list chat-scrollbar">
                         <div class="chat-item-container ">
@@ -94,9 +94,10 @@
                                                 <li class="list-group-item"
                                                     ng-click="chat.setUserToMessage(user)"
                                                     ng-repeat="user in chat.privateMessageArray"
-                                                    ng-if="user.online"
-                                                    ng-class="chat.userListClass(user.username)">
-                                                    <div>{{user.username}}</div>
+                                                    ng-class="chat.userListClass(user)">
+
+                                                    <div>{{user.username}}<p ng-show="!user.online" class="text-danger">(Offline)</p></div>
+
                                                 </li>
                                             </ul>
                                         </div>

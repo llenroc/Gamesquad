@@ -11,8 +11,6 @@
         private getUserById() {
             this.userDashboardService.getUserById(this.$stateParams['id']).then((data) => {
                 this.user = data;
-                console.log(this.user);
-                console.log("here");
             }).catch(() => {
                 console.log("broken");
                 });

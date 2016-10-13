@@ -52,6 +52,13 @@ namespace GameSquad.Controllers {
                 
                 this.$scope.$apply();
             }
+
+            $.connection.notificationHub.client.newNotification = () => {
+                this.notificationCount++;
+                this.$scope.$apply();
+
+            }
+
         }
 
        
@@ -80,7 +87,7 @@ namespace GameSquad.Controllers {
                 console.log("Connected to signalr");
                 //Runs notification checker and then sets it to run every x seconds
                 this.notificationChecker()
-                setInterval(() => { this.notificationChecker() }, 5000);
+                //setInterval(() => { this.notificationChecker() }, 5000);
             });
             $.connection.hub.error(function (err) {
                 console.log("An error occurded: " + err);
@@ -107,6 +114,7 @@ namespace GameSquad.Controllers {
                 this.loginUser.userName = this.emailOrUser;
             }
             this.accountService.login(this.loginUser).then(() => {
+                this.$location.path('/');
                 this.$uibModalInstance.close();
                 this.$state.go('/landing');
             }).catch((results) => {
@@ -126,9 +134,8 @@ namespace GameSquad.Controllers {
 
         public register() {
             this.accountService.register(this.registerUser).then(() => {
-                this.$state.go('profileEdit');
-                //document.location.reload();
-                //this.$location.path('/');
+                this.$location.path('/profileEdit');
+                document.location.reload();
             }).catch((results) => {
                 this.validationMessages = results;
             });
@@ -150,7 +157,7 @@ namespace GameSquad.Controllers {
         public register() {
             this.accountService.registerExternal(this.registerUser.username)
                 .then((result) => {
-                    this.$location.path('/');
+                    this.$location.path('/profileEdit');
                     document.location.reload();
                 }).catch((result) => {
                     this.validationMessages = result;

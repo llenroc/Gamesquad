@@ -58,18 +58,23 @@ namespace GameSquad.Services
 
             using (var db = new ApplicationDbContext(_options))
             {
-                var user = db.Users.Where(u => u.UserName == userName).FirstOrDefault();
-                if (onOrOff == 0)
-                {
-                    user.IsOnline = false;
-                }
-                else
-                {
-                    user.IsOnline = true;
-                }
 
-                db.Update(user);
-                db.SaveChanges();
+                var user = db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+                if (user != null)
+                {
+                    if (onOrOff == 0)
+                    {
+                        user.IsOnline = false;
+                    }
+                    else
+                    {
+                        user.IsOnline = true;
+                    }
+
+                    db.Update(user);
+                    db.SaveChanges();
+                }
+                
             }
         }
 
@@ -79,20 +84,28 @@ namespace GameSquad.Services
         /// <param name="userName">The username of the user you want to get friends for</param>
         /// <returns></returns>
         public List<string> getFriends(string userName) {
+
             using (var db = new ApplicationDbContext(_options))
             {
-
+                
                 var user = db.Users.Where(u => u.UserName == userName).Include(u => u.Friends).FirstOrDefault();
-
-                List<string> friendsList = new List<string>();
-                foreach (var friend in user.Friends)
+                if (user != null)
                 {
-                    var friendUser = _manager.FindByIdAsync(friend.FriendId).Result;
 
-                    friendsList.Add(friendUser.UserName);
+                    List<string> friendsList = new List<string>();
+                    foreach (var friend in user.Friends)
+                    {
+                        var friendUser = _manager.FindByIdAsync(friend.FriendId).Result;
+
+                        friendsList.Add(friendUser.UserName);
+                    }
+
+                    return friendsList;
+
                 }
-
-                return friendsList;
+                return null;
+                
+                
             }
         }
 
