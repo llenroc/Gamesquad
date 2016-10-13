@@ -20,19 +20,17 @@ namespace GameSquad.Hubs
         public string username { get; set; }
     }
 
+    /// <summary>
+    /// Contains a dictionary of connected users
+    /// </summary>
     public static class ConnectedUsers
     {
-       
-
-            /// <summary>
-            /// Username is key, connection id is value
-            /// </summary>
+        //Username is key, connectionId is value
         public static Dictionary<string, string> Users = new Dictionary<string, string>();
         
 
     }
 
-    
 
     public class ChatHub : Hub
     {
@@ -45,12 +43,6 @@ namespace GameSquad.Hubs
             _repo = repo;
             _service = service;
 
-        }
-
-        public async Task<ApplicationUser> FindUser(string userName)
-        {
-            var user = await _manager.FindByNameAsync(userName);
-            return user;
         }
 
 
@@ -89,6 +81,8 @@ namespace GameSquad.Hubs
                     });
                 }
 
+                var friendsList = _service.getFriends(userName);
+
                 Clients.Caller.onConnected(returnList);
 
 
@@ -108,6 +102,11 @@ namespace GameSquad.Hubs
             return base.OnConnected();
         }
 
+        /// <summary>
+        /// Determins what to do when a client disconnects
+        /// </summary>
+        /// <param name="stopCalled"></param>
+        /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
             
@@ -134,17 +133,25 @@ namespace GameSquad.Hubs
         /// Sends message to everyone
         /// </summary>
         /// <param name="message">Recives the message object</param>
-        public Task SendMessage(object message)
+        public void SendMessage(string message)
         {
-           return Clients.All.newMessage(message);
+            var userName = Context.User.Identity.Name;
+            Clients.All.newMessage(userName, message);
         }
 
-        public void SendPrivateMessage(string fromUsername, string privateMessage, string toUserName, string toConnectionId)
+        /// <summary>
+        /// Sends a Private message
+        /// </summary>
+        /// <param name="privateMessage"></param>
+        /// <param name="toUserName">The username for which user the message is going too</param>
+        public void SendPrivateMessage( string privateMessage, string toUserName)
         {
-            
+
+            var fromUsername = Context.User.Identity.Name;
 
             try
             {
+
                 if(toUserName == "Dummy User 1" || toUserName == "Dummy User 2")
                 {
 
@@ -161,7 +168,9 @@ namespace GameSquad.Hubs
 
                 else
                 {
-                    Clients.Client(toConnectionId).getPrivateMessage(fromUsername, privateMessage, fromUsername);
+                    Clients.User(toUserName).getPrivateMessage(fromUsername, privateMessage, fromUsername);
+
+                    //Clients.Client(toConnectionId).getPrivateMessage(fromUsername, privateMessage, fromUsername);
                     Clients.Caller.getPrivateMessage(fromUsername, privateMessage, toUserName);
                 }
 
@@ -175,31 +184,30 @@ namespace GameSquad.Hubs
         }
 
 
-        //Group Messaging
-
+        
+        /// <summary>
+        /// Joins a group and alerts other group members
+        /// </summary>
+        /// <param name="roomName"></param>
         public void JoinRoom (string roomName)
         {
             var userName = Context.User.Identity.Name;
             if(userName != null)
             {
                Groups.Add(Context.ConnectionId, roomName);
-               
-                
-
                Clients.Group(roomName).getGroupMessage("Server", userName + " has joined the chat!", roomName);
             }
-
-            
             
         }
 
-        //public Task LeaveRoom(string roomName)
-        //{
-        //    return Groups.Remove(Context.ConnectionId, roomName);
-        //}
-
-        public void SendGroupMessage(string userName, string message, string roomName)
+        /// <summary>
+        /// Sends a new group message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="roomName"></param>
+        public void SendGroupMessage(string message, string roomName)
         {
+            var userName = Context.User.Identity.Name;
             if(userName != null)
             {
                  Clients.Group(roomName).getGroupMessage(userName, message, roomName);

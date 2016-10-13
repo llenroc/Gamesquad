@@ -40,7 +40,7 @@
                 <li><a ng-show="account.isLoggedIn()" href="/updates">Player <strong> Feed</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
-                <li><a ng-show="account.isLoggedIn()" href="/inbox">Inbox<strong></strong><span> {{account.notificationCount}}</span></a></li>
+                <li><a ng-show="account.isLoggedIn()" href="/inbox">Inbox<strong><span> {{account.notificationCount}}</span></strong></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
             </ul>

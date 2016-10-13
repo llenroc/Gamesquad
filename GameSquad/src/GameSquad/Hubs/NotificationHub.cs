@@ -24,7 +24,10 @@ namespace GameSquad.Hubs
         }
 
         
-
+        /// <summary>
+        /// Checks for notificatiosn for a user
+        /// </summary>
+        /// <returns></returns>
         public Task NotificationCheck()
         {
             var userName = Context.User.Identity.Name;

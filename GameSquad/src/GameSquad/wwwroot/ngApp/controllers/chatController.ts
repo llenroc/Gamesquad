@@ -128,7 +128,7 @@
 
 
 
-            if (conversation.username === this.sendToUser.username) {
+            if (conversation.username === this.conversationName) {
                 conversation.newMessageAlert = false;
                 return 'list-group-item-warning'
             }
@@ -137,13 +137,13 @@
                 return 'list-group-item-success'
             }
             else {
-                return ""
+                return ''
             }
 
         }
 
         
-
+        //Determins which sending method to use based on who you are messaging
         public sendMessage() {
             if (this.sendTo === 'private') {
                 this.sendPrivateMessage();
@@ -158,23 +158,18 @@
 
         //sends private message
         public sendPrivateMessage() {
-            let fromUsername = this.accountService.getUserName();
 
-            //just in case check. Sometimes has issue
-            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
-            let userToSend = this.privateMessageArray[index];
-
-            this.chatHub.server.sendPrivateMessage(fromUsername, this.newMessage, userToSend.username, userToSend.connectionId);
+            this.chatHub.server.sendPrivateMessage(this.newMessage, this.conversationName);
             this.newMessage = "";
 
         }
 
         //sends global message
         public sendGlobalMessage() {
-            let username = this.accountService.getUserName();
-            let messageToSend = { username: username, message: this.newMessage }
-            console.log(messageToSend);
-            this.chatHub.server.sendMessage(messageToSend);
+            //let username = this.accountService.getUserName();
+            //let messageToSend = { username: username, message: this.newMessage }
+            //console.log(messageToSend);
+            this.chatHub.server.sendMessage(this.newMessage);
             console.log("Message sent to server");
 
             this.newMessage = "";
@@ -182,11 +177,10 @@
 
         //sends group message
         public sendTeamMessage() {
-            let username = this.accountService.getUserName();
             let messageTosend = this.newMessage;
             let roomName = this.teamToSend;
 
-            this.chatHub.server.sendGroupMessage(username, messageTosend, roomName);
+            this.chatHub.server.sendGroupMessage(messageTosend, roomName);
             this.newMessage = "";
         }
 
@@ -207,8 +201,10 @@
         //Waits for messages from server
         public waitForMessages() {
 
-
-            this.chatHub.client.newMessage = (messageRecieved) => {
+            //Gets new global message
+            this.chatHub.client.newMessage = (fromUserName, messageRecieved) => {
+                let time = this.getTimeStamp();
+                let newMessage = { username: fromUserName, message: messageRecieved, time: time}
                 console.log("Message Recieved from server!");
 
                 this.globalMessages.push(messageRecieved);

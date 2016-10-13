@@ -41,8 +41,13 @@ namespace GameSquad.Controllers {
         public notificationCheck() {
             
             $.connection.notificationHub.client.notificationCount = (newCount) => {
-                
-                this.notificationCount = newCount;
+                if (newCount === 0) {
+                    this.notificationCount = '';
+                }
+                else {
+                    this.notificationCount = newCount;
+
+                }
                 console.log(this.notificationCount);
                 
                 this.$scope.$apply();
