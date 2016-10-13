@@ -72,6 +72,8 @@ chat-item-container {
 
 .userlist-user{
     font-size: medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .userlist-user > p {

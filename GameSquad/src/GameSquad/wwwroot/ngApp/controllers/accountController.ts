@@ -78,7 +78,8 @@ namespace GameSquad.Controllers {
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService,
             private $uibModal: ng.ui.bootstrap.IModalService,
-            private $scope: ng.IScope
+            private $scope: ng.IScope,
+            private $state: ng.ui.IStateService
         ) {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
@@ -96,6 +97,9 @@ namespace GameSquad.Controllers {
                 console.log("An error occurded: " + err);
             });
 
+            if (!accountService.isLoggedIn()) {
+                this.$location.path('/');
+            }
             this.notificationCheck();
 
         }
