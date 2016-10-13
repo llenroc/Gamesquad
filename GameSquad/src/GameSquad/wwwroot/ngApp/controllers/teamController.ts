@@ -23,6 +23,7 @@
                     team.team.isMember = team.isMember;
                     this.teamHolder.push(team.team);
                 }
+                console.log(holder);
                 if (document.getElementById("previous") != null){
                     if (this.data.pageCount == 0) {
                         document.getElementById("previous").style.visibility = "hidden";

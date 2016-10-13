@@ -35,7 +35,7 @@ namespace GameSquad.Services
             }).FirstOrDefault();
             return _data;
         }
-        
+
         public void SaveTeam(Team team)
         {
 
@@ -57,13 +57,21 @@ namespace GameSquad.Services
             return data;
         }
         //data table paging
-        public List<Team> GetTableData(TSearch _data)
+        public List<dynamic> GetTableData(TSearch _data)
         {
+            List<dynamic> data = new List<dynamic>();
             var id = _data.PageCount;
             string nFilter = _data.NameFilter ?? "";
             string tFilter = _data.TypeFilter ?? "";
             string lFilter = _data.LeaderFilter ?? "";
-            var data = _repo.Query<Team>().Where(t => t.TeamName.Contains(nFilter) && t.PlayStyle.Contains(tFilter) && t.TeamLeader.Contains(lFilter)).Skip(5 * id).Take(5).Include(m => m.TeamMembers).ToList();
+            data.Add(_repo.Query<Team>().Where(t => t.TeamName.Contains(nFilter) && t.PlayStyle.Contains(tFilter) && t.TeamLeader.Contains(lFilter)).Skip(5 * id).Take(5).Select(t => new
+            {
+                Id = t.Id,
+                TeamName = t.TeamName,
+                PlayStyle = t.PlayStyle,
+                TeamLeader = t.TeamLeader,
+                TeamMembers = t.TeamMembers     //_repo.Query<TeamMembers>().Where(m => m.TeamId == t.Id).ToList()
+            }).ToList());
             return data;
         }
 
@@ -79,15 +87,16 @@ namespace GameSquad.Services
             return teams;
         }
 
-        public void AddMemberToTeam( string userId, int teamId)
+        public void AddMemberToTeam(string userId, int teamId)
         {
-            var join = new TeamMembers {
+            var join = new TeamMembers
+            {
                 TeamId = teamId,
                 Team = _repo.Query<Team>().FirstOrDefault(t => t.Id == teamId),
                 ApplicationUserId = userId,
-                ApplicationUser =  _repo.Query<ApplicationUser>().FirstOrDefault( c => c.Id == userId)
+                ApplicationUser = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId)
 
-                
+
             };
 
             _repo.Add(join);
@@ -99,9 +108,9 @@ namespace GameSquad.Services
             var remove = new TeamMembers
             {
                 TeamId = teamId,
-                Team = _repo.Query<Team>().FirstOrDefault( c => c.Id == teamId),
+                Team = _repo.Query<Team>().FirstOrDefault(c => c.Id == teamId),
                 ApplicationUserId = userId,
-                ApplicationUser =  _repo.Query<ApplicationUser>().FirstOrDefault(m => m.Id == userId)
+                ApplicationUser = _repo.Query<ApplicationUser>().FirstOrDefault(m => m.Id == userId)
 
             };
 

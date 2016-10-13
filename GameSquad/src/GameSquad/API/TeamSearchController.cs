@@ -34,35 +34,15 @@ namespace GameSquad.API
         [HttpGet("{_data}")]
         public IActionResult Get(TSearch _data)
         {
-            var teams = _service.GetTableData(_data);
-            var userId = _userManager.GetUserId(User);
-            var vms = new List<CheckTeamMemberVM>();
-            foreach (var team in teams)
-            {
-                var isMember = false;
-                foreach (var member in team.TeamMembers)
-                {
-                    if (member.ApplicationUserId == userId)
-                    {
-                        isMember = true;
-                    }
-                }
-                var vm = new CheckTeamMemberVM()
-                {
-                    Team = team,
-                    IsMember = isMember
-                };
-                vms.Add(vm);
-
-            }
-            return Ok(vms);
+            return Ok();
         }
 
         // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody]TSearch _data)
         {
-            var teams = _service.GetTableData(_data);
+            var data = _service.GetTableData(_data);
+            var teams = data[0];
             var userId = _userManager.GetUserId(User);
             var vms = new List<CheckTeamMemberVM>();
             foreach (var team in teams)

@@ -101,6 +101,7 @@ namespace GameSquad.Controllers {
                 this.loginUser.userName = this.emailOrUser;
             }
             this.accountService.login(this.loginUser).then(() => {
+                this.$location.path('/');
                 this.$uibModalInstance.close();
             }).catch((results) => {
                 this.validationMessages = results;
@@ -119,9 +120,8 @@ namespace GameSquad.Controllers {
 
         public register() {
             this.accountService.register(this.registerUser).then(() => {
-                this.$state.go('profileEdit');
+                this.$location.path('/profileEdit');
                 document.location.reload();
-                //this.$location.path('/');
             }).catch((results) => {
                 this.validationMessages = results;
             });
@@ -143,7 +143,7 @@ namespace GameSquad.Controllers {
         public register() {
             this.accountService.registerExternal(this.registerUser.username)
                 .then((result) => {
-                    this.$location.path('/');
+                    this.$location.path('/profileEdit');
                     document.location.reload();
                 }).catch((result) => {
                     this.validationMessages = result;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GameSquad.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -109,12 +109,14 @@ namespace GameSquad.Migrations
                 name: "Friends",
                 columns: table => new
                 {
-                    FriendId = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FriendId = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Friends", x => x.FriendId);
+                    table.PrimaryKey("PK_Friends", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Friends_AspNetUsers_UserId",
                         column: x => x.UserId,

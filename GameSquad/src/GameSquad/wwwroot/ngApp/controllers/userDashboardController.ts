@@ -39,6 +39,8 @@
         }
 
         public fileUploaded(file) {
+            this.file = file;
+            this.user.profileImage = this.file.url;
             this.$scope.$apply(); // force page to update
         }
 
