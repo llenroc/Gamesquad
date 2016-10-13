@@ -26,7 +26,7 @@
                     isArray: true
                 }
             });
-            this.teamResource = this.$resource('api/teams/:id');
+            this.teamResource = this.$resource('api/teamSearch/:id');
         }
 
         public getTeamInfo(id) {

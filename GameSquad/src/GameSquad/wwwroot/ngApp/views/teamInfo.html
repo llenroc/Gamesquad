@@ -19,7 +19,7 @@
 
                 </tr>
                 <tr ng-repeat="member in controller.teamDetails.teamMembers">
-                    <td>{{member.userName}}</td>
+                    <td><a href="/profile/{{member.id}}">{{member.userName}}</a></td>
                     <td>{{member.rank}}</td>
                 </tr>
             </table>

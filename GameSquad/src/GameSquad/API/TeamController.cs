@@ -62,7 +62,7 @@ namespace GameSquad.API
         //
         //path for table data API
         [HttpGet("GetTableData")]
-        public IActionResult GetTableData([FromBody] tsearch _data)
+        public IActionResult GetTableData([FromBody] TSearch _data)
         {
             var teams = _service.GetTableData(_data);
             var userId = _userManager.GetUserId(User);

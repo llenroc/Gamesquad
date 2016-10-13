@@ -24,16 +24,16 @@
                     this.teamHolder.push(team.team);
                 }
                 if (this.data.pageCount <= 0) {
-                    document.getElementById("previous").hidden = true;
+                    document.getElementById("previous").style.visibility = "hidden";
                 }
                 else if (this.data.pageCount > 0) {
-                    document.getElementById("previous").hidden = false;
+                    document.getElementById("previous").style.visibility = "visble";
                 }
-                if (holder.count < 5) {
-                    document.getElementById("next").hidden = true;
+                if (holder.length < 5) {
+                    document.getElementById("next").style.visibility = "hidden";
                 }
-                else if (holder.count == 5) {
-                    document.getElementById("next").hidden = false;
+                else if (holder.length == 5) {
+                    document.getElementById("next").style.visibility = "visble";
                 }
             });
         }

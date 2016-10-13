@@ -13,11 +13,11 @@ using GameSquad.ViewModels;
 namespace GameSquad.API
 {
     [Route("api/[controller]")]
-    public class TeamsController : Controller
+    public class TeamSearchController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private ITeamService _service;
-        public TeamsController(ITeamService service, UserManager<ApplicationUser> userManager)
+        public TeamSearchController(ITeamService service, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _service = service;
@@ -32,7 +32,7 @@ namespace GameSquad.API
 
         // GET api/values/5
         [HttpGet("{_data}")]
-        public IActionResult Get(tsearch _data)
+        public IActionResult Get(TSearch _data)
         {
             var teams = _service.GetTableData(_data);
             var userId = _userManager.GetUserId(User);
@@ -60,7 +60,7 @@ namespace GameSquad.API
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody]tsearch _data)
+        public IActionResult Post([FromBody]TSearch _data)
         {
             var teams = _service.GetTableData(_data);
             var userId = _userManager.GetUserId(User);
