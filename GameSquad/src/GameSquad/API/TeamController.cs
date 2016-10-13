@@ -29,28 +29,7 @@ namespace GameSquad.API
         [HttpGet]
         public IActionResult Get()
         {
-            var teams = _service.getTeams();
-            var userId = _userManager.GetUserId(User);
-            var vms = new List<CheckTeamMemberVM>();
-            foreach (var team in teams)
-            {
-                var isMember = false;
-                foreach (var member in team.TeamMembers)
-                {
-                    if (member.ApplicationUserId == userId)
-                    {
-                        isMember = true;
-                    }
-                }
-                var vm = new CheckTeamMemberVM()
-                {
-                    Team = team,
-                    IsMember = isMember
-                };
-                vms.Add(vm);
-
-            }
-            return Ok(vms);
+            return Ok();
         }
 
         // GET api/values/5
@@ -64,36 +43,9 @@ namespace GameSquad.API
         [HttpGet("GetTableData")]
         public IActionResult GetTableData([FromBody] TSearch _data)
         {
-            var teams = _service.GetTableData(_data);
-            var userId = _userManager.GetUserId(User);
-            var vms = new List<CheckTeamMemberVM>();
-            foreach (var team in teams)
-            {
-                var isMember = false;
-                foreach (var member in team.TeamMembers)
-                {
-                    if (member.ApplicationUserId == userId)
-                    {
-                        isMember = true;
-                    }
-                }
-                var vm = new CheckTeamMemberVM()
-                {
-                    Team = team,
-                    IsMember = isMember
-                };
-                vms.Add(vm);
+            return Ok();
+        }
 
-            }
-            
-            return Ok(vms);
-        }
-        //
-        [HttpGet("GetUsersByTeam/{id}")]
-        public IActionResult GetUsersByTeam(int id)
-        {
-            return Ok(_service.UsersByTeam(id));
-        }
         [HttpGet("GetTeamsByUser")]
         public IActionResult GetTeamsByUser()
         {
