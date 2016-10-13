@@ -6,11 +6,12 @@ body {
 h1{
     font-family:Orbitron; 
 }
-.dropdown:hover .dropdown-menu {
-    display: block;
 
-    margin-top: 0; /* remove the gap so it does not close */
- }
+#innerText
+{
+    color:black
+}
+
 table
 {
     font-size:1em;
@@ -78,7 +79,7 @@ strong
 
 
 .panel-body {
-    /*background-image: url('../images/overwatch-logo-hd-pic.jpg');*/
+    background-image: url('../images/overwatch-logo-hd-pic.jpg');
     background-color: black;
     backface-visibility: visible;
     background-repeat: no-repeat;
@@ -87,7 +88,7 @@ strong
 
 #profilepanel {
     background-image: url('../images/regimg.jpg');
-    backface-visibility: visible;
+    padding:30px;
     background-repeat: no-repeat;
     background-size: cover;
 }

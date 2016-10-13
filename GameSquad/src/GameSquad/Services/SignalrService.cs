@@ -27,6 +27,11 @@ namespace GameSquad.Services
             
         }
 
+        /// <summary>
+        /// Gets the count of unread notifications for a user
+        /// </summary>
+        /// <param name="userName">Username of the person you want to check</param>
+        /// <returns></returns>
         public int NotificationCount(string userName)
         {
             
@@ -41,6 +46,11 @@ namespace GameSquad.Services
             }
         }
 
+        /// <summary>
+        /// Toggles the online status in the database to be true or false depending on if they are connecting or not
+        /// </summary>
+        /// <param name="userName">username of the user you want to change</param>
+        /// <param name="onOrOff">pass 0 to set online false, any other for true</param>
         public void OnlineStatusToggle(string userName, int onOrOff)
         {
            
@@ -48,18 +58,54 @@ namespace GameSquad.Services
 
             using (var db = new ApplicationDbContext(_options))
             {
-                var user = db.Users.Where(u => u.UserName == userName).FirstOrDefault();
-                if (onOrOff == 0)
-                {
-                    user.IsOnline = false;
-                }
-                else
-                {
-                    user.IsOnline = true;
-                }
 
-                db.Update(user);
-                db.SaveChanges();
+                var user = db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+                if (user != null)
+                {
+                    if (onOrOff == 0)
+                    {
+                        user.IsOnline = false;
+                    }
+                    else
+                    {
+                        user.IsOnline = true;
+                    }
+
+                    db.Update(user);
+                    db.SaveChanges();
+                }
+                
+            }
+        }
+
+        /// <summary>
+        /// Gets a string list of the friends for a user
+        /// </summary>
+        /// <param name="userName">The username of the user you want to get friends for</param>
+        /// <returns></returns>
+        public List<string> getFriends(string userName) {
+
+            using (var db = new ApplicationDbContext(_options))
+            {
+                
+                var user = db.Users.Where(u => u.UserName == userName).Include(u => u.Friends).FirstOrDefault();
+                if (user != null)
+                {
+
+                    List<string> friendsList = new List<string>();
+                    foreach (var friend in user.Friends)
+                    {
+                        var friendUser = _manager.FindByIdAsync(friend.FriendId).Result;
+
+                        friendsList.Add(friendUser.UserName);
+                    }
+
+                    return friendsList;
+
+                }
+                return null;
+                
+                
             }
         }
 

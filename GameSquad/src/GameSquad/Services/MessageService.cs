@@ -1,6 +1,8 @@
-﻿using GameSquad.Models;
+﻿using GameSquad.Hubs;
+using GameSquad.Models;
 using GameSquad.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,12 +14,14 @@ namespace GameSquad.Services
 {
     public class MessageService : IMessageService
     {
+        private IHubContext _hubManager;
         private IGenericRepository _repo;
         private UserManager<ApplicationUser> _manager;
         public MessageService(IGenericRepository repo, UserManager<ApplicationUser> manager)
         {
             _repo = repo;
             _manager = manager;
+            _hubManager = Startup.ConnectionManager.GetHubContext<NotificationHub>(); 
         }
 
         //get messages by user
@@ -74,7 +78,9 @@ namespace GameSquad.Services
             rUser.Messages.Add(message);
 
             _repo.SaveChanges();
-                      
+            _hubManager.Clients.User(rUser.UserName).newNotification();
+
+
         }
 
 

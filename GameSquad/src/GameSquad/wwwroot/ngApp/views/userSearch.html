@@ -4,9 +4,9 @@
 <<div class="container">
     <div class="col-lg-10 col-lg-offset-1">
         <div class="row">
-            <div class="panel panel-warning filterable">
+            <div class="panel panel-default filterable">
                 <div class="panel-heading">
-                    <h3 style="font-family:Audiowide; color:black;" class="panel-title"><strong></strong><b>Players </b></h3>
+                    <h3 style="font-family:Audiowide; color:ghostwhite;" class="panel-title">Players</h3>
                     <!--<div class="pull-right">
                         <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                     </div>-->
@@ -21,7 +21,7 @@
                                 <thead>
                                     <tr class="filters">
                                         <th><input ng-model="controller.data.username" type="text" class="form-control" placeholder="UserName"></th>
-                                        <th>
+                                        <th style="">
                                             <input style="width:100px; display:inline;" ng-model="controller.data.rankFrom" type="number" id="minValue"  class="form-control" placeholder="Rank"/> - 
                                             <input style="width:100px; display:inline;" ng-model="controller.data.rankTo" type="number" id="maxValue"  class="form-control" placeholder="Rank" />
                                         </th>
@@ -53,8 +53,8 @@
                                     <td>{{user.rank}}</td>
                                     <td>{{user.isOnline ? "Online": "Offline"}}</td>
                                     <td>{{user.lookingFor}}</td>
-                                    <td><button class="btn btn-default btn-sm" ng-click="controller.showMessageModal(user.id)">Send Message</button></td>
-                                    <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Send friend request</button></td>
+                                    <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
+                                    <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
                                 </tr>
                             </table>
                         </div>

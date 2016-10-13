@@ -14,43 +14,27 @@ namespace GameSquad.Hubs
 {
     
 
-    public class UserDetail
-    {
-        public string connectionId { get; set; }
-        public string username { get; set; }
-    }
+    
 
+    /// <summary>
+    /// Contains a hashset of connected users
+    /// </summary>
     public static class ConnectedUsers
     {
-       
 
-            /// <summary>
-            /// Username is key, connection id is value
-            /// </summary>
-        public static Dictionary<string, string> Users = new Dictionary<string, string>();
-        
-
+        public static HashSet<string> Users = new HashSet<string>();
     }
 
-    
 
     public class ChatHub : Hub
     {
-        private UserManager<ApplicationUser> _manager;
-        private IGenericRepository _repo;
+        
         private ISignalrService _service;
-        public ChatHub(UserManager<ApplicationUser> manager, IGenericRepository repo, ISignalrService service)
+        public ChatHub( ISignalrService service)
         {
-            _manager = manager;
-            _repo = repo;
+           
             _service = service;
 
-        }
-
-        public async Task<ApplicationUser> FindUser(string userName)
-        {
-            var user = await _manager.FindByNameAsync(userName);
-            return user;
         }
 
 
@@ -64,12 +48,10 @@ namespace GameSquad.Hubs
             var userName = Context.User.Identity.Name;
 
 
-            //Checks if the client is already in the user list
-            string keyTest;
-            if (userName == null || ConnectedUsers.Users.TryGetValue(userName, out keyTest))
+            if (userName == null || ConnectedUsers.Users.Contains(userName))
             {
                 //Tells the client side to disconnect client. Current way of fixing multiple browser tab issue
-                Clients.Caller.onConnected(0);
+                Clients.Caller.onConnected(-1);
 
             }
 
@@ -78,52 +60,74 @@ namespace GameSquad.Hubs
                 //Changes online status to online
                 _service.OnlineStatusToggle(userName, 1);
 
-                //Creates a list of the users to send to the connecting client
-                var returnList = new List<UserDetail>();
-                foreach (var item in ConnectedUsers.Users.ToList())
+
+                var friendNames = _service.getFriends(userName);
+
+                var friendList = new List<object>();
+
+                //Iterates through the friendNames and checks if they are online in the Connected Users hashset
+                foreach (var friend in friendNames)
                 {
-                    returnList.Add(new UserDetail
+
+
+                    if (ConnectedUsers.Users.Contains(friend))
                     {
-                        username = item.Key,
-                        connectionId = item.Value
-                    });
+                        var newFriend = new
+                        {
+                            userName = friend,
+                            online = true
+                        };
+                        friendList.Add(newFriend);
+                        Clients.User(friend).onNewUserConnected(userName);
+                    }
+                    else
+                    {
+                        var newFriend = new
+                        {
+                            userName = friend,
+                            online = false
+                        };
+                        friendList.Add(newFriend);
+                    }
+
                 }
 
-                Clients.Caller.onConnected(returnList);
+                Clients.Caller.onConnected(friendList);
 
 
                 //Adds new user to client list
-                ConnectedUsers.Users.Add(userName, Context.ConnectionId);
-
-
-                var newUser = new UserDetail
-                {
-                    username = userName,
-                    connectionId = Context.ConnectionId
-                };
-
-                Clients.AllExcept(Context.ConnectionId).onNewUserConnected(newUser);
+                ConnectedUsers.Users.Add(userName);
+                
             }
 
             return base.OnConnected();
         }
 
+        /// <summary>
+        /// Determins what to do when a client disconnects
+        /// </summary>
+        /// <param name="stopCalled"></param>
+        /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
-            
+            var userToRemove = Context.User.Identity.Name;
 
-            if (ConnectedUsers.Users.ContainsValue(Context.ConnectionId))
+
+            
+            if (userToRemove != null) 
             {
-                //Gets set from user list to remove
-                var userToRemovePair = ConnectedUsers.Users.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();  
 
                 //sets online status to false
-                _service.OnlineStatusToggle(userToRemovePair.Key, 0); 
-                
-                //Removes client from userlist and lets clients know
-                ConnectedUsers.Users.Remove(userToRemovePair.Key);
-                Clients.All.onUserDisconnected(userToRemovePair.Key);
+                _service.OnlineStatusToggle(userToRemove, 0);
 
+                //Removes client from userlist and lets clients know
+                var friendNames = _service.getFriends(userToRemove);
+                foreach (var friend in friendNames)
+                {
+                    Clients.User(friend).onUserDisconnected(userToRemove);
+                }
+                ConnectedUsers.Users.Remove(userToRemove);
+                
 
             }
             
@@ -134,17 +138,25 @@ namespace GameSquad.Hubs
         /// Sends message to everyone
         /// </summary>
         /// <param name="message">Recives the message object</param>
-        public Task SendMessage(object message)
+        public void SendMessage(string message)
         {
-           return Clients.All.newMessage(message);
+            var userName = Context.User.Identity.Name;
+            Clients.All.newMessage(userName, message);
         }
 
-        public void SendPrivateMessage(string fromUsername, string privateMessage, string toUserName, string toConnectionId)
+        /// <summary>
+        /// Sends a Private message
+        /// </summary>
+        /// <param name="privateMessage"></param>
+        /// <param name="toUserName">The username for which user the message is going too</param>
+        public void SendPrivateMessage( string privateMessage, string toUserName)
         {
-            
+
+            var fromUsername = Context.User.Identity.Name;
 
             try
             {
+
                 if(toUserName == "Dummy User 1" || toUserName == "Dummy User 2")
                 {
 
@@ -154,17 +166,13 @@ namespace GameSquad.Hubs
 
                     Clients.Caller.getPrivateMessage(toUserName, dummyMessage, toUserName);
 
-
-
-
                 }
 
                 else
                 {
-                    Clients.Client(toConnectionId).getPrivateMessage(fromUsername, privateMessage, fromUsername);
+                    Clients.User(toUserName).getPrivateMessage(fromUsername, privateMessage, fromUsername);
                     Clients.Caller.getPrivateMessage(fromUsername, privateMessage, toUserName);
                 }
-
                 
             }
             catch
@@ -173,33 +181,30 @@ namespace GameSquad.Hubs
                 Clients.Caller.getPrivateMessage(fromUsername, errorMsg, toUserName);
             }
         }
-
-
-        //Group Messaging
-
+        
+        /// <summary>
+        /// Joins a group and alerts other group members
+        /// </summary>
+        /// <param name="roomName"></param>
         public void JoinRoom (string roomName)
         {
             var userName = Context.User.Identity.Name;
             if(userName != null)
             {
                Groups.Add(Context.ConnectionId, roomName);
-               
-                
-
                Clients.Group(roomName).getGroupMessage("Server", userName + " has joined the chat!", roomName);
             }
-
-            
             
         }
 
-        //public Task LeaveRoom(string roomName)
-        //{
-        //    return Groups.Remove(Context.ConnectionId, roomName);
-        //}
-
-        public void SendGroupMessage(string userName, string message, string roomName)
+        /// <summary>
+        /// Sends a new group message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="roomName"></param>
+        public void SendGroupMessage(string message, string roomName)
         {
+            var userName = Context.User.Identity.Name;
             if(userName != null)
             {
                  Clients.Group(roomName).getGroupMessage(userName, message, roomName);

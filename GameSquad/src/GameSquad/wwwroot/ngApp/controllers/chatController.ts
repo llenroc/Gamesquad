@@ -10,32 +10,29 @@
         public globalMessages = [];
         public newMessage;
         public dupUser = false;
-        public teamList;
+        public teamList = [];
 
-        public messageType;
+        
 
 
         //private messaging fields
         public sendToUser =
         {
             username: "",
-            connectionId: "none",
             messages: [],
             newMessageAlert: false
         };
-        public openPrivateChat;
-        public newPrivateMessage;
+        
+        
         public privateMessageArray = [
             {
                 username: "Dummy User 1",
-                connectionId: "none",
                 messages: [],
                 newMessageAlert: false,
                 online: true
             },
             {
                 username: "Dummy User 2",
-                connectionId: "none",
                 messages: [],
                 newMessageAlert: false,
                 online: true
@@ -43,7 +40,8 @@
         ];
         public groupMessageArray = [];
         public messagesDispalyed;
-        public newMessageAlertUser;
+        public newMessagePanelAlert;
+        public chatWindowOpen = false
         public sendTo;
         public teamToSend;
         public userListAlert = false;
@@ -60,6 +58,12 @@
             return this.accountService.getUserName();
         }
 
+        //allows for and dismisses the panel new message alerts
+        public setPanelAlert() {
+            this.chatWindowOpen = !this.chatWindowOpen;
+            this.newMessagePanelAlert = false;
+        }
+
         //Sets which user you are messaging
         public setUserToMessage(user) {
             this.sendToUser = user;
@@ -73,7 +77,6 @@
             else {
                 let newConversation = {
                     username: this.sendToUser.username,
-                    connectionId: this.sendToUser.connectionId,
                     messages: [],
                     newMessageAlert: false,
                     online: true
@@ -83,7 +86,7 @@
                 let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
                 this.messagesDispalyed = this.privateMessageArray[index].messages;
             }
-            this.openPrivateChat = true;
+            
             this.sendTo = "private";
             //this.$scope.$apply;
 
@@ -121,14 +124,14 @@
 
 
         //Sets the class for a user whether selected or has a new message
-        public userListClass(username) {
-            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(username);
+        public userListClass(user) {
+            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(user.username);
             let conversation = this.privateMessageArray[index];
 
 
 
-
-            if (conversation.username === this.sendToUser.username) {
+            
+            if (conversation.username === this.conversationName) {
                 conversation.newMessageAlert = false;
                 return 'list-group-item-warning'
             }
@@ -137,13 +140,14 @@
                 return 'list-group-item-success'
             }
             else {
-                return ""
+                return ''
             }
 
+            
         }
 
         
-
+        //Determins which sending method to use based on who you are messaging
         public sendMessage() {
             if (this.sendTo === 'private') {
                 this.sendPrivateMessage();
@@ -158,23 +162,15 @@
 
         //sends private message
         public sendPrivateMessage() {
-            let fromUsername = this.accountService.getUserName();
 
-            //just in case check. Sometimes has issue
-            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(this.sendToUser.username);
-            let userToSend = this.privateMessageArray[index];
-
-            this.chatHub.server.sendPrivateMessage(fromUsername, this.newMessage, userToSend.username, userToSend.connectionId);
+            this.chatHub.server.sendPrivateMessage(this.newMessage, this.conversationName);
             this.newMessage = "";
 
         }
 
         //sends global message
         public sendGlobalMessage() {
-            let username = this.accountService.getUserName();
-            let messageToSend = { username: username, message: this.newMessage }
-            console.log(messageToSend);
-            this.chatHub.server.sendMessage(messageToSend);
+            this.chatHub.server.sendMessage(this.newMessage);
             console.log("Message sent to server");
 
             this.newMessage = "";
@@ -182,11 +178,10 @@
 
         //sends group message
         public sendTeamMessage() {
-            let username = this.accountService.getUserName();
             let messageTosend = this.newMessage;
             let roomName = this.teamToSend;
 
-            this.chatHub.server.sendGroupMessage(username, messageTosend, roomName);
+            this.chatHub.server.sendGroupMessage(messageTosend, roomName);
             this.newMessage = "";
         }
 
@@ -204,14 +199,16 @@
             return messageTime;
         }
 
-        //Waits for messages from server
-        public waitForMessages() {
+        //Waits for messages and other signalr stuff from server
+        public waitMessages() {
 
-
-            this.chatHub.client.newMessage = (messageRecieved) => {
+            //Gets new global message
+            this.chatHub.client.newMessage = (fromUserName, messageRecieved) => {
+                let time = this.getTimeStamp();
+                let newMessage = { username: fromUserName, message: messageRecieved, time: time}
                 console.log("Message Recieved from server!");
 
-                this.globalMessages.push(messageRecieved);
+                this.globalMessages.push(newMessage);
                 console.log(this.globalMessages);
                 this.$scope.$apply();
             }
@@ -237,6 +234,10 @@
                     if (newMessage.username != this.getUserName()) {
                         this.userListAlert = true;
 
+                        if (!this.chatWindowOpen) {
+                            this.newMessagePanelAlert = true;
+                        }
+                        
                     }
 
                 }
@@ -263,6 +264,17 @@
                 this.$scope.$apply();
                 
             }
+
+            //If user joins a new group on the server this method is triggered and will join it in signalr
+            this.chatHub.client.joinNewGroup = (roomName) => {
+                this.connectToTeam(roomName);
+                this.teamList.push({ teamName: roomName });
+                console.log()
+                
+
+            }
+
+
         }
 
 
@@ -275,17 +287,21 @@
 
                 console.log(userList + typeof userList);
                 //If it detects this user is already connected it kils connection(fixes current duplicate issue)
-                if (userList === 0) {
+                if (userList === -1) {
                     $.connection.hub.stop();
                     this.dupUser = true;
                 }
                 //Sets up the user object for the connected users
                 else {
                     for (var user of userList) {
-                        user.messages = [];
-                        user.newMessageAlert = false;
-                        user.online = true;
-                        this.privateMessageArray.push(user);
+                        let friend = {
+                            username: user.userName,
+                            messages: [],
+                            newMessageAlert: false,
+                            online: user.online
+                        }
+                        
+                        this.privateMessageArray.push(friend);
 
                     }
                     console.log(this.privateMessageArray);
@@ -294,22 +310,24 @@
 
             }
 
-            //Detechts when a new user has been connected
+            //Detects when a new user has been connected
             this.chatHub.client.onNewUserConnected = (newUser) => {
                 console.log("New user Recieved from server!");
                 console.log(newUser)
 
-                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(newUser.username);
+                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(newUser);
                 if (index > -1) {
-                    this.privateMessageArray[index].connectionId = newUser.connectionId
                     this.privateMessageArray[index].online = true;
                 }
                 else {
-
-                    newUser.messages = [];
-                    newUser.newMessageAlert = false;
-                    newUser.online = true;
-                    this.privateMessageArray.push(newUser);
+                    let newFriend = {
+                        username: newUser,
+                        messages: [],
+                        newMessageAlert: false,
+                        online: true
+                    }
+                    
+                    this.privateMessageArray.push(newFriend);
                 }
 
                 console.log(this.privateMessageArray);
@@ -318,12 +336,12 @@
 
             }
 
+            //Sets user offline if they disconnect
+            this.chatHub.client.onUserDisconnected = (userOffline) => {
+                console.log("User has disconnected " + userOffline);
 
-            this.chatHub.client.onUserDisconnected = (userToRemove) => {
-                console.log("User has disconnected " + userToRemove);
 
-
-                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(userToRemove);
+                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(userOffline);
                 console.log(index);
                 if (index > -1) {
 
@@ -334,26 +352,30 @@
 
             }
 
+            
+
         }
 
+        //Gets team from service and joins the groups on signalr
         public getTeamsAndConnect() {
             this.teamService.getTeamsByUser().$promise.then((data) => {
                 this.teamList = data;
                 console.log(this.teamList);
 
                 for (let team of this.teamList) {
-                    this.chatHub.server.joinRoom(team.teamName)
-                    let newConversation = {
-                        roomName: team.teamName,
-                        messages: []
-                    }
-                    this.groupMessageArray.push(newConversation);
+                    this.connectToTeam(team.teamName);
                 }
             });
         }
 
-        public connectToTeam() {
-
+        //method to join group, and also create new object in the groupmessage array
+        public connectToTeam(roomName) {
+            this.chatHub.server.joinRoom(roomName);
+            let newConversation = {
+                roomName: roomName,
+                messages: []
+            }
+            this.groupMessageArray.push(newConversation);
         }
 
         constructor(private accountService: GameSquad.Services.AccountService,
@@ -364,7 +386,7 @@
             this.chatHub = $.connection.chatHub;
             //Starts the waiting functions for chat
             this.getConnectedUsers();
-            this.waitForMessages();
+            this.waitMessages();
             this.setGlobalToMessage();
 
             //this.getTeamsAndConnect();

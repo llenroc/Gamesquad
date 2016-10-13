@@ -41,12 +41,24 @@ namespace GameSquad.Controllers {
         public notificationCheck() {
             
             $.connection.notificationHub.client.notificationCount = (newCount) => {
-                
-                this.notificationCount = newCount;
+                if (newCount === 0) {
+                    this.notificationCount = '';
+                }
+                else {
+                    this.notificationCount = newCount;
+
+                }
                 console.log(this.notificationCount);
                 
                 this.$scope.$apply();
             }
+
+            $.connection.notificationHub.client.newNotification = () => {
+                this.notificationCount++;
+                this.$scope.$apply();
+
+            }
+
         }
 
        
@@ -75,7 +87,7 @@ namespace GameSquad.Controllers {
                 console.log("Connected to signalr");
                 //Runs notification checker and then sets it to run every x seconds
                 this.notificationChecker()
-                setInterval(() => { this.notificationChecker() }, 5000);
+                //setInterval(() => { this.notificationChecker() }, 5000);
             });
             $.connection.hub.error(function (err) {
                 console.log("An error occurded: " + err);
@@ -96,6 +108,7 @@ namespace GameSquad.Controllers {
         public login() {
             if (this.emailOrUser.includes("@")) {
                 this.loginUser.email = this.emailOrUser;
+                this.$state.go('/landing');
             }
             else {
                 this.loginUser.userName = this.emailOrUser;
@@ -103,6 +116,7 @@ namespace GameSquad.Controllers {
             this.accountService.login(this.loginUser).then(() => {
                 this.$location.path('/');
                 this.$uibModalInstance.close();
+                this.$state.go('/landing');
             }).catch((results) => {
                 this.validationMessages = results;
             });
