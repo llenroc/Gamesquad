@@ -108,12 +108,14 @@ namespace GameSquad.Controllers {
         public login() {
             if (this.emailOrUser.includes("@")) {
                 this.loginUser.email = this.emailOrUser;
+                this.$state.go('/landing');
             }
             else {
                 this.loginUser.userName = this.emailOrUser;
             }
             this.accountService.login(this.loginUser).then(() => {
                 this.$uibModalInstance.close();
+                this.$state.go('/landing');
             }).catch((results) => {
                 this.validationMessages = results;
             });
@@ -132,7 +134,7 @@ namespace GameSquad.Controllers {
         public register() {
             this.accountService.register(this.registerUser).then(() => {
                 this.$state.go('profileEdit');
-                document.location.reload();
+                //document.location.reload();
                 //this.$location.path('/');
             }).catch((results) => {
                 this.validationMessages = results;

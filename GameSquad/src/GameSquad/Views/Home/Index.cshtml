@@ -11,7 +11,6 @@
     <base href="/" />
     <!---google Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron" rel="stylesheet">
-
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/chat.css" rel="stylesheet" />
 </head>
@@ -19,13 +18,13 @@
     <!----FB script-->
     <div id="fb-root"></div>
     <script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     <!-- NAv Bar -->
     <nav class="navbar navbar-default">
         <div class="navbar-header">
@@ -41,25 +40,28 @@
                 <li><a ng-show="account.isLoggedIn()" href="/updates">Player <strong> Feed</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
-                <li><a ng-show="account.isLoggedIn()" href="/inbox" ng-click="account.notificationCount = ''">Inbox<strong><span> {{account.notificationCount}}</span></strong></a></li>
+                <li><a style="font-size:1.5em; font-family:Audiowide;" class="glyphicon glyphicon-envelope" ng-show="account.isLoggedIn()" href="/inbox" ng-click="account.notificationCount = ''"><span> {{account.notificationCount}}</span></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
             </ul>
-            <ul ng-show="account.isLoggedIn()" class="nav navbar-nav pull-right">
-                <li class="dropdown">
-                    <a href="/" class=""><span class="glyphicon glyphicon-user"></span> <strong>{{account.getUserName()}}</strong><strong class="caret"></strong></a>
-                    <ul style="min-width: 100px" class="dropdown-menu">
+            <ul ng-show="account.isLoggedIn()" style=" cursor:pointer" class="nav navbar-nav navbar-right dropdown-open">
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <strong>{{account.getUserName()}}</strong><strong class="caret"></strong>
+                    </a>
+
+                    <ul style="text-align:right;" class="dropdown-menu">
                         <li><a ng-show="account.isLoggedIn()" href="/dashboard"><strong>Dashboard</strong></a></li>
                         <li><a ng-show="account.isLoggedIn()" href="/friends"><strong>Friends</strong></a></li>
                         <li><a ng-show="account.isLoggedIn()" href="/myTeam">My <strong>Team</strong></a></li>
                         <li><a href="#" ng-show="account.isLoggedIn()" ng-click="account.logout()">SignOut</a></li>
                     </ul>
-                 </li>
+                </li>
             </ul>
         </div>
     </nav>
     <div style="padding-bottom:50px"><ui-view></ui-view></div>
-
     <!--SignalR -->
     <div class="chat-section" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="panel panel-warning">
@@ -68,7 +70,6 @@
             </div>
             <div id="collapse1" class="panel-collapse collapse">
                 <div class="panel-body chat-panel-body">
-
                     <!--Friends/userlist-->
 
                     <div class="user-list chat-scrollbar">
@@ -90,7 +91,6 @@
                                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                         <div class="panel-body">
                                             <ul class="list-group">
-
                                                 <li class="list-group-item"
                                                     ng-click="chat.setUserToMessage(user)"
                                                     ng-repeat="user in chat.privateMessageArray"
@@ -99,69 +99,61 @@
                                                     <div>{{user.username}}<p ng-show="!user.online" class="text-danger">(Offline)</p></div>
 
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
-                                    <div class="panel-heading collapsed" role="tab" id="headingTwo"  data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <h4 class="panel-title" >
+                                    <div class="panel-heading collapsed" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <h4 class="panel-title">
                                             Teams
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                         <div class="panel-body">
                                             <ul class="list-group">
-
                                                 <li class="list-group-item"
                                                     ng-click="chat.setTeamToMesssage(team.teamName)"
                                                     ng-repeat="team in chat.teamList"
                                                     ng-class="{'list-group-item-warning': chat.conversationName === team.teamName}">
-                                                    
+
                                                     <div>{{team.teamName}}</div>
-
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
-
                     <!--Chat Section-->
                     <div style="width:100%">
                         <div class="chat-message-section chat-scrollbar" schroll-bottom="chat.privateMessagesDispalyed">
-                            <div class="chat-item-container" >
+                            <div class="chat-item-container">
                                 <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning" style="margin-bottom: 10px;">This is the start of your conversation with {{chat.conversationName}}!</div>
                                 <div class="chat-item" ng-repeat="msg in chat.messagesDispalyed" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
                                     <p>{{msg.message}}</p>
                                     <div>{{msg.username}} at {{msg.time}}</div>
                                 </div>
-
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <form ng-submit="chat.sendMessage()" class="form-inline" >
+                            <form ng-submit="chat.sendMessage()" class="form-inline">
                                 <div class="form-group chat-input" style="width:100%;">
                                     <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" required />
-                                    <button class="btn btn-primary"  type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
+                                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    
+
                 </div>
-                
+
             </div>
-            
+
         </div>
     </div>
-    
+
     <!-- Library Files -->
     <script src="~/lib/angular/angular.js"></script>
     <script src="~/lib/angular-resource/angular-resource.js"></script>

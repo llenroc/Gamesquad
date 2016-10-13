@@ -29,6 +29,11 @@
             );
         }
 
+        public goBack() {
+            window.history.back();
+            console.log("back one page?");
+        }
+
         public fileUploaded(file) {
             // save file url to database
             this.file = file;
