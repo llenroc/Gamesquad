@@ -1,34 +1,37 @@
-﻿<br />
+﻿
+<br />
 <br />
 <div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
+    <div style="background-color:#505454; margin-top:40px; padding-left:40px; padding-right:40px; " class="col-lg-8 col-lg-offset-2 img-rounded">
         <div class="row">
-            <div class="panel panel-primary filterable">
-                <div class="panel-heading">
-                    <h3 class="panel-title">My Messages</h3>
-                </div>
-                <table class="table table-hover table-striped">
-                    <tr ng-repeat="msg in controller.messages">
-                        <td><a ng-href="/inbox/{{msg.id}}">{{msg.subject}} from {{msg.sendingUser}}</a></td>
-                        <td><button class="btn btn-warning btn-sm" ng-click="controller.deleteMessage(msg.id)">Delete</button></td>
-                    </tr>
-                </table>
+            <div style="background-color:darkgray; margin-top:20px; padding-left:5px; padding-bottom:5px;" class="img-rounded"> <h2 style="font-family:Audiowide; color:black; display:inline;"> Messages</h2> 
+            <img class="pull-right" style="padding-right:5px; display:inline;" width="60" height="60" src="../../images/mail-inbox.png"/>
             </div>
-            <div class="panel panel-primary filterable">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Friend Requests</h3>
-                </div>
-                <table class="table table-striped">
-                    <tr ng-repeat="request in controller.friendRequests">
-                        <td>{{request.sendingUserName}}</td>
-                        <td>
-                            <button class="btn btn-success btn" ng-click="controller.addFriendToUser(request.sendingUserId)">Accept</button>
-                            <button class="btn btn-warning btn" ng-click="controller.removeFriendRequest(request.sendingUserId)">Reject</button>
-                        </td>
-                    </tr>
-                </table>
+            <br />
+            <table class="table table-hover table-striped img-rounded">
+                <tr ng-repeat="msg in controller.messages">
+                    <td>From: <strong>{{msg.sendingUser}}</strong>&nbsp;&nbsp;&nbsp;Subject:<strong>{{msg.subject}}</strong></td>
+
+                    <td><a style="" class="glyphicon glyphicon-envelope" ng-href="/inbox/{{msg.id}}"></a>
+                    <td><a style="cursor:pointer;" class="glyphicon glyphicon-remove" ng-click="controller.deleteMessage(msg.id)"></a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div style="background-color:darkgray; margin-top:20px; padding-left:5px; padding-bottom:10px; padding-top:10px;" class="img-rounded">
+                <h2 style="font-family:Audiowide; color:black; display:inline;">Friend Requests</h2>
+                <img class="pull-right" style="padding-right:5px; display:inline;" width="60" height="60" src="../../images/add_friend-512.png" />
             </div>
+            <br />
+            <table class="table table-hover table-striped img-rounded">
+                <tr  ng-repeat="request in controller.friendRequests">
+                    <td>{{request.sendingUserName}}</td>
+                    <td>
+                        <button class="btn btn-success btn" ng-click="controller.addFriendToUser(request.sendingUserId)">Accept</button>
+                        <button class="btn btn-warning btn" ng-click="controller.removeFriendRequest(request.sendingUserId)">Reject</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
-

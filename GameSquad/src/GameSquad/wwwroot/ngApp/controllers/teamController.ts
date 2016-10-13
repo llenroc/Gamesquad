@@ -23,17 +23,21 @@
                     team.team.isMember = team.isMember;
                     this.teamHolder.push(team.team);
                 }
-                if (this.data.pageCount <= 0) {
-                    document.getElementById("previous").style.visibility = "hidden";
+                if (document.getElementById("previous") != null){
+                    if (this.data.pageCount == 0) {
+                        document.getElementById("previous").style.visibility = "hidden";
+                    }
+                    else if (this.data.pageCount > 0) {
+                        document.getElementById("previous").style.visibility = "visible";
+                    }
                 }
-                else if (this.data.pageCount > 0) {
-                    document.getElementById("previous").style.visibility = "visble";
-                }
-                if (holder.length < 5) {
-                    document.getElementById("next").style.visibility = "hidden";
-                }
-                else if (holder.length == 5) {
-                    document.getElementById("next").style.visibility = "visble";
+                if (document.getElementById("next") != null) {
+                    if (holder.length < 5) {
+                        document.getElementById("next").style.visibility = "hidden";
+                    }
+                    else if (holder.length == 5) {
+                        document.getElementById("next").style.visibility = "visible";
+                    }
                 }
             });
         }

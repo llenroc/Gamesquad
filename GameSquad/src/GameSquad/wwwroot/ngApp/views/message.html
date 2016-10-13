@@ -1,16 +1,22 @@
-﻿<br />
-<br />
+﻿
+
+<div style=" margin-top:40px;" class="col-md-2 col-lg-offset-2 img-rounded"><a href="/inbox">Back To Inbox</a></div>
+
 <div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
+    <div style="background-color:#505454; margin-top:40px; padding-left:40px; padding-right:40px; padding-bottom:20px; " class="col-lg-8 col-lg-offset-2 img-rounded">
         <div class="row">
-            <div class="panel panel-primary filterable">
-                <div class="panel-heading">
-                    <h2 class="panel-title">{{controller.messageDetails.subject}}</h2>
+            <div style="background-color:darkgray; margin-top:20px; padding-left:5px; padding-bottom:5px;" class="img-rounded">
+                <h3 style="font-family:Audiowide; color:black; display:inline;">{{controller.messageDetails.subject}}</h3>
+                <img class="pull-right" style="padding-right:5px; display:inline;" width="40" height="40" src="../../images/mail-inbox.png" />
+            </div>
+            <br />
+            <div style="background-color:dimgray; margin-top:15px; padding-left:10px; " class=" img-rounded">
+                <p style="color:black">{{controller.messageDetails.message}}</p>
+                <br />
+                <div style="font-family:Audiowide; padding-bottom:20px;">
+                    <h6 style="font-family:Audiowide;" >From:<strong>{{controller.messageDetails.sendingUser}}</strong></h6>
+                    <h6 style="font-family:Audiowide;">{{controller.messageDetails.dateSent}}</h6>
                 </div>
-                <h6><em>From: </em><strong>{{controller.messageDetails.sendingUser}}</strong></h6>
-                <h6><em>{{controller.messageDetails.dateSent}}</em></h6>
-                <hr />
-                <p>{{controller.messageDetails.message}}</p>
             </div>
         </div>
     </div>

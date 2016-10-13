@@ -2,7 +2,7 @@
 <img class="displayed" width="800" height="130" src="../../images/player123.png" />
 
 <<div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
+    <div class="col-lg-10 col-lg-offset-1">
         <div class="row">
             <div class="panel panel-warning filterable">
                 <div class="panel-heading">
@@ -20,31 +20,35 @@
                             <table class="table table-striped img-rounded">
                                 <thead>
                                     <tr class="filters">
-                                        <th><input ng-model="searchUser" type="text" class="form-control" placeholder="UserName"></th>
-                                        <th><input ng-model="searchRank" type="number" value="" class="form-control" placeholder="Rank"></th>
+                                        <th><input ng-model="controller.data.username" type="text" class="form-control" placeholder="UserName"></th>
                                         <th>
-                                            <select ng-model="searchStatus" type="text" class="form-control" placeholder="Status">
+                                            <input style="width:100px; display:inline;" ng-model="controller.data.rankFrom" type="number" id="minValue"  class="form-control" placeholder="Rank"/> - 
+                                            <input style="width:100px; display:inline;" ng-model="controller.data.rankTo" type="number" id="maxValue"  class="form-control" placeholder="Rank" />
+                                        </th>
+                                        <th>
+                                            <input ng-model="controller.data.onlineOnly" type="checkbox" class="form-control" placeholder="Status"/>
+                                        </th>
+                                        <th><select ng-model="controller.data.lookingFor" type="text" class="form-control" placeholder="Looking For..">
                                                 <option value=""></option>
-                                                <option value="Online">Online</option>
+                                                <option >Player</option>
+                                                <option >Competitive</option>
+                                                <option >Casual</option>
                                             </select>
                                         </th>
-                                        <th><select ng-model="searchFor" type="text" class="form-control" placeholder="Looking For..">
-                                                <option value=""></option>
-                                                <option value="Team">Team</option>
-                                                <option value="Competitive Team">Competitive Team</option>
-                                                <option value="Players">Players</option>
-                                            </select></th>
+                                        <th>
+                                            <button class="btn btn-primary" ng-click="controller.getAllUsers()">Search</button>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tr>
                                     <th>Username</th>
                                     <th>Rank</th>
-                                    <th>Status</th>
+                                    <th>Online</th>
                                     <th>Looking For</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="user in controller.users | orderBy:userName:reverse | filter:{userName:searchUser} | filter:{lookingFor:searchFor || undefined} | filter:{rank:searchRank} | filter:{isOnline:searchStatus}">
+                                <tr ng-repeat="user in controller.users">
                                     <td><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
                                     <td>{{user.rank}}</td>
                                     <td>{{user.isOnline ? "Online": "Offline"}}</td>

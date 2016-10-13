@@ -19,6 +19,13 @@
 
         //get all Users to display
         public getAllUsers(pageCount) {
+            if (this.data.rankFrom < 0) {
+                this.data.rankFrom = 0;
+            }
+            if (this.data.rankTo > 400) {
+                this.data.rankTo = 400;
+
+            }
             this.userService.getAllUsers(this.data).then((_data) => {
                 this.users = [];
                 this.users = _data.data;

@@ -8,11 +8,11 @@
         constructor(private $resource: angular.resource.IResourceService) {
             this.teamsResource = this.$resource('/api/team/:id', null, {
                 addMemberToTeam: {
-                    method: 'POST',
+                    method: 'GET',
                     url: '/api/team/addMemberToTeam/:teamId',
                 },
                 RemoveMember: {
-                    method: 'POST',
+                    method: 'GET',
                     url: '/api/team/RemoveMember/:teamId',
                 },
                 getTeamsByUser: {
