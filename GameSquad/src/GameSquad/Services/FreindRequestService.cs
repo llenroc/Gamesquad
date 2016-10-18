@@ -60,6 +60,28 @@ namespace GameSquad.Services
             {
                 userToSend.FreindRequests.Add(newRequest);
 
+                var add = new Friend
+                {
+                    User = userFromSent,
+                    UserId = userFrom,
+                    FriendId = userTo,
+                    Active = false
+                };
+                var data = new Friend
+                {
+                    User = userToSend,
+                    UserId = userTo,
+                    FriendId = userFrom,
+                    Active = false
+                };
+
+                _repo.Add(add);
+
+                if (userFrom != userTo)
+                {
+                    _repo.Add(data);
+                }
+
                 _repo.SaveChanges();
 
                 //Signalr Stuff for push notifications
@@ -75,6 +97,16 @@ namespace GameSquad.Services
             _repo.Delete(userFromSent);
             _repo.SaveChanges();
 
+            var f1 = _repo.Query<Friend>().Where(u => u.UserId == userTo && u.FriendId == userFrom).FirstOrDefault();
+            var f2 = _repo.Query<Friend>().Where(u => u.UserId == userFrom && u.FriendId == userTo).FirstOrDefault();
+
+            if(!f1.Active)
+            {
+                _repo.Delete(f1);
+                _repo.SaveChanges();
+                _repo.Delete(f2);
+                _repo.SaveChanges();
+            }
         }
 
     }

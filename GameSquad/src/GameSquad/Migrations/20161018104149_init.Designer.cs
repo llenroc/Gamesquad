@@ -8,7 +8,7 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161013151322_init")]
+    [Migration("20161018104149_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,6 +94,8 @@ namespace GameSquad.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
 
                     b.Property<string>("FriendId");
 

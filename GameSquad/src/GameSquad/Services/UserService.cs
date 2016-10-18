@@ -31,28 +31,29 @@ namespace GameSquad.Services
             var username = _data.Username ?? "";
             var rankFrom = _data.RankFrom;
             var rankTo = _data.RankTo;
+            var platform = _data.Platform;
             
             List<ApplicationUser> data;
             if(_data.OnlineOnly)
             {
                 if(_data.LookingFor == "")
                 {
-                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.IsOnline == true).Skip(5 * pageCount).Take(5).ToList();
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.Platform == platform && u.IsOnline == true).Skip(5 * pageCount).Take(5).ToList();
                 }
                 else
                 {
-                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.IsOnline == true && u.LookingFor.Contains(_data.LookingFor)).Skip(5 * pageCount).Take(5).ToList();
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.Platform == platform && u.IsOnline == true && u.LookingFor.Contains(_data.LookingFor)).Skip(5 * pageCount).Take(5).ToList();
                 }
             }
             else
             {
                 if(_data.LookingFor == "")
                 {
-                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo).Skip(5 * pageCount).Take(5).ToList();
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.Platform == platform).Skip(5 * pageCount).Take(5).ToList();
                 }
                 else
                 {
-                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.LookingFor.Contains(_data.LookingFor)).Skip(5 * pageCount).Take(5).ToList();
+                    data = _repo.Query<ApplicationUser>().Where(u => u.UserName.Contains(username) && u.Rank >= rankFrom && u.Rank <= rankTo && u.Platform == platform && u.LookingFor.Contains(_data.LookingFor)).Skip(5 * pageCount).Take(5).ToList();
                 }
             }
             return data;
