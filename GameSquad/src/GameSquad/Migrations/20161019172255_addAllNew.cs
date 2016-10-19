@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GameSquad.Migrations
 {
-    public partial class addAll : Migration
+    public partial class addAllNew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
