@@ -60,7 +60,11 @@ namespace GameSquad.API
 
             if (ModelState.IsValid)
             {
-                _service.SaveTeam(team);
+                var id =_service.SaveTeam(team);
+                if(id != 0)
+                {
+                    this.AddMemberToTeam(id);
+                }
                 return Ok();
             }
             else
@@ -108,8 +112,10 @@ namespace GameSquad.API
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            _service.DeleteTeam(id);
+            return Ok();
         }
     }
 }

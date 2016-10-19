@@ -9,9 +9,10 @@ namespace GameSquad.Services
         object getTeamInfo(int id);
         List<Team> getTeams();
         void RemoveMember(string userId, int teamId);
-        void SaveTeam(Team team);
+        int SaveTeam(Team team);
         List<Team> TeamsByUser(string userId);
         List<ApplicationUser> UsersByTeam(int teamId);
         List<dynamic> GetTableData(TSearch id);
+        void DeleteTeam(int id);
     }
 }
