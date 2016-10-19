@@ -48,14 +48,19 @@
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="user in controller.users">
-                                    <td><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
-                                    <td>{{user.rank}}</td>
-                                    <td>{{user.isOnline ? "Online": "Offline"}}</td>
-                                    <td>{{user.lookingFor}}</td>
-                                    <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
-                                    <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
-                                </tr>
+                                <tbody ng-repeat="user in controller.users">
+                                    <tr >
+                                        <td><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
+                                        <td>{{user.rank}}</td>
+                                        <td>{{user.isOnline ? "Online": "Offline"}}</td>
+                                        <td>{{user.lookingFor}}</td>
+                                        <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
+                                        <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="well" style="word-wrap:break-word;">{{user.statusMessage}}</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>

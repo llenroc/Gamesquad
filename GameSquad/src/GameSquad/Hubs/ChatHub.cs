@@ -58,7 +58,7 @@ namespace GameSquad.Hubs
             else
             {
                 //Changes online status to online
-                _service.OnlineStatusToggle(userName, 1);
+                _service.OnlineStatusToggle(userName, true);
 
 
                 var friendNames = _service.getFriends(userName);
@@ -118,7 +118,7 @@ namespace GameSquad.Hubs
             {
 
                 //sets online status to false
-                _service.OnlineStatusToggle(userToRemove, 0);
+                _service.OnlineStatusToggle(userToRemove, false);
 
                 //Removes client from userlist and lets clients know
                 var friendNames = _service.getFriends(userToRemove);

@@ -37,6 +37,16 @@ namespace GameSquad.Controllers {
             });
         }
 
+        //Launch Status Modal
+        public statusModal() {
+            this.$uibModal.open({
+                templateUrl: 'ngApp/views/modals/modalStatus.html',
+                controller: StatusController,
+                controllerAs: 'modal',
+                size: "sm"
+            });
+        }
+
         
         
         //Callback for notification counter
@@ -129,6 +139,24 @@ namespace GameSquad.Controllers {
         }
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $state: ng.ui.IStateService) {
+
+        }
+    }
+
+    export class StatusController {
+        public statusMessage;
+        public lookingFor;
+        public ok() {
+            
+            this.statusService.saveStatus({lookingFor: this.lookingFor, statusMessage: this.statusMessage}).then(() => {
+                this.$uibModalInstance.close();
+            }).catch((results) => {
+                console.log("Save status Failed");
+            });
+        }
+
+        constructor(private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $scope: ng.IScope, private statusService: GameSquad.Services.StatusService) {
+
 
         }
     }

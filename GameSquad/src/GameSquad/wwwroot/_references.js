@@ -35,6 +35,7 @@
 /// <reference path="ngApp/services/messageService.js" />
 /// <reference path="ngApp/services/postService.js" />
 /// <reference path="ngapp/services/services.js" />
+/// <reference path="ngapp/services/statusservice.js" />
 /// <reference path="ngApp/services/teamService.js" />
 /// <reference path="ngApp/services/userDashboardService.js" />
 /// <reference path="ngApp/services/userService.js" />
