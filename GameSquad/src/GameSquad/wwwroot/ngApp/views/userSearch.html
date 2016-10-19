@@ -26,12 +26,21 @@
                                             <th>
                                                 <input ng-model="controller.data.onlineOnly" type="checkbox" class="form-control" placeholder="Status" />
                                             </th>
+                                            
                                             <th>
                                                 <select ng-model="controller.data.lookingFor" type="text" class="form-control" placeholder="Looking For..">
-                                                    <option value=""></option>
+                                                    <option value="">Looking for...</option>
                                                     <option>Player</option>
                                                     <option>Competitive</option>
                                                     <option>Casual</option>
+                                                </select>
+                                            </th>
+                                            <th>
+                                                <select ng-model="controller.data.platform" type="text" class="form-control" placeholder="Platform">
+                                                    <option value="">Platform</option>
+                                                    <option>PC</option>
+                                                    <option>Playstation 4</option>
+                                                    <option>Xbox One</option>
                                                 </select>
                                             </th>
                                             <th>
@@ -47,14 +56,20 @@
                                         <th></th>
                                         <th></th>
                                     </tr>
-                                    <tr ng-repeat="user in controller.users">
-                                        <td style="text-transform:capitalize;"><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
-                                        <td>{{user.rank}}</td>
-                                        <td>{{user.isOnline ? "Online": "Offline"}}</td>
-                                        <td>{{user.lookingFor}}</td>
-                                        <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
-                                        <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
-                                    </tr>
+                                    <tbody ng-repeat="user in controller.users">
+                                        <tr >
+                                            <td style="text-transform:capitalize;"><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
+                                            <td>{{user.rank}}</td>
+                                            <td>{{user.isOnline ? "Online": "Offline"}}</td>
+                                            <td>{{user.lookingFor}}</td>
+                                            <td>{{user.platform}}</td>
+                                            <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
+                                            <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6" class="well" style="word-wrap:break-word;">{{user.statusMessage}}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
