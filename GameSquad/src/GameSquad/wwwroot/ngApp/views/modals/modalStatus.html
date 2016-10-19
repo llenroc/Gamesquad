@@ -1,0 +1,30 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Set your status</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <form ng-submit="modal.ok()">
+                <div class="form-group">
+                    <label class="control-label">Looking For</label>
+                    <select ng-model="modal.lookingFor" type="text" class="form-control" placeholder="Looking For.." required>
+                        <option value="" selected disabled>Looking For...</option>
+                        <option>Player</option>
+                        <option>Competitive</option>
+                        <option>Casual</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <textarea maxlength="250" cols="12" rows="6" class="form-control" ng-model="modal.statusMessage" placeholder="Give a small status to tell others about yourself or what you are looking for..."></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-save"></span> Save</button>
+                    <button class="btn btn-default" ng-click="modal.$uibModalInstance.close()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                </div>
+            </form>
+            <p class="text-danger">{{modal.validationError}}</p>
+        </div>
+    </div>
+</div>

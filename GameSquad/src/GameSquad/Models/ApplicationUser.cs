@@ -47,5 +47,7 @@ namespace GameSquad.Models
         //dashboard banner
         public string BannerImage { get; set; }
         public string LookingFor { get; set; }
+
+        public string StatusMessage { get; set; }
     }
 }

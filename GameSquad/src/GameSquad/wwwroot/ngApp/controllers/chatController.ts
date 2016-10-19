@@ -302,7 +302,6 @@
                 //If it detects this user is already connected it kils connection(fixes current duplicate issue)
                 if (userList === -1) {
                     $.connection.hub.stop();
-                    this.dupUser = true;
                 }
                 //Sets up the user object for the connected users
                 else {

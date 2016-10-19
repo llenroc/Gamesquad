@@ -72,6 +72,8 @@ namespace GameSquad.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("StatusMessage");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")

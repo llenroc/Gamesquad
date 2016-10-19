@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161019071056_addAll")]
-    partial class addAll
+    [Migration("20161019063328_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,6 +72,8 @@ namespace GameSquad.Migrations
                     b.Property<int>("Rank");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("StatusMessage");
 
                     b.Property<bool>("TwoFactorEnabled");
 

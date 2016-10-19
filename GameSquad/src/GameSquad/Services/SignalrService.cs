@@ -51,7 +51,7 @@ namespace GameSquad.Services
         /// </summary>
         /// <param name="userName">username of the user you want to change</param>
         /// <param name="onOrOff">pass 0 to set online false, any other for true</param>
-        public void OnlineStatusToggle(string userName, int onOrOff)
+        public void OnlineStatusToggle(string userName, bool onOrOff)
         {
            
            
@@ -62,7 +62,7 @@ namespace GameSquad.Services
                 var user = db.Users.Where(u => u.UserName == userName).FirstOrDefault();
                 if (user != null)
                 {
-                    if (onOrOff == 0)
+                    if (!onOrOff)
                     {
                         user.IsOnline = false;
                     }
