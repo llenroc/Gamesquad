@@ -21,7 +21,7 @@ namespace GameSquad.Services
         {
             _repo = repo;
             _manager = manager;
-            _hubManager = Startup.ConnectionManager.GetHubContext<NotificationHub>(); 
+            _hubManager = Startup.ConnectionManager.GetHubContext<ChatHub>(); 
         }
 
         //get messages by user

@@ -91,8 +91,13 @@ namespace GameSquad.Hubs
                     }
 
                 }
-
                 Clients.Caller.onConnected(friendList);
+
+
+                //Checks notification amount
+                var notificationCount = _service.NotificationCount(userName);
+                Clients.Caller.notificationCount(notificationCount);
+
 
 
                 //Adds new user to client list

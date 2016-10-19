@@ -17,9 +17,11 @@ namespace GameSquad.Controllers {
 
         public logout() {
             this.accountService.logout().then(() => {
-                $.connection.hub.stop();
-                this.$location.path('/');
-                document.location.reload();
+                $.connection.hub.stop().done(() => {
+                    this.$location.path('/');
+                    document.location.reload();
+                })
+                
             });
             
         }
@@ -50,10 +52,11 @@ namespace GameSquad.Controllers {
         
         
         //Callback for notification counter
-        public notificationCount;
+        public notificationCount = null;
         public notificationCheck() {
             
-            $.connection.notificationHub.client.notificationCount = (newCount) => {
+            $.connection.chatHub.client.notificationCount = (newCount) => {
+                
                 if (newCount === 0) {
                     this.notificationCount = '';
                 }
@@ -74,17 +77,7 @@ namespace GameSquad.Controllers {
 
         }
 
-       
 
-       //Calls the server for notifications
-        public notificationChecker() {
-
-            if ($.connection.chatHub.state !== $.signalR.connectionState.connected) {
-                $.connection.notificationHub.server.notificationCheck();
-            }
-            
-
-        }
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService,
             private $uibModal: ng.ui.bootstrap.IModalService,
@@ -99,9 +92,7 @@ namespace GameSquad.Controllers {
             $.connection.hub.logging = true;
             $.connection.hub.start().done( () => {
                 console.log("Connected to signalr");
-                //Runs notification checker and then sets it to run every x seconds
-                this.notificationChecker()
-                //setInterval(() => { this.notificationChecker() }, 5000);
+                
             });
             $.connection.hub.error(function (err) {
                 console.log("An error occurded: " + err);
@@ -132,13 +123,20 @@ namespace GameSquad.Controllers {
             this.accountService.login(this.loginUser).then(() => {
                 this.$location.path('/');
                 document.location.reload();
+
+                //if ($.connection.chatHub.state !== $.signalR.connectionState.connected) {
+                    
+                //    $.connection.hub.start().done(() => {
+                //        console.log("Connected to signalr");
+                //    });
+                //}
                 this.$uibModalInstance.close();
             }).catch((results) => {
                 this.validationMessages = results;
             });
         }
 
-        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $state: ng.ui.IStateService) {
+        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $state: ng.ui.IStateService, private $scope: angular.IScope) {
 
         }
     }
