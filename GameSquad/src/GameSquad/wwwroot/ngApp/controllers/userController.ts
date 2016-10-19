@@ -1,7 +1,7 @@
 ﻿namespace GameSquad.Controllers {
     export class UserController {
         public users;
-        public data = { pageCount: 0, username: "", rankFrom: 0, rankTo: 400, onlineOnly: false, lookingFor: "" };
+        public data = { pageCount: 0, username: "", rankFrom: 0, rankTo: 400, onlineOnly: false, lookingFor: "", platform: "" };
 
         constructor(private userService: GameSquad.Services.UserService, private $state: angular.ui.IStateService, private friendRequestService: GameSquad.Services.FriendRequestService, private $uibModal: angular.ui.bootstrap.IModalService) {
             this.getAllUsers(this.data.pageCount);
@@ -29,6 +29,15 @@
             this.userService.getAllUsers(this.data).then((_data) => {
                 this.users = [];
                 this.users = _data.data;
+                console.log("users");
+                console.log(_data);
+                var holder = [];
+                for (var user of this.users) {
+                    user.user.isFriend = user.isFriend;
+                    holder.push(user.user);
+                }
+                this.users = holder;
+                
                 if (pageCount <= 0) {
 
                     document.getElementById("previous").style.visibility = "hidden";
@@ -60,9 +69,9 @@
 
         public sendFriendRequest(user) {
             this.friendRequestService.sendFriendRequest(user).then(() => {
-                var rowToChange = angular.element(document.querySelector('#' + user.userName));
-                rowToChange.addClass('btn-warning disabled');
-                rowToChange.html('Friend request sent!');
+                //var rowToChange = angular.element(document.querySelector('#' + user.userName));
+                //rowToChange.addClass('btn-warning disabled');
+                //rowToChange.html('Friend request sent!');
             })
         }
     }
