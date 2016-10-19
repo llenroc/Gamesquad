@@ -10,8 +10,18 @@
 
 
 
+        public teamOwner() {
+            if (this.accountService.getUserName == this.teamDetails.teamLeader) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
 
-        
+        public deleteTeam() {
+
+        }
 
         constructor(
             private teamService: GameSquad.Services.TeamService,

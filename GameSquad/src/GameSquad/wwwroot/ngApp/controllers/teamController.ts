@@ -10,7 +10,7 @@
         public data = { pageCount: 0, nameFilter: "", typeFilter: "", leaderFilter: "" };
         public teamHolder = [];
 
-        constructor(private teamService: GameSquad.Services.TeamService, private $state: angular.ui.IStateService) {
+        constructor(private accountService: GameSquad.Services.AccountService,private teamService: GameSquad.Services.TeamService, private $state: angular.ui.IStateService) {
             this.getTeams();
             this.teamsByUser();
         }
@@ -59,9 +59,10 @@
         }
 
         public saveTeam() {
+            this.teamToCreate.teamLeader = this.accountService.getUserName();
             this.teamService.saveTeam(this.teamToCreate)
                 .then((data) => {
-                    this.$state.go('team');
+                    this.$state.go('myTeam');
                 }).catch(() => {
                     console.log("something went wrong");
                 })
