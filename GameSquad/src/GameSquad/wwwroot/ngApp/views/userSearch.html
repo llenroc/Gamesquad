@@ -64,7 +64,7 @@
                                             <td>{{user.lookingFor}}</td>
                                             <td>{{user.platform}}</td>
                                             <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
-                                            <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
+                                            <td><button class="btn btn-default btn-sm" ng-disabled="user.isFriend" ng-click="controller.sendFriendRequest(user); user.isFriend = true;" id="{{user.userName}}">Friend Request</button></td>
                                         </tr>
                                         <tr>
                                             <td colspan="6" class="well" style="word-wrap:break-word;">{{user.statusMessage}}</td>
