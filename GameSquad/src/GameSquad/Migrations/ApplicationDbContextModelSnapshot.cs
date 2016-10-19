@@ -96,6 +96,8 @@ namespace GameSquad.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("FriendId");
 
                     b.Property<string>("UserId");

@@ -49,7 +49,7 @@
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                         <span class="glyphicon glyphicon-user"></span>
-                        <strong>{{account.getUserName()}}</strong><strong class="caret"></strong>
+                        <strong style="text-transform:capitalize;">{{account.getUserName()}}</strong><strong class="caret"></strong>
                     </a>
 
                     <ul style="text-align:right;" class="dropdown-menu">
@@ -170,36 +170,8 @@
     <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
     <script src="~/lib/angular-filepicker/dist/angular_filepicker.js"></script>
    
-    <!-- App js files-->
-    <script src="~/ngapp/app.js"></script>
-    <!-- controllers-->
-    <script src="~/ngapp/controllers/controllers.js"></script>
-    <script src="~/ngApp/controllers/teamController.js"></script>
-    <script src="~/ngApp/controllers/postCreateController.js"></script>
-    <script src="~/ngApp/controllers/postController.js"></script>
-    <script src="~/ngApp/controllers/chatController.js"></script>
-    <script src="~/ngApp/controllers/userController.js"></script>
-    <script src="~/ngApp/controllers/teamInfoController.js"></script>
-    <script src="~/ngApp/controllers/friendController.js"></script>
-    <script src="~/ngApp/controllers/messageController.js"></script>
-    <script src="~/ngApp/controllers/messageInfoController.js"></script>
-    <script src="~/ngApp/controllers/messageCreateController.js"></script>
-    <script src="~/ngApp/controllers/messageDeleteController.js"></script>
-    <script src="~/ngApp/controllers/profileController.js"></script>
-    <!--services-->
-    <script src="~/ngapp/services/services.js"></script>
-    <script src="~/ngApp/services/teamService.js"></script>
-    <script src="~/ngApp/controllers/userDashboardController.js"></script>
-    <script src="~/ngApp/services/postService.js"></script>
-    <script src="~/ngApp/services/userService.js"></script>
-    <script src="~/ngApp/services/friendService.js"></script>
-    <script src="~/ngApp/services/friendRequestService.js"></script>
-    <script src="~/ngApp/services/messageService.js"></script>
-    <script src="~/ngApp/services/userDashboardService.js"></script>
-    <script src="~/ngApp/services/statusService.js"></script>
-    <!-- Security -->
-    <script src="~/ngapp/controllers/accountcontroller.js"></script>
-    <script src="~/ngapp/services/accountservice.js"></script>
+    <!--JS files-->
+    <script src="~/out.js"></script>
     <!----link-->
     @*<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

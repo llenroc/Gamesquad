@@ -1,6 +1,7 @@
 ﻿using GameSquad.Hubs;
 using GameSquad.Models;
 using GameSquad.Repositories;
+using GameSquad.ViewModels;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -31,23 +32,40 @@ namespace GameSquad.Services
             return data;
         }
 
-        public Object GetFriendsByUser(string userId)
+        public List<FriendCheckVM> GetFriendsByUser(string userId)
+        {
+
+            var data = _repo.Query<ApplicationUser>().Where(u => u.Id == userId).Select(f => new
+            {
+                Friends = f.Friends.Where(a => a.Active == true).Select(u => u.FriendId).ToList(),
+            }).FirstOrDefault();
+            List<FriendCheckVM> nFriends = new List<FriendCheckVM>();
+            foreach (var a in data.Friends)
+            {
+                var b = _repo.Query<ApplicationUser>().Where(u => u.Id == a).Select(u => new FriendCheckVM
+                {
+                    Username = u.UserName,
+                    Id = u.Id,
+                    Rank = u.Rank
+                }).FirstOrDefault();
+                nFriends.Add(b);
+            }
+            return nFriends;
+        }
+
+        public List<FriendCheckVM> GetAllFriendsByUser(string userId)
         {
 
             var data = _repo.Query<ApplicationUser>().Where(u => u.Id == userId).Select(f => new
             {
                 Friends = f.Friends.Select(u => u.FriendId).ToList(),
-                UserName = f.UserName,
-                Id = f.Id,
-                Rank = f.Rank
-
             }).FirstOrDefault();
-            List<Object> nFriends = new List<Object>();
+            List<FriendCheckVM> nFriends = new List<FriendCheckVM>();
             foreach (var a in data.Friends)
             {
-                var b = _repo.Query<ApplicationUser>().Where(u => u.Id == a).Select(u => new
+                var b = _repo.Query<ApplicationUser>().Where(u => u.Id == a).Select(u => new FriendCheckVM
                 {
-                    UserName = u.UserName,
+                    Username = u.UserName,
                     Id = u.Id,
                     Rank = u.Rank
                 }).FirstOrDefault();
@@ -62,28 +80,11 @@ namespace GameSquad.Services
             var user = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId);
             var friend = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == friendId);
 
+            var f1 = _repo.Query<Friend>().Where(u => u.UserId == userId && u.FriendId == friendId).FirstOrDefault();
+            var f2 = _repo.Query<Friend>().Where(u => u.UserId == friendId && u.FriendId == userId).FirstOrDefault();
 
-
-            var add = new Friend
-            {
-                User = user,
-                UserId = userId,
-                FriendId = friendId
-            };
-            var data = new Friend
-            {
-                User = friend,
-                UserId = friendId,
-                FriendId = userId
-            };
-
-            _repo.Add(add);
-
-            if (friendId != userId)
-            {
-                _repo.Add(data);
-            }
-
+            f1.Active = true;
+            f2.Active = true;
 
             _repo.SaveChanges();
 

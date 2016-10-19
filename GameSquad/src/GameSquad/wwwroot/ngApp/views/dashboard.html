@@ -1,48 +1,51 @@
+<div id="dashboardBannerImg" class="col-lg-8 col-lg-offset-2">
+    <img width="600" height="80" src="../../images/dashboardimg.png" />
+</div>
+<div id="profileHead" class="col-lg-8 col-lg-offset-2">
+    <img id="profileImg" ng-src="{{controller.user.profileImage}}" class="img-responsive" />
+    <h1 style="display:inline; text-transform:capitalize;">{{controller.user.userName}}</h1>
+</div>
+
 <div class="col-lg-8 col-lg-offset-2">
-    <div class="dashImg">
-        <img  width="600" height="80" src="../../images/dashboardimg.png" />
-    </div>
-    <img style="display:inline" width="80" height="80" ng-src="{{controller.user.profileImage}}" class="img-responsive" /><h1 style="display:inline;">{{controller.user.userName}}</h1>
-    <br />
-    <div style="border:solid; background-color:#505454; margin-top:20px; padding:20px;" class="img-rounded">
-        <ul id="innerText" class="list-unstyled ">
+    <div id="bioContainer" class="img-rounded">
+        <ul id="innerText" class="list-unstyled">
             <li><strong>Bio:</strong> {{controller.user.bio}}</li>
+        </ul>
+        <ul id="innerText" class="list-unstyled ">
             <li><strong>Location:</strong> {{controller.user.location}}</li>
             <li><strong>Play Platform:</strong> {{controller.user.platform}}</li>
             <li><strong>Play-Style:</strong> {{controller.user.playStyle}}</li>
             <li><strong>Rank:</strong> {{controller.user.rank}}</li>
         </ul>
-        <div><a style="color:orange" class="glyphicon glyphicon-pencil" href="/profileEdit"></a></div>
+        <div><a id="EditGliphicon" class="glyphicon glyphicon-pencil" href="/profileEdit"></a></div>
     </div>
     <h1></h1><a style="font-size:1.5em" href="/postCreate">Create A <strong>Post</strong></a>
     <!----Post for this user-->
-    <div>
+    
         <div class="row">
-            <div>
-                <br />
-                <div class="img-rounded" style="border:solid; background-color:#505454 ">
-                    <div style="margin:20px;">
-                        <h1 style="font-family: 'Orbitron'; color:ghostwhite; padding-top:20px;">My <strong>Posts</strong></h1>
+                <div class="img-rounded" id="dashBoardPost">
+                    <div id="postBlock">
+                        <h1>My <strong>Posts</strong></h1>
                         <!--<h1></h1><a class="glyphicon glyphicon-comment" style="font-size:1.5em; margin:30px; color:orange;" href="/postCreate"></a>-->
                         <br />
                         <div ng-repeat="post in controller.user.posts" class="list-group">
-                            <ul href="#" style="list-style:none " class="list-group ">
+                            <ul  href="#" class="list-group ">
                                 <li class="img-rounded" style="background-color:darkgray; padding:3px;">
-                                    <h3 style="padding-left:10px; color:black; font-family: 'Orbitron';"><b>{{post.user}}</b></h3>
+                                    <h3 id="postUserText"><b style="text-transform:capitalize;">{{post.user}}</b></h3>
                                 </li>
-                                <li id="innerText" style="margin:20px; ">{{post.comment}}</li>
-                                <li style="text-align:right">
-                                    <img id="displayed2" width="700" height="700" ng-src="{{post.item}}" class=" img-rounded" />
+                                <li id="innerText">{{post.comment}}</li>
+                                <li>
+                                    <img  id="postImage" width="650" class="img-responsive img-rounded" ng-src="{{post.item}}" />
                                 </li>
-                                <a style="color:orange;" class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
-                                <a  style="color:orange;" class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
-                                <li>{{post.date}}</li>
+                                <a id="EditGliphicon" class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
+                                <a id="EditGliphicon" class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
+                                
                             </ul>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-</div>
+  
+
+

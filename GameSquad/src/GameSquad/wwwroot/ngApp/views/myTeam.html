@@ -1,25 +1,29 @@
-﻿<div style=" " class="col-lg-8 col-lg-offset-2">
-    <img class="displayed" style="margin-bottom:2%; margin-top:2%; position:center; " width="600" height="150" src="../../images/imageedit_6_2270611338.png" />
-</div>
-<br />
-<br />
+﻿<div class="container">
+    <div id="myTeamsBanner" class="col-lg-8 col-lg-offset-2">
+        <img style="margin-bottom:2%; margin-top:2%; position:center; " width="600" height="150" src="../../images/imageedit_6_2270611338.png" />
+    </div>
+    <div class="col-lg-8 col-lg-offset-2">
+        <div id="myTeamContainer" class="img-rounded">
+            <div id="myTeamTableContainer" class="container img-rounded">
+                <h2>Teams</h2>
 
-<div class="container">
-    <div style="padding:30px; background-color:#505454;" class="col-lg-8 col-lg-offset-2 img-rounded">
-        <form>
-            <table class="table table-hover table-striped img-rounded">
-              <tr>
-                  <th class="img-rounded">
-                      My Teams
-                  </th>
-              </tr>
-                <tr ng-repeat="team in controller.teams">
-                    <td><a ng-href="/team/{{team.id}}"><strong>{{team.teamName}}</strong></a></td>
-                    <!--<td>{{team.teamMembers}}</td>-->
+                <form>
+                    <table class="table table-hover table-striped img-rounded">
+                        <thead class="img-rounded">
+                            <tr class="img-rounded">
+                                <th class="img-rounded">
+                                    Team Name
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr class="img-rounded" ng-repeat="team in controller.teams">
+                            <td class="img-rounded"><a ng-href="/team/{{team.id}}"><strong>{{team.teamName}}</strong></a></td>
+                            <!--<td>{{team.teamMembers}}</td>-->
 
                         </tr>
                     </table>
                 </form>
             </div>
         </div>
- 
+    </div>
+</div>
