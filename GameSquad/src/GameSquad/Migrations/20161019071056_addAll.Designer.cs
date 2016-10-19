@@ -8,8 +8,8 @@ using GameSquad.Data;
 namespace GameSquad.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161018234330_init")]
-    partial class init
+    [Migration("20161019071056_addAll")]
+    partial class addAll
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

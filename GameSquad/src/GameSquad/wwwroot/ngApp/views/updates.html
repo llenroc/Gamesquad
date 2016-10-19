@@ -11,12 +11,12 @@
                     <p style="display:inline;">Post Something!</p><a id="postGlyphicon" class="glyphicon glyphicon-comment" href="/postCreate"></a>
                     <div id="posts" ng-repeat="post in controller.posts" class="list-group">
                         <ul href="#" class="list-group ">
-                            <li id="postUser" class="img-rounded">
+                            <li id="postUser" class="shadow img-rounded">
                                 <h3 id="postUserText"><b>{{post.user}}</b></h3>
                             </li>
                             <li id="innerText" style="margin:10px; ">{{post.comment}}</li>
                             <li>
-                                <img id="postImage"class="img-responsive img-rounded" width="700" height="700" ng-src="{{post.item}}" />
+                                <img id="postImage"class="shadow img-responsive" width="700"  ng-src="{{post.item}}" />
                             </li>
 
                         </ul>
