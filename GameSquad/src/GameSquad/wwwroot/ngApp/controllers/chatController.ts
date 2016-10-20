@@ -9,7 +9,7 @@
         private chatHub: any
         public dupUser = false;
         public newMessage;
-        public mobileView = 'chat';
+        public mobileView = 'conversations';
 
 
 

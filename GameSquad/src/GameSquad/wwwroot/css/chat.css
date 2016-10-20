@@ -24,11 +24,20 @@
 .chat-message-section {
     height: 350px;
     width:100%;
+    min-width: 500px;
     max-width:1000px;
     overflow-x: hidden;
     background-color: black;
 }
+.chat-message-over{
+    width: 70%;
+}
+.chat-message-over-mobile{
+    width: 100%;
+    min-width: 0;
 
+
+}
 chat-item-container {
     overflow-y: auto;
     background-image: none;
@@ -60,14 +69,14 @@ chat-item-container {
 }
 
 .user-list {
-    min-width: 200px;
-    width: 100%;
+    min-width: 250px;
+    width: 30%;
     height: 450px;
     overflow-x: hidden;
     margin-right: 10px;
 }
 .user-list-mobile{
-    
+    width: 100%;
 }
 .userlist-panel-body{
     background-color: black;
