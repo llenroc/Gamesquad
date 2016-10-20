@@ -15,7 +15,7 @@
 
         //return a user by id 
         public getUserById(id) {
-            return this.usersResource.get({ id: id });
+            return this.usersResource.get({ id: id }).$promise;
         }
     }
     angular.module('GameSquad').service('userService', UserService);

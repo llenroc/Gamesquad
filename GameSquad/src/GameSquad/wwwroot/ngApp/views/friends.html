@@ -13,9 +13,10 @@
                         </tr>
                     </thead>
                     <tr class="img-rounded" ng-repeat="friend in controller.friends">
-                        <td class="img-rounded">{{friend.username}}</td>
+                        <td class="img-rounded"><a href="/profile/{{friend.id}}">{{friend.username}}</a></td>
                         <td>{{friend.rank}}</td>
-                        <td class="img-rounded"><button ng-click="controller.removeFriend(friend.id)" class="btn btn-success">Remove </button></td>
+                        <td class="img-rounded"><button ng-click="controller.removeFriend(friend.id)" class="btn btn-warning btn-sm">Remove </button></td>
+                        <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(friend.id)">Message</button></td>
                     </tr>
                 </table>
             </div>

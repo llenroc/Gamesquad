@@ -7,8 +7,19 @@
         constructor(private FriendService: GameSquad.Services.FriendService,
             private friendRequestService: GameSquad.Services.FriendRequestService,
             private accountService: GameSquad.Services.AccountService,
-            private $stateParams: angular.ui.IStateParamsService, private $state: angular.ui.IStateService) {
+            private $stateParams: angular.ui.IStateParamsService, private $state: angular.ui.IStateService,
+            private $uibModal: angular.ui.bootstrap.IModalService) {
             this.getFriends();
+        }
+
+        public showMessageModal(userId: string) {
+            this.$uibModal.open({
+                templateUrl: "/ngApp/views/modals/messageModal.html",
+                controller: GameSquad.Controllers.MessageCreateController,
+                controllerAs: "controller",
+                resolve: { userId: () => userId },
+                size: "sm"
+            });
         }
 
         public getFriends() {

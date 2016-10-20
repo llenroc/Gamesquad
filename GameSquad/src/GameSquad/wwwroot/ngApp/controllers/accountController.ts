@@ -133,6 +133,7 @@ namespace GameSquad.Controllers {
     export class StatusController {
         public statusMessage;
         public lookingFor;
+        public info;
         public ok() {
             
             this.statusService.saveStatus({lookingFor: this.lookingFor, statusMessage: this.statusMessage}).then(() => {
@@ -142,9 +143,13 @@ namespace GameSquad.Controllers {
             });
         }
 
-        constructor(private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $scope: ng.IScope, private statusService: GameSquad.Services.StatusService) {
-
-
+        constructor(private accountService: GameSquad.Services.AccountService, private userDashboardService: GameSquad.Services.UserDashboardService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $scope: ng.IScope, private statusService: GameSquad.Services.StatusService) {
+            userDashboardService.getUserById(accountService.getUserName()).then((data) => {
+                this.info = data;
+                this.statusMessage = this.info.statusMessage;
+                this.lookingFor = this.info.lookingFor;
+            });
+            
         }
     }
 
