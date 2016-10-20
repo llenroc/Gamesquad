@@ -41,7 +41,7 @@
                 },
                 size: 'md'
             }).closed.then(() => {
-                this.$state.reload(); 
+                this.$state.go("myTeam"); 
             });
         }
 
