@@ -16,12 +16,12 @@
                         <tr>
                             <th><strong>Team</strong> Members</th>
                             <th>Rank</th>
-                            <th>Online</th>
+                            
                         </tr>
                         <tr ng-repeat="member in controller.teamDetails.teamMembers">
-                            <td><a href="/profile/{{member.id}}">{{member.userName}}</a></td>
+                            <td><span ng-class="{'online-status': member.isOnline, 'offline-status': !member.isOnline}">&#x25cf; </span><a href="/profile/{{member.id}}">{{member.userName}}</a></td>
                             <td>{{member.rank}}</td>
-                            <td>{{member.isOnline ? "Online": "Offline"}}</td>
+                            
                         </tr>
                  </table>
             </div>

@@ -123,18 +123,24 @@ namespace GameSquad.Services
 
         public void RemoveMember(string userId, int teamId)
         {
+            var user = _repo.Query<ApplicationUser>().FirstOrDefault(m => m.Id == userId);
+            var team = _repo.Query<Team>().FirstOrDefault(c => c.Id == teamId);
             var remove = new TeamMembers
             {
                 TeamId = teamId,
-                Team = _repo.Query<Team>().FirstOrDefault(c => c.Id == teamId),
+                Team = team,
                 ApplicationUserId = userId,
-                ApplicationUser = _repo.Query<ApplicationUser>().FirstOrDefault(m => m.Id == userId)
+                ApplicationUser = user
 
             };
 
 
             _repo.Delete(remove);
             _repo.SaveChanges();
+
+            //Signalr stuff for insta remove group in chat
+            _hubManager.Clients.User(user.UserName).leaveGroup(team.TeamName);
+
         }
 
         public void DeleteTeam(int id)
