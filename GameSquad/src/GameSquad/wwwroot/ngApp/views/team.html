@@ -19,7 +19,13 @@
                                     <tr class="filters">
                                         <th><input ng-model="controller.data.nameFilter" type="text" class="form-control" placeholder="Team"></th>
                                         <th><input ng-model="controller.data.leaderFilter" type="text" class="form-control" placeholder="TeamLeader"></th>
-                                        <th><input ng-model="controller.data.typeFilter" type="text" class="form-control" placeholder="Play-Style"></th>
+                                        <th>
+                                            <select ng-model="controller.data.typeFilter"  class="form-control" placeholder="Play-Style">
+                                                <option value=""></option>
+                                                <option value="Casual">Casual</option>
+                                                <option value="Competitive">Competitive</option>
+                                            </select>
+                                        </th>
                                         <th><button class="btn btn-primary" ng-click="controller.getTeams()">Search</button></th>
                                     </tr>
                                 </thead>
