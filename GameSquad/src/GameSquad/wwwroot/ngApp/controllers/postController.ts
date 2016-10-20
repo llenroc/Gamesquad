@@ -36,7 +36,7 @@
                     postId: () => postId,
                 },
                 size: 'lg'
-            }).result.then(() => {
+            }).closed.then(() => {
                 this.getPosts();
             });
         }
@@ -51,7 +51,7 @@
                     postId: () => postId,
                 },
                 size: 'lg'
-            }).result.then(() => {
+            }).closed.then(() => {
                 this.getPosts();
             });
         }

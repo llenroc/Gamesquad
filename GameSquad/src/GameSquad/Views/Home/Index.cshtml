@@ -68,7 +68,7 @@
         <div class="panel panel-warning">
             <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1" ng-click="chat.setPanelAlert()">
                 <h3 class="panel-title">
-                    Chat
+                    Chat - {{chat.conversationName}}
                     <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span>
                     <span ng-show="chat.newGroupMessagePanelAlert" class="label label-info">New Group Messages!</span>
                 </h3>
@@ -99,9 +99,9 @@
                                                 <li class="list-group-item "
                                                     ng-click="chat.setUserToMessage(user)"
                                                     ng-repeat="user in chat.privateMessageArray"
-                                                    ng-class="chat.userListClass(user)">
+                                                    ng-class="chat.conversationListClass(user.username, 'private')">
 
-                                                    <div class="userlist-user">{{user.username}}<p ng-show="!user.online" class="text-danger">(Offline)</p></div>
+                                                    <div class="userlist-user" > <span ng-class="{'online-status': user.online, 'offline-status': !user.online}">&#x25cf; </span>{{user.username}}</div>
 
                                                 </li>
                                             </ul>
@@ -120,9 +120,9 @@
                                                 <li class="list-group-item userlist-user"
                                                     ng-click="chat.setTeamToMesssage(team.teamName)"
                                                     ng-repeat="team in chat.teamList"
-                                                    ng-class="{'list-group-item-warning': chat.conversationName === team.teamName}">
-
+                                                    ng-class="chat.conversationListClass(team.teamName, 'group')" >
                                                     <div class="userlist-user">{{team.teamName}}</div>
+                                                    
                                                 </li>
                                             </ul>
                                         </div>
