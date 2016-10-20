@@ -71,7 +71,7 @@ namespace GameSquad {
             .state('teamCreate', {
                 url: '/teamCreate',
                 templateUrl: '/ngApp/views/teamCreate.html',
-                controller: GameSquad.Controllers.TeamInfoController,
+                controller: GameSquad.Controllers.TeamController,
                 controllerAs: 'controller'
             })
             .state('myTeam', {
@@ -123,7 +123,7 @@ namespace GameSquad {
                 controllerAs: 'controller'
             })
             .state('teamEdit', {
-                url: '/teamEdit',
+                url: '/teamEdit/:id',
                 templateUrl: '/ngApp/views/teamEdit.html',
                 controller: GameSquad.Controllers.TeamInfoController,
                 controllerAs: 'controller'

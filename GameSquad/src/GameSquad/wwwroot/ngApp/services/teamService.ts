@@ -30,7 +30,7 @@
         }
 
         public getTeamInfo(id) {
-            return this.teamsResource.get({ id: id });
+            return this.teamsResource.get({ id: id }).$promise;
         }
 
         //save

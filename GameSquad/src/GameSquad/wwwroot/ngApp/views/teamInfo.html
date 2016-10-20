@@ -8,7 +8,7 @@
             <h4>Playstyle: <strong>{{controller.teamDetails.playStyle}}</strong></h4>
             <br />
         </div>
-        <a id="edit" ng-show="controller.teamOwner()" class="glyphicon glyphicon-pencil" href="/teamEdit"></a>
+        <a id="edit" ng-show="controller.teamOwner()" class="glyphicon glyphicon-pencil" href="/teamEdit/{{controller.teamDetails.id}}"></a>
         <a id="delete" ng-show="controller.teamOwner()" class="glyphicon glyphicon-remove" ng-click="controller.ModalDel()" ></a>
 
             <div>
