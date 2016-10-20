@@ -11,9 +11,7 @@
         //check to see if user is team Leader
         public teamOwner() {
             if (this.accountService.getUserName() == this.teamDetails.teamLeader) {
-              
                 return true;
-                
             }
             else {
                 return false;
@@ -24,7 +22,9 @@
        //save team details
         public saveTeam() {
 
-            this.teamDetails = this.teamService.saveTeam(this.teamDetails);
+            this.teamDetails = this.teamService.saveTeam(this.teamDetails).then(() => {
+                window.history.back();
+            });
         }
        
 
@@ -56,7 +56,9 @@
             private $state: angular.ui.IStateService
             //private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance
         ) {
-            this.teamDetails = this.teamService.getTeamInfo($stateParams['id']);
+            this.teamService.getTeamInfo($stateParams['id']).then((data) => {
+                this.teamDetails = data;
+            });
             
         }
         
@@ -77,7 +79,9 @@
 
         //delete team
         public deleteTeam() {
-            this.teamService.deleteTeam(this.id);
+            this.teamService.deleteTeam(this.id).then(() => {
+                this.cancel();
+            });
         }
 
     }
