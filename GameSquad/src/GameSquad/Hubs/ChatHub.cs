@@ -202,6 +202,15 @@ namespace GameSquad.Hubs
             
         }
 
+        public void LeaveRoom (string roomName)
+        {
+            var userName = Context.User.Identity.Name;
+            if(userName != null)
+            {
+                Groups.Remove(Context.ConnectionId, roomName);
+            }
+        }
+
         /// <summary>
         /// Sends a new group message
         /// </summary>

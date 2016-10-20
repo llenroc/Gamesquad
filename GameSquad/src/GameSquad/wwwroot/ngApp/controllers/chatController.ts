@@ -9,6 +9,7 @@
         private chatHub: any
         public dupUser = false;
         public newMessage;
+        public mobileView = 'chat';
 
 
 
@@ -95,6 +96,7 @@
             }
             this.userOnlineCheck = user.online;
             this.sendTo = "private";
+            this.mobileView = "chat";
             //this.$scope.$apply;
 
 
@@ -111,6 +113,8 @@
                 this.sendTo = "team";
                 this.teamToSend = team;
                 this.userOnlineCheck = true;
+                this.mobileView = "chat";
+
             }
 
             //this.$scope.$apply;
@@ -124,7 +128,7 @@
             this.messagesDispalyed = this.globalMessages;
             this.sendTo = "global";
             this.userOnlineCheck = true;
-            
+            this.mobileView = "chat";
 
             //this.$scope.$apply;
 
@@ -290,14 +294,7 @@
                 
             }
 
-            //If user joins a new group on the server this method is triggered and will join it in signalr
-            this.chatHub.client.joinNewGroup = (roomName) => {
-                this.connectToTeam(roomName);
-                this.teamList.push({ teamName: roomName });
-                console.log()
-                
-
-            }
+            
 
 
         }
@@ -396,9 +393,35 @@
 
                     
                     this.privateMessageArray.splice(index, 1);
-                    this.setGlobalToMessage();
+                    if (this.conversationName === friendRemoved) {
+                        this.setGlobalToMessage();
+                    }
                     this.$scope.$apply();
                 }
+            }
+
+            //If user joins a new group on the server this method is triggered and will join it in signalr
+            this.chatHub.client.joinNewGroup = (roomName) => {
+                this.connectToTeam(roomName);
+                this.teamList.push({ teamName: roomName });
+                console.log()
+
+
+            }
+
+            //Removes group from list of groups
+            this.chatHub.client.leaveGroup = (roomToLeave) => {
+                this.chatHub.server.leaveRoom(roomToLeave);
+                let index = this.teamList.map((x) => { return x.teamName }).indexOf(roomToLeave);
+                if (index > -1) {
+                    this.teamList.splice(index, 1);
+                    if (this.conversationName === roomToLeave) {
+                        this.setGlobalToMessage();
+                    }
+                    this.$scope.$apply();
+                }
+
+
             }
 
             
