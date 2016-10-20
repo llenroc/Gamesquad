@@ -2,7 +2,7 @@
     <img id="dashboardBannerImg" src="../../images/dashboardimg.png"  class="img-responsive"/>
 </div>
 <div id="profileHead" class="col-lg-8 col-lg-offset-2">
-    <img id="profileImg" ng-src="{{controller.user.profileImage}}" class="img-responsive" />
+    <img id="profileImg" style="margin-bottom:20px;" ng-src="{{controller.user.profileImage}}" class="img-responsive" />
     <h1 style="display:inline; text-transform:capitalize;">{{controller.user.userName}}</h1>
 </div>
 
@@ -34,13 +34,14 @@
                                     <h3 id="postUserText"><b style="text-transform:capitalize;">{{post.user}}</b></h3>
                                 </li>
                                 <li id="innerText">{{post.comment}}</li>
-                                <li>
-                                    <img  id="postImage" width="650" class="shadowDark img-responsive" ng-src="{{post.item}}" />
+                                <li ng-show="post.item">
+                                    <img id="postImage" width="650" class="shadowDark img-responsive" ng-src="{{post.item}}" />
                                 </li>
                             </ul>
-                            <a id="EditGliphicon" class="glyphicon glyphicon-remove" ng-click="controller.showModalDelPost(post.id)"></a>
-                            <a id="EditGliphicon" class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
-                            
+                            <div ng-controller="PostController as postVM">
+                                <a id="EditGliphicon" class="glyphicon glyphicon-remove" ng-click="postVM.showModalDelPost(post.id)"></a>
+                                <a id="EditGliphicon" class="glyphicon glyphicon-pencil" ng-click="postVM.showModalEditPost(post.id)"></a>
+                            </div>
                         </div>
                     </div>
                 </div>

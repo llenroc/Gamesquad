@@ -189,12 +189,13 @@ p
 #dashBoardPost
 {
     border:solid; background-color:#505454;
+    margin-bottom:50px;
 }
 #profileHead
 {
     display:inline-block;
     margin-top:5%;
-    margin-bottom:2%;
+    /*margin-bottom:2%;*/
 }
 
 #profileImg

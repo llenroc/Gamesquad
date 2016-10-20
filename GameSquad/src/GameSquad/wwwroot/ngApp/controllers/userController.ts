@@ -1,10 +1,23 @@
 ﻿namespace GameSquad.Controllers {
+    declare var $;
     export class UserController {
         public users;
         public data = { pageCount: 0, username: "", rankFrom: 0, rankTo: 400, onlineOnly: false, lookingFor: "", platform: "" };
 
         constructor(private userService: GameSquad.Services.UserService, private $state: angular.ui.IStateService, private friendRequestService: GameSquad.Services.FriendRequestService, private $uibModal: angular.ui.bootstrap.IModalService) {
             this.getAllUsers(this.data.pageCount);
+
+            $(".table td a").popover({
+                trigger: 'hover',
+                placement: function (pop, ele) {
+                    if ($(ele).parent().is('td:last-child')) {
+                        return 'left'
+                    } else {
+                        return 'top'
+                    }
+                }
+            });
+            
         }
 
         public showMessageModal(userId: string) {

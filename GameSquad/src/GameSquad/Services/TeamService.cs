@@ -51,7 +51,10 @@ namespace GameSquad.Services
 
             else
             {
-                _repo.Update(team);
+                var ttu = _repo.Query<Team>().Where(t => t.Id == team.Id).FirstOrDefault();
+                ttu.PlayStyle = team.PlayStyle;
+                ttu.TeamName = team.TeamName;
+                _repo.SaveChanges();
                 return 0;
             }
 
@@ -142,7 +145,8 @@ namespace GameSquad.Services
 
         public void DeleteTeam(int id)
         {
-
+            var ttd = _repo.Query<Team>().Where(t => t.Id == id).FirstOrDefault();
+            _repo.Delete(ttd);
         }
     }
 }

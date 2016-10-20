@@ -122,6 +122,12 @@ namespace GameSquad {
                 controller: GameSquad.Controllers.UserDashboardController,
                 controllerAs: 'controller'
             })
+            .state('teamEdit', {
+                url: '/teamEdit/:id',
+                templateUrl: '/ngApp/views/teamEdit.html',
+                controller: GameSquad.Controllers.TeamInfoController,
+                controllerAs: 'controller'
+            })
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'

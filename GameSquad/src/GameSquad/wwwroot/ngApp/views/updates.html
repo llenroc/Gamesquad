@@ -17,9 +17,10 @@
                                     <h3 id="postUserText"><b>{{post.user}}</b></h3>
                                 </li>
                                 <li id="innerText" style="margin:10px; ">{{post.comment}}</li>
-                                <li>
+                                <li ng-show="post.item">
                                     <img id="postImage" class="shadow img-responsive" width="700" ng-src="{{post.item}}" />
                                 </li>
+                                
                             </ul>
                         </div>
                     </div>

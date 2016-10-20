@@ -5,7 +5,10 @@
         public posts;
         private postId;
 
-        constructor(private PostService: GameSquad.Services.PostService, private $uibModal: angular.ui.bootstrap.IModalService, private accountService: GameSquad.Services.AccountService, private $stateParams: angular.ui.IStateParamsService) {
+        constructor(private PostService: GameSquad.Services.PostService,
+            private $uibModal: angular.ui.bootstrap.IModalService,
+            private accountService: GameSquad.Services.AccountService,
+            private $stateParams: angular.ui.IStateParamsService) {
             this.getPosts();
         }
 
@@ -14,7 +17,9 @@
         }
 
         public getPosts() {
-            this.posts = this.PostService.getPosts();
+            this.PostService.getPosts().then((data) => {
+                this.posts = data;
+            });
         }
 
         public getPostById() {
@@ -63,7 +68,12 @@
         public errorMessages;
         public postToDelete;
 
-        constructor(private PostService: GameSquad.Services.PostService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $state: angular.ui.IStateService, private $stateParams: angular.ui.IStateParamsService, private $location: ng.ILocationService, private postId, private accountService: GameSquad.Services.AccountService) {
+        constructor(private PostService: GameSquad.Services.PostService,
+            private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+            private $state: angular.ui.IStateService,
+            private $stateParams: angular.ui.IStateParamsService,
+            private $location: ng.ILocationService, private postId,
+            private accountService: GameSquad.Services.AccountService) {
 
         }
         
@@ -79,9 +89,13 @@
         public deletePost() {
             this.PostService.deletePost(this.postId)
                 .then(() => {
+                    this.$state.reload();
                     this.$uibModalInstance.close();
-                    console.log('post deleted');
+                    
+                    
                 })
+
+
         }
 
         //cancel delete - exit modal<html>
@@ -94,7 +108,13 @@
     class EditDialogController {
         public postToEdit;
 
-        constructor( private $stateParams: angular.ui.IStateParamsService, private PostService: GameSquad.Services.PostService, private $state: angular.ui.IStateService, private $uibModal: angular.ui.bootstrap.IModalService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private postId, private accountService: GameSquad.Services.AccountService) {
+        constructor(private $stateParams: angular.ui.IStateParamsService,
+            private PostService: GameSquad.Services.PostService,
+            private $state: angular.ui.IStateService,
+            private $uibModal: angular.ui.bootstrap.IModalService,
+            private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+            private postId,
+            private accountService: GameSquad.Services.AccountService) {
             this.getPostById();
         }
         
@@ -110,13 +130,13 @@
         private getPostById() {
             console.log("test");
             this.postToEdit = this.PostService.getPostById(this.postId);
-            console.log("got post");//see if data is passed
+            
         }
 
         public savePost() {
             this.PostService.savePost(this.postToEdit)
                 .then(() => {
-                    this.$state.go('updates');
+                    this.$state.reload();
                     this.$uibModalInstance.close();
                 })
                 .catch(() => {
