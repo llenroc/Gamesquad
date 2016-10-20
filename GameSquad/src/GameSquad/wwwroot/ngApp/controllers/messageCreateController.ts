@@ -2,6 +2,7 @@
 
     export class MessageCreateController {
         public messageToSend;
+        
 
         constructor(private messageService: GameSquad.Services.MessageService, private userService: GameSquad.Services.UserService, private userId, private accountService: GameSquad.Services.AccountService, private $state: angular.ui.IStateService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance) {
 

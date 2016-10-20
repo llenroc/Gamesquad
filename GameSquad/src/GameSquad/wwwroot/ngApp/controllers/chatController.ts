@@ -7,10 +7,10 @@
     export class ChatController {
         //SignalR Global Messaging
         private chatHub: any
-        public globalMessages = [];
-        public newMessage;
         public dupUser = false;
-        public teamList = [];
+        public newMessage;
+
+
 
         
 
@@ -23,7 +23,8 @@
             newMessageAlert: false
         };
         
-        
+        public teamList = [];
+
         public privateMessageArray = [
             {
                 username: "Dummy User 1",
@@ -39,6 +40,8 @@
             }
         ];
         public groupMessageArray = [];
+        public globalMessages = [];
+
         public messagesDispalyed;
         public newMessagePanelAlert;
         public newGroupMessagePanelAlert;
@@ -129,14 +132,22 @@
 
 
         //Sets the class for a user whether selected or has a new message
-        public userListClass(user) {
-            let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(user.username);
-            let conversation = this.privateMessageArray[index];
+        public conversationListClass(convoName, type) {
+            let index;
+            let conversation;
+            //Checks if it is a private or group message
+            if (type === 'private') {
+                index = this.privateMessageArray.map((x) => { return x.username }).indexOf(convoName);
+                conversation = this.privateMessageArray[index];
+            }
 
-
-
+            else {
+                index = this.groupMessageArray.map((x) => { return x.roomName }).indexOf(convoName);
+                conversation = this.groupMessageArray[index];
+            }
             
-            if (conversation.username === this.conversationName) {
+            
+            if (convoName === this.conversationName) {
                 conversation.newMessageAlert = false;
                 return 'list-group-item-warning'
             }
@@ -150,7 +161,6 @@
 
             
         }
-
         
         //Determins which sending method to use based on who you are messaging
         public sendMessage() {
@@ -264,8 +274,10 @@
                     let chosenGroup = this.groupMessageArray[index];
 
                     chosenGroup.messages.push(newMessage);
-
+                    
+                    //Makes it so it doesn't send notification alerts when it recieves a new user joined room message
                     if (newMessage.username != this.getUserName() && newMessage.username != 'Server'){
+                        chosenGroup.newMessageAlert = true;
 
                         if (!this.chatWindowOpen) {
                             this.newGroupMessagePanelAlert = true;
@@ -332,6 +344,11 @@
                 let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(newUser);
                 if (index > -1) {
                     this.privateMessageArray[index].online = true;
+
+                    //Enables message input if the user has the chat open to this user and it was disabled
+                    if (this.conversationName === this.privateMessageArray[index].username) {
+                        this.userOnlineCheck = true;
+                    }
                 }
                 else {
                     let newFriend = {
@@ -360,6 +377,11 @@
                 if (index > -1) {
 
                     this.privateMessageArray[index].online = false;
+
+                    //Disables message input if the user has the chat open to this user
+                    if (this.conversationName === this.privateMessageArray[index].username) {
+                        this.userOnlineCheck = false;
+                    }
 
                     this.$scope.$apply();
                 }

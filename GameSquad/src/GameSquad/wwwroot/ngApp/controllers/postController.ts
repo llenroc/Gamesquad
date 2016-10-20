@@ -42,8 +42,7 @@
                 },
                 size: 'lg'
             }).closed.then(() => {
-                console.log(this.posts);
-                this.getPosts(); console.log(this.posts); 
+                this.getPosts();
             });
         }
 

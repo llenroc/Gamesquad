@@ -15,7 +15,7 @@
                 <br />
                 <div style="font-family:Audiowide; padding-bottom:20px;">
                     <h6 style="font-family:Audiowide;" >From:<strong>{{controller.messageDetails.sendingUser}}</strong></h6>
-                    <h6 style="font-family:Audiowide;">{{controller.messageDetails.dateSent}}</h6>
+                    <h6 style="font-family:Audiowide;">{{controller.messageDetails.dateSent | date:'MM/dd/yyyy h:mma'}}</h6>
                 </div>
             </div>
         </div>

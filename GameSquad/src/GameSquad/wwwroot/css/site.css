@@ -9,12 +9,7 @@ body {
    margin-left:2%;
    margin-bottom:4%;
 }
-span:hover
-{
-  
 
-    
-}
 h1
 {
     font-family:Orbitron; 
@@ -169,7 +164,7 @@ p
     margin-left: auto;
    margin-right: auto;
 }
-#userSearchInput
+.userSearchInput
 {
     width:75px; 
     display:inline;
@@ -194,12 +189,13 @@ p
 #dashBoardPost
 {
     border:solid; background-color:#505454;
+    margin-bottom:50px;
 }
 #profileHead
 {
     display:inline-block;
     margin-top:5%;
-    margin-bottom:2%;
+    /*margin-bottom:2%;*/
 }
 
 #profileImg
@@ -396,6 +392,18 @@ select {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
+}
+
+.online-status {
+    
+    color: green;
+    
+}
+
+.offline-status {
+    
+    color: red;
+    
 }
 
 /*styles form different formats*/

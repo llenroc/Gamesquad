@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -75,6 +76,7 @@ namespace GameSquad.Services
         public void sendMessage(Messages message)
         {
             var rUser = _repo.Query<ApplicationUser>().Where(a => a.Id == message.RecId).Include(m => m.Messages).FirstOrDefault();
+            message.DateSent = DateTime.Now;
             rUser.Messages.Add(message);
 
             _repo.SaveChanges();

@@ -18,6 +18,10 @@ namespace GameSquad.ViewModels.Account
         public string UserName { get; set; }
 
         [Required]
+        [Display(Name = "Platform")]
+        public string Platform { get; set; }
+
+        [Required]
         [Display(Name = "First name")]
         public string FirstName { get; set; }
 

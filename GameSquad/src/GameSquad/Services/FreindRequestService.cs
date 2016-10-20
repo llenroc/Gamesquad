@@ -53,6 +53,7 @@ namespace GameSquad.Services
             newRequest.SendingUserId = userFrom;
             newRequest.SendingUserName = userFromSent.UserName;
             newRequest.HasBeenViewed = false;
+            newRequest.RequestIsApproved = false;
 
             var dupcheck = userToSend.FreindRequests.Where(u => u.RecievingUSerId == userTo && u.SendingUserId == userFrom).Count();
 

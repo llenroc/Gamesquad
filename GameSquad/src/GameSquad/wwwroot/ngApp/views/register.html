@@ -19,27 +19,36 @@
                     <form ng-submit="controller.register()">
                         <div class="form-group">
                             <label>Username:</label>
-                            <input ng-model="controller.registerUser.userName" class="form-control" required="true" type="text" placeholder="Username"/>
+                            <input ng-model="controller.registerUser.userName" class="form-control" required type="text" placeholder="Username"/>
                         </div>
                         <div class="form-group">
                             <label>Email:</label>
-                            <input ng-model="controller.registerUser.email" class="form-control" required="true" type="email" placeholder="Email"/>
+                            <input ng-model="controller.registerUser.email" class="form-control" required type="email" placeholder="Email"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Platform:</label>
+                            <select ng-model="controller.registerUser.platform" class="form-control" required type="text" placeholder="First Name">
+                                <option selected disabled value="">Select a Platform</option>
+                                <option value="ps4">Playstation</option>
+                                <option>PC</option>
+                                <option>Xbox One</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>First Name:</label>
-                            <input ng-model="controller.registerUser.firstName" class="form-control" required="true" type="text" placeholder="First Name" />
+                            <input ng-model="controller.registerUser.firstName" class="form-control" required type="text" placeholder="First Name" />
                         </div>
                         <div class="form-group">
                             <label>Last Name:</label>
-                            <input ng-model="controller.registerUser.lastName" class="form-control" required="true" type="text" placeholder="Last Name" />
+                            <input ng-model="controller.registerUser.lastName" class="form-control" required type="text" placeholder="Last Name" />
                         </div>
                         <div class="form-group">
                             <label>Password:</label>
-                            <input ng-model="controller.registerUser.password" class="form-control" required="true" type="password" placeholder="Create a password"/>
+                            <input ng-model="controller.registerUser.password" class="form-control" required type="password" placeholder="Create a password"/>
                         </div>
                         <div class="form-group">
                             <label>Confirm Password:</label>
-                            <input ng-model="controller.registerUser.confirmPassword" class="form-control" required="true" type="password" placeholder="Re-enter your password"/>
+                            <input ng-model="controller.registerUser.confirmPassword" class="form-control" required type="password" placeholder="Re-enter your password"/>
                         </div>
                         <input type="submit" value="Register" class="btn btn-warning" />
                         <ul>
