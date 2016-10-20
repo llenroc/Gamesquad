@@ -1,4 +1,4 @@
-﻿<a href="/myTeam"><img style="margin-left:30px" width="170" height="86" src="../../images/back2teams (2).png" /></a>
+﻿<a href="/myTeam"><img style="margin-left:30px" width="170" height="86" src="../../images/back2teams (2).png"  /></a>
 <br />
 <div class="container">
     <div id="teamInfoContainer" class="col-lg-8 col-lg-offset-2 img-rounded">
@@ -13,10 +13,12 @@
                         <tr>
                             <th><strong>Team</strong> Members</th>
                             <th>Rank</th>
+                            <th>Online</th>
                         </tr>
                         <tr ng-repeat="member in controller.teamDetails.teamMembers">
                             <td><a href="/profile/{{member.id}}">{{member.userName}}</a></td>
                             <td>{{member.rank}}</td>
+                            <td>{{member.isOnline ? "Online": "Offline"}}</td>
                         </tr>
                  </table>
             </div>

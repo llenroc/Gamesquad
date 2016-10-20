@@ -95,7 +95,9 @@ p
 /*<----Player Feed styles--->*/
 #feedBanner
 {
-    margin:5%;
+   /*margin:5%;*/
+   margin-left: auto;
+   margin-right: auto;
 
 }
 
@@ -154,6 +156,8 @@ p
 {
     margin-top:4%;
     margin-bottom:4%;
+    margin-left: auto;
+   margin-right: auto;
  
 }
 /*<--------User Search Styles--------------->*/
@@ -161,7 +165,9 @@ p
 {
      margin-top:4%;
     margin-bottom:4%;
-    margin-left:5%;
+    /*margin-left:5%;*/
+    margin-left: auto;
+   margin-right: auto;
 }
 #userSearchInput
 {
@@ -182,7 +188,8 @@ p
 #dashboardBannerImg 
 {
     margin-top:3%;
-    margin-left:25%;
+    margin-left: auto;
+    margin-right: auto;
 }
 #dashBoardPost
 {
@@ -222,7 +229,8 @@ p
 /*---Friends Page-----*/
 #friendsBanner
 {
-    margin-left:20%;
+    margin-left:auto;
+    margin-right:auto;
 }
 #friendsContainer
 {
@@ -240,7 +248,8 @@ p
 /*<---------My teams------------>*/
 #myTeamsBanner
 {
-    margin-left:27%;
+    margin-left:auto;
+    margin-right:auto;
 }
 #myTeamContainer
 {
@@ -381,6 +390,12 @@ select {
     height: 475px;
     z-index: -1;
     
+}
+
+#landingImg {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
 }
 
 /*styles form different formats*/

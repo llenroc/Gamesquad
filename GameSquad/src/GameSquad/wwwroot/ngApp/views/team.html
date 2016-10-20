@@ -1,52 +1,53 @@
 ﻿<div class="col-lg-8 col-lg-offset-2">
-    <img id="teamBannerImg" width="1000" height="300" src="../../images/TeamUPUP.png" />
-    </div>
-   
-    <div class="container">
-        <div class="col-lg-10 col-lg-offset-1">
-            <div class="row">
-                <div class="panel panel-default filterable">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Teams</h3>
-                    </div>
-                    <div class="table-responsive">
-                        <div class="container">
-                            <h1>Search For <strong>Teams</strong> </h1>
-                            <div class="table-responsive">
-                                <table class="table table-striped img-rounded ">
-                                    <thead>
-                                        <tr class="filters">
-                                            <th><input ng-model="controller.data.nameFilter" type="text" class="form-control" placeholder="Team"></th>
-                                            <th><input ng-model="controller.data.leaderFilter" type="text" class="form-control" placeholder="TeamLeader"></th>
-                                            <th><input ng-model="controller.data.typeFilter" type="text" class="form-control" placeholder="Play-Style"></th>
-                                            <th><button class="btn btn-primary" ng-click="controller.getTeams()">Search</button></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="mytable">
-                                        <tr>
-                                            <th>Team</th>
-                                            <th>Team Leader</th>
-                                            <th>Play Style</th>
-                                            <th></th>
-                                        </tr>
-                                        <tr ng-repeat="team in controller.teamHolder">
-                                            <td style="text-transform:capitalize;">{{team.teamName}}</td>
-                                            <td style="text-transform:capitalize;">{{team.teamLeader}}</td>
-                                            <td>{{team.playStyle}}</td>
-                                            <td>
-                                                <button ng-click="controller.addMemberToTeam(team.id); team.isMember = true" ng-show="!team.isMember" class="btn btn-success">Join</button>
-                                                <button ng-click="controller.removeMember(team.id); team.isMember = false" ng-show="team.isMember" class="btn btn-warning">Leave</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+    <!--<img id="teamBannerImg" width="1000" height="300" src="../../images/TeamUPUP.png" />-->
+    <img id="teamBannerImg" class="img-responsive" src="../../images/TeamUPUP.png" />
+</div>
+
+<div class="container">
+    <div class="col-lg-10 col-lg-offset-1">
+        <div class="row">
+            <div class="panel panel-default filterable">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Teams</h3>
+                </div>
+                <div class="table-responsive">
+                    <div class="container">
+                        <h1>Search For <strong>Teams</strong> </h1>
+                        <div class="table-responsive">
+                            <table class="table table-striped img-rounded ">
+                                <thead>
+                                    <tr class="filters">
+                                        <th><input ng-model="controller.data.nameFilter" type="text" class="form-control" placeholder="Team"></th>
+                                        <th><input ng-model="controller.data.leaderFilter" type="text" class="form-control" placeholder="TeamLeader"></th>
+                                        <th><input ng-model="controller.data.typeFilter" type="text" class="form-control" placeholder="Play-Style"></th>
+                                        <th><button class="btn btn-primary" ng-click="controller.getTeams()">Search</button></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mytable">
+                                    <tr>
+                                        <th>Team</th>
+                                        <th>Team Leader</th>
+                                        <th>Play Style</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr ng-repeat="team in controller.teamHolder">
+                                        <td style="text-transform:capitalize;">{{team.teamName}}</td>
+                                        <td style="text-transform:capitalize;">{{team.teamLeader}}</td>
+                                        <td>{{team.playStyle}}</td>
+                                        <td>
+                                            <button ng-click="controller.addMemberToTeam(team.id); team.isMember = true" ng-show="!team.isMember" class="btn btn-success">Join</button>
+                                            <button ng-click="controller.removeMember(team.id); team.isMember = false" ng-show="team.isMember" class="btn btn-warning">Leave</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <a id="previous" class="glyphicon glyphicon-chevron-left" ng-click="controller.prevPage();"></a>
-            <a id="next" class="glyphicon glyphicon-chevron-right" ng-click="controller.nextPage()"></a>
         </div>
+        <a id="previous" class="glyphicon glyphicon-chevron-left" ng-click="controller.prevPage();"></a>
+        <a id="next" class="glyphicon glyphicon-chevron-right" ng-click="controller.nextPage()"></a>
     </div>
-  
+</div>
+
