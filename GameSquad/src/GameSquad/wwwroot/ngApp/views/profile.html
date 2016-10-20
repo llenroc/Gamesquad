@@ -33,7 +33,7 @@
                             <h3 id="postUserText"><b style="text-transform:capitalize;">{{post.user}}</b></h3>
                         </li>
                         <li id="innerText">{{post.comment}}</li>
-                        <li>
+                        <li ng-show="post.item">
                             <img id="postImage" width="650" class="shadow img-responsive img-rounded" ng-src="{{post.item}}" />
                         </li>
                         
