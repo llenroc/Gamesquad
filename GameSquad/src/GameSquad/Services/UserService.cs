@@ -76,6 +76,8 @@ namespace GameSquad.Services
                 PlayStyle = u.PlayStyle,
                 BannerImage = u.BannerImage,
                 Rank = u.Rank,
+                StatusMessage = u.StatusMessage,
+                LookingFor = u.LookingFor,
                 Posts = _repo.Query<Post>().Where(p => p.UserId == id).ToList()
             }).FirstOrDefault();
             return data;
