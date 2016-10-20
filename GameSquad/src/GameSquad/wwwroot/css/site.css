@@ -164,7 +164,7 @@ p
     margin-left: auto;
    margin-right: auto;
 }
-#userSearchInput
+.userSearchInput
 {
     width:75px; 
     display:inline;
