@@ -38,9 +38,10 @@
                                     <img  id="postImage" width="650" class="shadowDark img-responsive" ng-src="{{post.item}}" />
                                 </li>
                             </ul>
-                            <a id="EditGliphicon" class="glyphicon glyphicon-remove" ng-click="controller.showModalDelPost(post.id)"></a>
-                            <a id="EditGliphicon" class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
-                            
+                            <div ng-controller="PostController as postVM">
+                                <a id="EditGliphicon" class="glyphicon glyphicon-remove" ng-click="postVM.showModalDelPost(post.id)"></a>
+                                <a id="EditGliphicon" class="glyphicon glyphicon-pencil" ng-click="postVM.showModalEditPost(post.id)"></a>
+                            </div>
                         </div>
                     </div>
                 </div>

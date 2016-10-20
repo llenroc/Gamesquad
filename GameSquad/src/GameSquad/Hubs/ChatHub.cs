@@ -196,8 +196,12 @@ namespace GameSquad.Hubs
             var userName = Context.User.Identity.Name;
             if(userName != null)
             {
-               Groups.Add(Context.ConnectionId, roomName);
-               Clients.Group(roomName).getGroupMessage("Server", userName + " has joined the chat!", roomName);
+                if(roomName != null)
+                {
+                    Groups.Add(Context.ConnectionId, roomName);
+                    Clients.Group(roomName).getGroupMessage("Server", userName + " has joined the chat!", roomName);
+                }
+               
             }
             
         }

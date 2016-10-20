@@ -66,10 +66,7 @@
                                         <td>{{user.isOnline ? "Online": "Offline"}}</td>
                                         <td>{{user.lookingFor}}</td>
                                         <td>{{user.platform}}</td>
-                                        <!--<td><span class="img-rounded" title="{{user.statusMessage}}"> status</span></td>-->
-                                        <td>
-                                            <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="{{user.statusMessage}}" data-original-title="" title="" aria-describedby="">status</button>
-                                        </td>
+                                        <td><span class="img-rounded" title="{{user.statusMessage}}"> status</span></td>
                                         <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
                                         <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
                                     </tr>
@@ -84,3 +81,5 @@
         <a id="next" class="glyphicon glyphicon-chevron-right" ng-click="controller.nextPage()"></a>
     </div>
 </div>
+
+       

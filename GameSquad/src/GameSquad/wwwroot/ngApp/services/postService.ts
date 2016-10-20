@@ -14,7 +14,7 @@
 
         //read
         public getPosts() {
-            return this.postResource.query();
+            return this.postResource.query().$promise;
         }
 
         public getPostById(id) {

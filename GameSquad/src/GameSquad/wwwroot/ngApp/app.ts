@@ -70,6 +70,12 @@ namespace GameSquad {
             })
             .state('teamCreate', {
                 url: '/teamCreate',
+                templateUrl: '/ngApp/views/teamDelete.html',
+                controller: GameSquad.Controllers.TeamInfoController,
+                controllerAs: 'controller'
+            })
+            .state('teamDelete', {
+                url: '/teamDelete',
                 templateUrl: '/ngApp/views/teamCreate.html',
                 controller: GameSquad.Controllers.TeamController,
                 controllerAs: 'controller'
@@ -120,6 +126,12 @@ namespace GameSquad {
                 url: '/profileEdit',
                 templateUrl: '/ngApp/views/profileEdit.html',
                 controller: GameSquad.Controllers.UserDashboardController,
+                controllerAs: 'controller'
+            })
+            .state('teamEdit', {
+                url: '/teamEdit',
+                templateUrl: '/ngApp/views/teamEdit.html',
+                controller: GameSquad.Controllers.TeamInfoController,
                 controllerAs: 'controller'
             })
             .state('notFound', {
