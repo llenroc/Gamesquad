@@ -25,10 +25,18 @@ namespace GameSquad.Data
                 // create user
                 chase = new ApplicationUser
                 {
-                    UserName = "Killerpie1232",
+                    UserName = "Killerpie9994",
                     FirstName = "Chase",
-                    LastName = "Base",
-                    Email = "Chase@CoderCamps.com"
+                    LastName = "Price",
+                    Email = "Chase@CoderCamps.com",
+                    Bio = "Chases Bio goes here",
+                    Location = "USA",
+                    Platform = "PC",
+                    PlayStyle = "Competitive",
+                    ProfileImage = "/images/avatar76.png",
+                    BannerImage = "/images/teamIMageow.png",
+                    StatusMessage = "Pro Damage PLayer",
+                    LookingFor = ""
                 };
                 await userManager.CreateAsync(chase, "Secret123!");
 
@@ -45,8 +53,16 @@ namespace GameSquad.Data
                 {
                     UserName = "Valquin",
                     FirstName = "Shane",
-                    LastName = "Bane",
-                    Email = "Shane@CoderCamps.com"
+                    LastName = "Burton",
+                    Email = "Shane@CoderCamps.com",
+                    Bio = "shanes Bio goes here",
+                    Location = "USA",
+                    Platform = "PC",
+                    PlayStyle = "Competitive",
+                    ProfileImage = "/images/Avatarsymmetra.png",
+                    BannerImage = "/images/teamIMageow.png",
+                    StatusMessage = "will play support",
+                    LookingFor = ""
                 };
                 await userManager.CreateAsync(shane, "Secret123!");
             }
@@ -58,8 +74,16 @@ namespace GameSquad.Data
                 {
                     UserName = "SleepyBear",
                     FirstName = "Emma",
-                    LastName = "Delimma",
-                    Email = "Emma@CoderCamps.com"
+                    LastName = "Giap",
+                    Email = "Emma@CoderCamps.com",
+                     Bio = "SleepyBears Bio goes here",
+                    Location = "USA",
+                    Platform = "PC",
+                    PlayStyle = "Competitive",
+                    ProfileImage = "/images/AvatarDva.png",
+                    BannerImage = "/images/teamIMageow.png",
+                    StatusMessage = "Awsome with Bastion!",
+                    LookingFor = ""
                 };
                 await userManager.CreateAsync(emma, "Secret123!");
             }
@@ -71,8 +95,16 @@ namespace GameSquad.Data
                 {
                     UserName = "Sirpunchkillyou",
                     FirstName = "Kris",
-                    LastName = "Bliss",
-                    Email = "Kris@CoderCamps.com"
+                    LastName = "Inniss",
+                    Email = "Kris@CoderCamps.com",
+                    Bio = "Sirpunches Bio goes here",
+                    Location = "USA",
+                    Platform = "PC",
+                    PlayStyle = "Competitive",
+                    ProfileImage = "/images/avatarLucio.png",
+                    BannerImage = "/images/teamIMageow.png",
+                    StatusMessage = "Tank Dva heals lucio def and atk junkrat",
+                    LookingFor = ""
                 };
                 await userManager.CreateAsync(kris, "Secret123!");
             }
@@ -84,8 +116,16 @@ namespace GameSquad.Data
                 {
                     UserName = "Reginator",
                     FirstName = "Reggie",
-                    LastName = "Veggie",
-                    Email = "Reg@CoderCamps.com"
+                    LastName = "Beason",
+                    Email = "Reg@CoderCamps.com",
+                    Bio = "Regs Bio goes here",
+                    Location = "USA",
+                    Platform = "PC",
+                    PlayStyle = "Competitive",
+                    ProfileImage = "/images/AvatarTorbJorn.png",
+                    BannerImage = "/images/teamIMageow.png",
+                    StatusMessage = "Plays LOL",
+                    LookingFor = ""
                 };
                 await userManager.CreateAsync(reg, "Secret123!");
             }
@@ -116,7 +156,7 @@ namespace GameSquad.Data
                    new TeamMembers
                    {
                        TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "TeamMeat").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Killerpie1232").Id
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Killerpie9994").Id
                    },
                    new TeamMembers
                    {
@@ -137,7 +177,7 @@ namespace GameSquad.Data
                    new TeamMembers
                    {
                        TeamId = context.Teams.FirstOrDefault(m => m.TeamName == "Cloud9").Id,
-                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Killerpie1232").Id
+                       ApplicationUserId = context.Users.FirstOrDefault(a => a.UserName == "Killerpie9994").Id
                    },
                    new TeamMembers
                    {
