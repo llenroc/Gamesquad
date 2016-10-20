@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using GameSquad.Models;
 using Microsoft.AspNetCore.Identity;
 using GameSquad.Services;
+using GameSquad.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,10 +17,12 @@ namespace GameSquad.API
     {
         private UserManager<ApplicationUser> _manager;
         private IUserService _service;
-        public UserSearchController(IUserService service, UserManager<ApplicationUser> manager)
+        private IFriendsService _fService;
+        public UserSearchController(IFriendsService fService, IUserService service, UserManager<ApplicationUser> manager)
         {
             _service = service;
             _manager = manager;
+            _fService = fService;
         }
         // GET: api/values
         [HttpGet]
@@ -39,8 +42,30 @@ namespace GameSquad.API
         [HttpPost]
         public IActionResult Post([FromBody]USearch _data)
         {
+            var userId = _manager.GetUserId(User);
+            _data.CurrentUser = userId;
+
             var holder = _service.GetTableData(_data);
-            var value = new { data = holder };
+
+            
+            var friends = _fService.GetAllFriendsByUser(userId);
+
+            var rData = new List<FriendCheckReturnVM>();
+
+            foreach (var user in holder)
+            {
+                var a = new FriendCheckReturnVM { User = user, IsFriend = false };
+                foreach (var friend in friends)
+                {
+                    if (user.Id == friend.Id)
+                    {
+                        a.IsFriend = true;
+                    }
+                }
+                rData.Add(a);
+            }
+
+            var value = new { data = rData };
             return Ok(value);
         }
 

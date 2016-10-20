@@ -4,6 +4,7 @@
     "noImplicitAny": false,
     "noEmitOnError": true,
     "removeComments": false,
+    "outFile": "wwwroot/out.js",
     "sourceMap": true,
     "target": "es5"
   },
@@ -11,3 +12,4 @@
     "node_modules"
   ]
 }
+

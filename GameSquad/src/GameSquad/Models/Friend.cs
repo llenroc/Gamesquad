@@ -11,5 +11,6 @@ namespace GameSquad.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public string FriendId { get; set; }
+        public bool Active { get; set; }
     }
 }

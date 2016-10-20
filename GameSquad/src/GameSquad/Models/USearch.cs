@@ -13,5 +13,7 @@ namespace GameSquad.Models
         public bool OnlineOnly { get; set; }
         public string LookingFor { get; set; }
         public int PageCount { get; set; }
+        public string Platform { get; set; }
+        public string CurrentUser { get; set; }
     }
 }

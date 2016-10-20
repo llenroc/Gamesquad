@@ -2,38 +2,38 @@
 <br />
 <br />
 <div class="container">
-    <div style="border:solid; background-color:#505454; margin-top:40px; padding-left:40px; padding-right:40px; " class="col-lg-8 col-lg-offset-2 img-rounded">
+    <div id="inboxContainer" class="col-lg-8 col-lg-offset-2 img-rounded">
         <div class="row">
-            <div style="background-color:darkgray; margin-top:20px; padding-left:5px; padding-bottom:5px;" class="img-rounded"> <h2 style="font-family:Audiowide; color:black; display:inline;"> Messages</h2> 
-            <img class="pull-right" style="padding-right:5px; display:inline;" width="60" height="60" src="../../images/mail-inbox.png"/>
-            </div>
+            <div id="messagesContainer" class="img-rounded"> <h2 id="inboxHeader"> Messages</h2> 
+            <img class="pull-right" id="mailImg" width="60" height="60" src="../../images/mail-inbox.png"/>
             <br />
             <table class="table table-hover table-striped img-rounded">
                 <tr ng-repeat="msg in controller.messages">
                     <td>From: <strong>{{msg.sendingUser}}</strong>&nbsp;&nbsp;&nbsp;Subject:<strong>{{msg.subject}}</strong></td>
 
-                    <td><a style="" class="glyphicon glyphicon-envelope" ng-href="/inbox/{{msg.id}}"></a>
-                    <td><a style="cursor:pointer;" class="glyphicon glyphicon-remove" ng-click="controller.deleteMessage(msg.id)"></a></td>
+                    <td><a class="glyphicon glyphicon-envelope" ng-href="/inbox/{{msg.id}}"></a>
+                    <td><a id="glyphButton" class="glyphicon glyphicon-remove" ng-click="controller.deleteMessage(msg.id)"></a></td>
                 </tr>
             </table>
+            </div>
         </div>
         <div class="row">
-            <div style="background-color:darkgray; margin-top:20px; padding-left:5px; padding-bottom:10px; padding-top:10px;" class="img-rounded">
-                <h2 style="font-family:Audiowide; color:black; display:inline;">Friend Requests</h2>
-                <img class="pull-right" style="padding-right:5px; display:inline;" width="60" height="60" src="../../images/add_friend-512.png" />
-            </div>
+            <div  id="messagesContainer" class="img-rounded">
+                <h2 id="inboxHeader">Friend Requests</h2>
+                <img class="pull-right"  id="mailImg" width="60" height="60" src="../../images/add_friend-512.png" />
             <br />
             <table class="table table-hover table-striped img-rounded">
-                <tr  ng-repeat="request in controller.friendRequests">
-                    <td style="margin-right:30px;">{{request.sendingUserName}}</td>
-                    <td>
-                        <a style="cursor:pointer; margin-right:20%;" class="glyphpcon glyphicon-remove pull-right"ng-click="controller.removeFriendRequest(request.sendingUserId)"></a>
+                <tr ng-repeat="request in controller.friendRequests">
+                    <td  style="margin-right:30px;">{{request.sendingUserName}}</td>
+                    <td >
+                        <a id="glyphicon1" class="glyphicon glyphicon-remove pull-right"ng-click="controller.removeFriendRequest(request.sendingUserId)"></a>
 
-                        <a style="cursor:pointer; margin-right:33%;" class="glyphicon glyphicon-check pull-right" ng-click="controller.addFriendToUser(request.sendingUserId)"></a>
+                        <a id="glyphicon1" class="glyphicon glyphicon-check pull-right" ng-click="controller.addFriendToUser(request.sendingUserId)"></a>
                      
                     </td>
                 </tr>
             </table>
+                </div>
         </div>
     </div>
 </div>

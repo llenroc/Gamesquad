@@ -33,23 +33,26 @@ namespace GameSquad.Services
                 {
                     Id = u.Id,
                     UserName = u.UserName,
-                    Rank = u.Rank
+                    Rank = u.Rank,
+                    IsOnline = u.IsOnline
                 }).ToList()
             }).FirstOrDefault();
             return _data;
         }
 
-        public void SaveTeam(Team team)
+        public int SaveTeam(Team team)
         {
 
             if (team.Id == 0)
             {
                 _repo.Add(team);
+                return team.Id;
             }
 
             else
             {
                 _repo.Update(team);
+                return 0;
             }
 
         }
@@ -129,6 +132,11 @@ namespace GameSquad.Services
 
             _repo.Delete(remove);
             _repo.SaveChanges();
+        }
+
+        public void DeleteTeam(int id)
+        {
+
         }
     }
 }

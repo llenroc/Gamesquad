@@ -1,30 +1,26 @@
-﻿<a href="/myTeam"><img style="margin-left:30px" width="170" height="86" src="../../images/back2teams (2).png" /></a>
+﻿<a href="/myTeam"><img style="margin-left:30px" width="170" height="86" src="../../images/back2teams (2).png"  /></a>
 <br />
 <div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
-        <h1><strong>{{controller.teamDetails.teamName}}</strong></h1>
-        <h3>Leader: <strong>{{controller.teamDetails.teamLeader}}</strong></h3>
-        <h4>Playstyle: <strong>{{controller.teamDetails.playStyle}}</strong></h4>
-        <br />
+    <div id="teamInfoContainer" class="col-lg-8 col-lg-offset-2 img-rounded">
+        <div >
+            <h1><strong>{{controller.teamDetails.teamName}}</strong></h1>
+            <h3>Leader: <strong>{{controller.teamDetails.teamLeader}}</strong></h3>
+            <h4>Playstyle: <strong>{{controller.teamDetails.playStyle}}</strong></h4>
+            <br />
+        </div>
+            <div>
+                <table class="table table-striped">
+                        <tr>
+                            <th><strong>Team</strong> Members</th>
+                            <th>Rank</th>
+                            <th>Online</th>
+                        </tr>
+                        <tr ng-repeat="member in controller.teamDetails.teamMembers">
+                            <td><a href="/profile/{{member.id}}">{{member.userName}}</a></td>
+                            <td>{{member.rank}}</td>
+                            <td>{{member.isOnline ? "Online": "Offline"}}</td>
+                        </tr>
+                 </table>
+            </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
-        <form>
-            <table class="table table-striped">
-                <tr>
-                    <th><strong>Team</strong> Members</th>
-                    <th>Rank</th>
-
-                </tr>
-                <tr ng-repeat="member in controller.teamDetails.teamMembers">
-                    <td><a href="/profile/{{member.id}}">{{member.userName}}</a></td>
-                    <td>{{member.rank}}</td>
-                </tr>
-            </table>
-        </form>
-    </div>
-
-
 </div>

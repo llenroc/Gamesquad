@@ -40,7 +40,8 @@
                 <li><a ng-show="account.isLoggedIn()" href="/updates">Player <strong> Feed</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
-                <li><a style="font-size:1.5em; font-family:Audiowide;" class="glyphicon glyphicon-envelope" ng-show="account.isLoggedIn()" href="/inbox" ng-click="account.notificationCount = ''"><span><strong> {{account.notificationCount}}</strong> </span></a></li>
+                <li><a ng-show="account.isLoggedIn()" ng-click="account.statusModal()" href="">My <strong>Status</strong></a></li>
+                <li><a style="font-size:1.5em; font-family:Audiowide;" class="glyphicon glyphicon-envelope" ng-show="account.isLoggedIn()" href="/inbox" ng-click="account.notificationCount = 0"><span ng-show="account.notificationCount > 0"><strong> {{account.notificationCount}}</strong> </span></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
             </ul>
@@ -48,7 +49,7 @@
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                         <span class="glyphicon glyphicon-user"></span>
-                        <strong>{{account.getUserName()}}</strong><strong class="caret"></strong>
+                        <strong style="text-transform:capitalize;">{{account.getUserName()}}</strong><strong class="caret"></strong>
                     </a>
 
                     <ul style="text-align:right;" class="dropdown-menu">
@@ -66,10 +67,14 @@
     <div class="chat-section" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="panel panel-warning">
             <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1" ng-click="chat.setPanelAlert()">
-                <h3 class="panel-title">Chat <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span></h3>
+                <h3 class="panel-title">
+                    Chat
+                    <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span>
+                    <span ng-show="chat.newGroupMessagePanelAlert" class="label label-info">New Group Messages!</span>
+                </h3>
             </div>
             <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body chat-panel-body">
+                <div class="panel-body chat-panel-body" >
                     <!--Friends/userlist-->
 
                     <div class="user-list chat-scrollbar">
@@ -89,14 +94,14 @@
                                         </h4>
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                        <div class="panel-body">
+                                        <div class="panel-body userlist-panel-body">
                                             <ul class="list-group">
-                                                <li class="list-group-item"
+                                                <li class="list-group-item "
                                                     ng-click="chat.setUserToMessage(user)"
                                                     ng-repeat="user in chat.privateMessageArray"
                                                     ng-class="chat.userListClass(user)">
 
-                                                    <div>{{user.username}}<p ng-show="!user.online" class="text-danger">(Offline)</p></div>
+                                                    <div class="userlist-user">{{user.username}}<p ng-show="!user.online" class="text-danger">(Offline)</p></div>
 
                                                 </li>
                                             </ul>
@@ -110,14 +115,14 @@
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                        <div class="panel-body">
+                                        <div class="panel-body userlist-panel-body">
                                             <ul class="list-group">
-                                                <li class="list-group-item"
+                                                <li class="list-group-item userlist-user"
                                                     ng-click="chat.setTeamToMesssage(team.teamName)"
                                                     ng-repeat="team in chat.teamList"
                                                     ng-class="{'list-group-item-warning': chat.conversationName === team.teamName}">
 
-                                                    <div>{{team.teamName}}</div>
+                                                    <div class="userlist-user">{{team.teamName}}</div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -128,20 +133,21 @@
                     </div>
                     <!--Chat Section-->
                     <div style="width:100%">
-                        <div class="chat-message-section chat-scrollbar" schroll-bottom="chat.privateMessagesDispalyed">
-                            <div class="chat-item-container">
-                                <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning" style="margin-bottom: 10px;">This is the start of your conversation with {{chat.conversationName}}!</div>
+                        <div class="chat-message-section chat-scrollbar" schroll-bottom="chat.messagesDispalyed">
+                            <div class="chat-item-container" >
+                                <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning userlist-user" style="margin-bottom: 10px;">This is the start of your conversation with <u>{{chat.conversationName}}</u>!</div>
                                 <div class="chat-item" ng-repeat="msg in chat.messagesDispalyed" ng-class="{'chat-item-self': chat.getUserName() === msg.username}">
                                     <p>{{msg.message}}</p>
                                     <div>{{msg.username}} at {{msg.time}}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer">
+                        <div class="panel-footer" style="height:100px;">
                             <form ng-submit="chat.sendMessage()" class="form-inline">
                                 <div class="form-group chat-input" style="width:100%;">
-                                    <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" required />
-                                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Send</button>
+                                    <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" ng-disabled="!chat.userOnlineCheck" required />
+                                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true" ng-disabled="!chat.userOnlineCheck"></span> Send</button>
+                                    <p class="text-danger" ng-show="!chat.userOnlineCheck">User is offline</p>
                                 </div>
                             </form>
                         </div>
@@ -155,44 +161,17 @@
     </div>
 
     <!-- Library Files -->
-    <script src="~/lib/angular/angular.js"></script>
+    <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/lib/angular-resource/angular-resource.js"></script>
-    <script src="~/lib/angular-animate/angular-animate.js"></script>
+    <script src="~/lib/angular-animate/angular-animate.min.js"></script>
     <script src="~/lib/angular-touch/angular-touch.js"></script>
     <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="~/lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="~/lib/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
     <script src="~/lib/angular-filepicker/dist/angular_filepicker.js"></script>
    
-    <!-- App js files-->
-    <script src="~/ngapp/app.js"></script>
-    <!-- controllers-->
-    <script src="~/ngapp/controllers/controllers.js"></script>
-    <script src="~/ngApp/controllers/teamController.js"></script>
-    <script src="~/ngApp/controllers/postCreateController.js"></script>
-    <script src="~/ngApp/controllers/postController.js"></script>
-    <script src="~/ngApp/controllers/chatController.js"></script>
-    <script src="~/ngApp/controllers/userController.js"></script>
-    <script src="~/ngApp/controllers/teamInfoController.js"></script>
-    <script src="~/ngApp/controllers/friendController.js"></script>
-    <script src="~/ngApp/controllers/messageController.js"></script>
-    <script src="~/ngApp/controllers/messageInfoController.js"></script>
-    <script src="~/ngApp/controllers/messageCreateController.js"></script>
-    <script src="~/ngApp/controllers/messageDeleteController.js"></script>
-    <script src="~/ngApp/controllers/profileController.js"></script>
-    <!--services-->
-    <script src="~/ngapp/services/services.js"></script>
-    <script src="~/ngApp/services/teamService.js"></script>
-    <script src="~/ngApp/controllers/userDashboardController.js"></script>
-    <script src="~/ngApp/services/postService.js"></script>
-    <script src="~/ngApp/services/userService.js"></script>
-    <script src="~/ngApp/services/friendService.js"></script>
-    <script src="~/ngApp/services/friendRequestService.js"></script>
-    <script src="~/ngApp/services/messageService.js"></script>
-    <script src="~/ngApp/services/userDashboardService.js"></script>
-    <!-- Security -->
-    <script src="~/ngapp/controllers/accountcontroller.js"></script>
-    <script src="~/ngapp/services/accountservice.js"></script>
+    <!--JS files-->
+    <script src="~/out.js"></script>
     <!----link-->
     @*<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

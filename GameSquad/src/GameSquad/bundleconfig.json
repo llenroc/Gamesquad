@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "wwwroot/css/chat.min.css",
+    "inputFiles": [
+      "wwwroot/css/chat.css"
+    ]
+  }
+]

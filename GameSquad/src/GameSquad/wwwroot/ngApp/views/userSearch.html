@@ -1,19 +1,18 @@
 ﻿
-<img class="displayed" width="800" height="130" src="../../images/player123.png" />
-
-<<div class="container">
+    <div class="col-lg-8 col-lg-offset-2">
+        <!--<img id="userSearchBannerImg" class="displayed" width="800" height="130" src="../../images/player123.png" />-->
+        <img id="userSearchBannerImg" class="img-responsive" src="../../images/player123.png" />
+    </div>
+</div>
+<div class="container">
     <div class="col-lg-10 col-lg-offset-1">
         <div class="row">
             <div class="panel panel-default filterable">
                 <div class="panel-heading">
-                    <h3 style="font-family:Audiowide; color:ghostwhite;" class="panel-title">Players</h3>
-                    <!--<div class="pull-right">
-                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                    </div>-->
+                    <h3 class="panel-title">Players</h3>
                 </div>
                 <div class="table-responsive">
                     <div class="container">
-
                         <h1>Search For <strong>Players</strong> </h1>
                         <br />
                         <div>
@@ -21,18 +20,28 @@
                                 <thead>
                                     <tr class="filters">
                                         <th><input ng-model="controller.data.username" type="text" class="form-control" placeholder="UserName"></th>
-                                        <th style="">
-                                            <input style="width:75px; display:inline;"  name="quantity" min="1" max="400" ng-model="controller.data.rankFrom" type="number" id="minValue"  class="form-control" placeholder="Rank"/> - 
-                                            <input style="width:75px; display:inline;" name="quantity" min="1" max="400" ng-model="controller.data.rankTo" type="number" id="maxValue"  class="form-control" placeholder="Rank" />
+                                        <th>
+                                            <input id="userSearchInput" name="quantity" min="1" max="400" ng-model="controller.data.rankFrom" type="number" class="form-control" placeholder="Rank" /> -
+                                            <input id="userSearchInput" name="quantity" min="1" max="400" ng-model="controller.data.rankTo" type="number" class="form-control" placeholder="Rank" />
                                         </th>
                                         <th>
-                                            <input ng-model="controller.data.onlineOnly" type="checkbox" class="form-control" placeholder="Status"/>
+                                            <input ng-model="controller.data.onlineOnly" type="checkbox" class="form-control" placeholder="Status" />
                                         </th>
-                                        <th><select ng-model="controller.data.lookingFor" type="text" class="form-control" placeholder="Looking For..">
-                                                <option value=""></option>
-                                                <option >Player</option>
-                                                <option >Competitive</option>
-                                                <option >Casual</option>
+
+                                        <th>
+                                            <select ng-model="controller.data.lookingFor" type="text" class="form-control" placeholder="Looking For..">
+                                                <option value="">Looking for...</option>
+                                                <option>Player</option>
+                                                <option>Competitive</option>
+                                                <option>Casual</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <select ng-model="controller.data.platform" type="text" class="form-control" placeholder="Platform">
+                                                <option value="">Platform</option>
+                                                <option>PC</option>
+                                                <option value="PS4">Playstation 4</option>
+                                                <option>Xbox One</option>
                                             </select>
                                         </th>
                                         <th>
@@ -45,17 +54,26 @@
                                     <th>Rank</th>
                                     <th>Online</th>
                                     <th>Looking For</th>
+                                    <th>Platform</th>
+                                    <th>Status</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
-                                <tr ng-repeat="user in controller.users">
-                                    <td><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
-                                    <td>{{user.rank}}</td>
-                                    <td>{{user.isOnline ? "Online": "Offline"}}</td>
-                                    <td>{{user.lookingFor}}</td>
-                                    <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
-                                    <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
-                                </tr>
+                                <tbody ng-repeat="user in controller.users">
+                                    <tr>
+                                        <td style="text-transform:capitalize;"><a href="/profile/{{user.id}}">{{user.userName}}</a></td>
+                                        <td>{{user.rank}}</td>
+                                        <td>{{user.isOnline ? "Online": "Offline"}}</td>
+                                        <td>{{user.lookingFor}}</td>
+                                        <td>{{user.platform}}</td>
+                                        <!--<td><span class="img-rounded" title="{{user.statusMessage}}"> status</span></td>-->
+                                        <td>
+                                            <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="right" data-content="{{user.statusMessage}}" data-original-title="" title="" aria-describedby="">status</button>
+                                        </td>
+                                        <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
+                                        <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>

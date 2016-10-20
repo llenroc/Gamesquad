@@ -16,9 +16,13 @@ namespace GameSquad.Controllers {
         }
 
         public logout() {
-            this.accountService.logout();
+            
             $.connection.hub.stop();
-            this.$location.path('/');
+            this.accountService.logout().then(() => {
+                this.$location.path('/');
+                document.location.reload();
+            });
+            
         }
 
         public getExternalLogins() {
@@ -34,26 +38,32 @@ namespace GameSquad.Controllers {
             });
         }
 
+        //Launch Status Modal
+        public statusModal() {
+            this.$uibModal.open({
+                templateUrl: 'ngApp/views/modals/modalStatus.html',
+                controller: StatusController,
+                controllerAs: 'modal',
+                size: "sm"
+            });
+        }
+
         
         
         //Callback for notification counter
-        public notificationCount;
+        public notificationCount = 0;
         public notificationCheck() {
-            
-            $.connection.notificationHub.client.notificationCount = (newCount) => {
-                if (newCount === 0) {
-                    this.notificationCount = '';
-                }
-                else {
-                    this.notificationCount = newCount;
-
-                }
+            //Gets initial count when first connecting
+            $.connection.chatHub.client.notificationCount = (newCount) => {
+                
+               
+                this.notificationCount = newCount;
                 console.log(this.notificationCount);
                 
                 this.$scope.$apply();
             }
-
-            $.connection.notificationHub.client.newNotification = () => {
+            //Adds new notification
+            $.connection.chatHub.client.newNotification = () => {
                 this.notificationCount++;
                 this.$scope.$apply();
 
@@ -61,21 +71,12 @@ namespace GameSquad.Controllers {
 
         }
 
-       
 
-       //Calls the server for notifications
-        public notificationChecker() {
-
-            if ($.connection.chatHub.state !== $.signalR.connectionState.connected) {
-                $.connection.notificationHub.server.notificationCheck();
-            }
-            
-
-        }
 
         constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService,
             private $uibModal: ng.ui.bootstrap.IModalService,
-            private $scope: ng.IScope
+            private $scope: ng.IScope,
+            private $state: ng.ui.IStateService
         ) {
             this.getExternalLogins().then((results) => {
                 this.externalLogins = results;
@@ -85,14 +86,15 @@ namespace GameSquad.Controllers {
             $.connection.hub.logging = true;
             $.connection.hub.start().done( () => {
                 console.log("Connected to signalr");
-                //Runs notification checker and then sets it to run every x seconds
-                this.notificationChecker()
-                //setInterval(() => { this.notificationChecker() }, 5000);
+                
             });
             $.connection.hub.error(function (err) {
                 console.log("An error occurded: " + err);
             });
 
+            if (!accountService.isLoggedIn()) {
+                this.$location.path('/');
+            }
             this.notificationCheck();
 
         }
@@ -108,21 +110,40 @@ namespace GameSquad.Controllers {
         public login() {
             if (this.emailOrUser.includes("@")) {
                 this.loginUser.email = this.emailOrUser;
-                this.$state.go('/landing');
             }
             else {
                 this.loginUser.userName = this.emailOrUser;
             }
             this.accountService.login(this.loginUser).then(() => {
                 this.$location.path('/');
+                document.location.reload();
+
+                
                 this.$uibModalInstance.close();
-                this.$state.go('/landing');
             }).catch((results) => {
                 this.validationMessages = results;
             });
         }
 
-        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $state: ng.ui.IStateService) {
+        constructor(private accountService: GameSquad.Services.AccountService, private $location: ng.ILocationService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $state: ng.ui.IStateService, private $scope: angular.IScope) {
+
+        }
+    }
+
+    export class StatusController {
+        public statusMessage;
+        public lookingFor;
+        public ok() {
+            
+            this.statusService.saveStatus({lookingFor: this.lookingFor, statusMessage: this.statusMessage}).then(() => {
+                this.$uibModalInstance.close();
+            }).catch((results) => {
+                console.log("Save status Failed");
+            });
+        }
+
+        constructor(private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $scope: ng.IScope, private statusService: GameSquad.Services.StatusService) {
+
 
         }
     }
