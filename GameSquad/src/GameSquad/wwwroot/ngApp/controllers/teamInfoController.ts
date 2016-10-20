@@ -20,29 +20,25 @@
             }
         }
         
-        //delete team
-        public deleteTeam() {
-            this.teamService.deleteTeam(this.teamDetails.id);
-        }
+        
        //save team details
         public saveTeam() {
 
             this.teamDetails = this.teamService.saveTeam(this.teamDetails);
         }
-        //cancel 
-        public cancel() {
-            //this.$uibModalInstance.close();
-        }
+       
 
         //delete team modal
-        showModalDelPost() {
-            
+        ModalDel() {
+            var id = this.$stateParams['id'];
             this.$uibModal.open({
 
                 templateUrl: '/ngapp/views/teamDelete.html',
-                controller: 'TeamInfoController',
+                controller: 'ModalController',
                 controllerAs: 'controller',
-              
+                resolve: {
+                    id: () => id,
+                },
                 size: 'md'
             }).closed.then(() => {
                 this.$state.reload(); 
@@ -63,5 +59,28 @@
             this.teamDetails = this.teamService.getTeamInfo($stateParams['id']);
             
         }
+        
     }
+     class ModalController {
+        
+        constructor(
+            private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance,
+            private teamService: GameSquad.Services.TeamService,
+            private id
+        ) {
+
+        }
+        //cancel 
+        public cancel() {
+            this.$uibModalInstance.close();
+        }
+
+        //delete team
+        public deleteTeam() {
+            this.teamService.deleteTeam(this.id);
+        }
+
+    }
+
+    angular.module('GameSquad').controller('ModalController', ModalController);
 }

@@ -70,14 +70,8 @@ namespace GameSquad {
             })
             .state('teamCreate', {
                 url: '/teamCreate',
-                templateUrl: '/ngApp/views/teamDelete.html',
-                controller: GameSquad.Controllers.TeamInfoController,
-                controllerAs: 'controller'
-            })
-            .state('teamDelete', {
-                url: '/teamDelete',
                 templateUrl: '/ngApp/views/teamCreate.html',
-                controller: GameSquad.Controllers.TeamController,
+                controller: GameSquad.Controllers.TeamInfoController,
                 controllerAs: 'controller'
             })
             .state('myTeam', {
