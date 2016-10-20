@@ -15,11 +15,11 @@
         }
 
         //
-        public getUserInfo() {
-            this.userDashboardService.getUserInfo().$promise.then((data) => {
-                this.user = data;
-            });
-        }
+        //public getUserInfo() {
+        //    this.userDashboardService.getUserInfo().$promise.then((data) => {
+        //        this.user = data;
+        //    });
+        //}
 
         public saveProfile() {
             if (this.user.profileImage == null) {

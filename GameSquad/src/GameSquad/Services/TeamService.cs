@@ -33,7 +33,8 @@ namespace GameSquad.Services
                 {
                     Id = u.Id,
                     UserName = u.UserName,
-                    Rank = u.Rank
+                    Rank = u.Rank,
+                    IsOnline = u.IsOnline
                 }).ToList()
             }).FirstOrDefault();
             return _data;

@@ -1,28 +1,29 @@
-﻿
+﻿<div class="col-lg-8 col-lg-offset-2">
+    <!--<img id="feedBanner" width="840" height="200" src="../../images/updatesbanner.png" />-->
+    <img id="feedBanner" class="img-responsive" src="../../images/updatesbanner.png" />
+
+</div>
 <div class="container">
-    <div class="col-lg-8 col-lg-offset-2">
-        <img id="feedBanner" width="840" height="200" src="../../images/updatesbanner.png" />
-    </div>
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
-            <div id="feedBlock" class="img-rounded">
-                <div id="innerFeedBlock">
-                    <h1>Recent <strong>Posts</strong></h1>
-                    <p style="display:inline;">Post Something!</p><a id="postGlyphicon" class="glyphicon glyphicon-comment" href="/postCreate"></a>
-                    <div id="posts" ng-repeat="post in controller.posts" class="list-group">
-                        <ul href="#" class="list-group ">
-                            <li id="postUser" class="shadow img-rounded">
-                                <h3 id="postUserText"><b>{{post.user}}</b></h3>
-                            </li>
-                            <li id="innerText" style="margin:10px; ">{{post.comment}}</li>
-                            <li>
-                                <img id="postImage"class="shadow img-responsive" width="700"  ng-src="{{post.item}}" />
-                            </li>
-
-                        </ul>
+            <div class="row">
+                <div id="feedBlock" class="img-rounded">
+                    <div id="innerFeedBlock">
+                        <h1>Recent <strong>Posts</strong></h1>
+                        <p style="display:inline;">Post Something!</p><a id="postGlyphicon" class="glyphicon glyphicon-comment" href="/postCreate"></a>
+                        <div id="posts" ng-repeat="post in controller.posts" class="list-group">
+                            <ul href="#" class="list-group ">
+                                <li id="postUser" class="shadow img-rounded">
+                                    <h3 id="postUserText"><b>{{post.user}}</b></h3>
+                                </li>
+                                <li id="innerText" style="margin:10px; ">{{post.comment}}</li>
+                                <li>
+                                    <img id="postImage" class="shadow img-responsive" width="700" ng-src="{{post.item}}" />
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
