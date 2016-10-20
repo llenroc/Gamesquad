@@ -9,7 +9,7 @@
         private chatHub: any
         public dupUser = false;
         public newMessage;
-        public mobileView = 'chat';
+        public mobileView = 'conversations';
 
 
 
@@ -106,7 +106,6 @@
         public setTeamToMesssage(team) {
             //this.sendToUser = team;
             this.conversationName = team;
-            console.log(`changed to ${team}`);
             let index = this.groupMessageArray.map((x) => { return x.roomName }).indexOf(team);
             if (index > -1) {
                 this.messagesDispalyed = this.groupMessageArray[index].messages;
@@ -123,7 +122,6 @@
         public setGlobalToMessage() {
             //this.sendToUser = team;
             this.conversationName = "Global Chat";
-            console.log(`changed to global`);
             
             this.messagesDispalyed = this.globalMessages;
             this.sendTo = "global";
@@ -190,7 +188,6 @@
         //sends global message
         public sendGlobalMessage() {
             this.chatHub.server.sendMessage(this.newMessage);
-            console.log("Message sent to server");
 
             this.newMessage = "";
         }
@@ -225,10 +222,8 @@
             this.chatHub.client.newMessage = (fromUserName, messageRecieved) => {
                 let time = this.getTimeStamp();
                 let newMessage = { username: fromUserName, message: messageRecieved, time: time}
-                console.log("Message Recieved from server!");
 
                 this.globalMessages.push(newMessage);
-                console.log(this.globalMessages);
                 this.$scope.$apply();
             }
 
@@ -236,7 +231,6 @@
 
             //Gets private message
             this.chatHub.client.getPrivateMessage = (fromUsername, privateMessage, conversationName) => {
-                console.log("Private message Recieved from server!");
 
                 let newMessageTime = this.getTimeStamp();
 
@@ -265,12 +259,10 @@
             }
             //Gets group message
             this.chatHub.client.getGroupMessage = (fromUsername, groupMessage, groupName) => {
-                console.log("Group message Recieved from server!");
 
                 let newMessageTime = this.getTimeStamp();
 
                 let newMessage = { username: fromUsername, message: groupMessage, time: newMessageTime}
-                console.log(newMessage);
 
                 let index = this.groupMessageArray.map((x) => { return x.roomName }).indexOf(groupName);
 
@@ -305,9 +297,7 @@
 
             //Recieves user list
             this.chatHub.client.onConnected = (userList) => {
-                console.log("Userlist Recieved from server!");
 
-                console.log(userList + typeof userList);
                 //If it detects this user is already connected it kils connection(fixes current duplicate issue)
                 if (userList === -1) {
 
@@ -327,7 +317,6 @@
                         this.privateMessageArray.push(friend);
 
                     }
-                    console.log(this.privateMessageArray);
                 }
                 this.$scope.$apply();
 
@@ -335,8 +324,6 @@
 
             //Detects when a new user has been connected
             this.chatHub.client.onNewUserConnected = (newUser) => {
-                console.log("New user Recieved from server!");
-                console.log(newUser)
 
                 let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(newUser);
                 if (index > -1) {
@@ -358,7 +345,6 @@
                     this.privateMessageArray.push(newFriend);
                 }
 
-                console.log(this.privateMessageArray);
 
                 this.$scope.$apply();
 
@@ -366,11 +352,9 @@
 
             //Sets user offline if they disconnect
             this.chatHub.client.onUserDisconnected = (userOffline) => {
-                console.log("User has disconnected " + userOffline);
 
 
                 let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(userOffline);
-                console.log(index);
                 if (index > -1) {
 
                     this.privateMessageArray[index].online = false;
@@ -388,7 +372,6 @@
             //Removes a friend from list if users are no longer friends
             this.chatHub.client.onFriendRemoved = (friendRemoved) => {
                 let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(friendRemoved);
-                console.log(index);
                 if (index > -1) {
 
                     
@@ -404,7 +387,6 @@
             this.chatHub.client.joinNewGroup = (roomName) => {
                 this.connectToTeam(roomName);
                 this.teamList.push({ teamName: roomName });
-                console.log()
 
 
             }
@@ -432,7 +414,6 @@
         public getTeamsAndConnect() {
             this.teamService.getTeamsByUser().$promise.then((data) => {
                 this.teamList = data;
-                console.log(this.teamList);
 
                 for (let team of this.teamList) {
                     this.connectToTeam(team.teamName);
@@ -459,7 +440,6 @@
             
 
 
-            console.log("Chat Constructor Running!");
             this.chatHub = $.connection.chatHub;
             //Starts the waiting functions for chat
             this.getConnectedUsers();

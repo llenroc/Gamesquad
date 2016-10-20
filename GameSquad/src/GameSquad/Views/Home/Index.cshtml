@@ -68,7 +68,7 @@
         <div class="panel panel-warning">
             <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1" ng-click="chat.setPanelAlert()">
                 <h3 class="panel-title">
-                    <button ng-click="chat.mobileView = 'conversations'" class="btn btn-default visible-xs-inline">Back</button>
+                    <button ng-click="$event.stopPropagation(); chat.mobileView = 'conversations'" class="btn btn-default btn-sm visible-xs-inline" ng-show="chat.mobileView === 'chat'">Back</button>
                     Chat - {{chat.conversationName}}
                     <span ng-show="chat.newMessagePanelAlert" class="label label-success">New Messages!</span>
                     <span ng-show="chat.newGroupMessagePanelAlert" class="label label-info">New Group Messages!</span>
@@ -78,7 +78,7 @@
                 <div class="panel-body chat-panel-body" >
                     <!--Friends/userlist-->
 
-                    <div class="user-list chat-scrollbar" ng-class="{'hidden-xs user-list-mobile' : chat.mobileView === 'chat'}">
+                    <div class="user-list chat-scrollbar" ng-class="{'hidden-xs' : chat.mobileView === 'chat', 'user-list-mobile' : chat.mobileView === 'conversations'}">
                         <div class="chat-item-container ">
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                 <div class="panel panel-default" ng-click="chat.setGlobalToMessage()" ng-class="{'panel-warning': chat.conversationName === 'Global Chat'}">
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <!--Chat Section-->
-                    <div style="width:100%; min-width: 500px;" ng-class="{'hidden-xs' : chat.mobileView === 'conversations'}">
+                    <div  class="chat-message-over" ng-class="{'hidden-xs' : chat.mobileView === 'conversations', 'chat-message-over-mobile' : chat.mobileView === 'chat'}">
                         <div class="chat-message-section chat-scrollbar" schroll-bottom="chat.messagesDispalyed">
                             <div class="chat-item-container" >
                                 <div ng-show="chat.conversationName" class="list-group-item list-group-item-warning convo-start" style="margin-bottom: 10px;">This is the start of your conversation with <u>{{chat.conversationName}}</u>!</div>
@@ -148,7 +148,7 @@
                                 <div class="form-group chat-input" style="width:100%;">
                                     <input ng-model="chat.newMessage" class="form-control chat-input" style="max-width: 1000px; width:80%" type="text" ng-disabled="!chat.userOnlineCheck" required />
                                     <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-send" aria-hidden="true" ng-disabled="!chat.userOnlineCheck"></span> Send</button>
-                                    <p class="text-danger" ng-show="!chat.userOnlineCheck">User is offline</p>
+                                    <p class="text-danger" style="font-size:small" ng-show="!chat.userOnlineCheck">User is offline</p>
                                 </div>
                             </form>
                         </div>
