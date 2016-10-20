@@ -1,7 +1,7 @@
 ﻿
 <div class="col-lg-8 col-lg-offset-2">
     <!--<img id="userSearchBannerImg" class="displayed" width="800" height="130" src="../../images/player123.png" />-->
-    <img id="userSearchBannerImg" class="img-responsive" src="../../images/player123.png" />
+    <img width="600"  id="userSearchBannerImg" class="img-responsive" src="../../images/player123.png" />
 </div>
 <div class="container">
     <div class="col-lg-10 col-lg-offset-1">
@@ -69,10 +69,10 @@
                                         <td>{{user.lookingFor}}</td>
                                         <td>{{user.platform}}</td>
                                         <td>
-                                            <button ng-show="user.statusMessage" uib-popover="{{user.statusMessage}}" popover-trigger='mouseenter' popover-title="{{user.userName}}'s status" type="button" class="btn btn-default">Status</button>
+                                            <button ng-show="user.statusMessage" uib-popover="{{user.statusMessage}}" popover-trigger='mouseenter' popover-title="{{user.userName}}'s status" type="button" class="btn btn-default btn-sm">Status</button>
                                         </td>
                                         <td><button class="btn btn-primary btn-sm" ng-click="controller.showMessageModal(user.id)">Message</button></td>
-                                        <td><button class="btn btn-default btn-sm" ng-click="controller.sendFriendRequest(user)" id="{{user.userName}}">Friend Request</button></td>
+                                        <td><button class="btn btn-default btn-sm" ng-disabled="user.isFriend" ng-click="controller.sendFriendRequest(user); user.isFriend = true;" id="{{user.userName}}">Friend Request</button></td>
                                     </tr>
                                 </tbody>
                             </table>

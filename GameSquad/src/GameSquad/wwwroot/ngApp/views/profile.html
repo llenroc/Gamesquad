@@ -1,6 +1,6 @@
-﻿<!--<div id="dashboardBannerImg" class="col-lg-8 col-lg-offset-2">
-    <img width="600" height="80" src="{{controller.user.bannerImage}}" />
-</div>-->
+﻿<div  class="col-lg-8 col-lg-offset-2">
+    <img id="dashboardBannerImg" class="img-responsive" width="600" height="80" src="../../images/playerProfileBanner.png" />
+</div>
 
 <div id="profileHead" class="col-lg-8 col-lg-offset-2">
     <a href="/findUsers">Back to Players</a>
@@ -11,15 +11,15 @@
 
 <div class="col-lg-8 col-lg-offset-2">
     <div id="bioContainer" class="img-rounded">
-        <ul id="innerText" class="list-unstyled">
-            <li><strong>Bio:</strong> {{controller.user.bio}}</li>
-        </ul>
-        <ul id="innerText" class="list-unstyled ">
-            <li><strong>Location:</strong> {{controller.user.location}}</li>
-            <li><strong>Play Platform:</strong> {{controller.user.platform}}</li>
-            <li><strong>Play-Style:</strong> {{controller.user.playStyle}}</li>
-            <li><strong>Rank:</strong> {{controller.user.rank}}</li>
-        </ul>
+        <div class="innerBioContainer shadowDark img-rounded">
+            <ul id="innerText" class="list-unstyled ">
+                <li style="margin-bottom:10px;"><b>Bio:</b> {{controller.user.bio}}</li>
+                <li><b>Location:</b> {{controller.user.location}}</li>
+                <li><b>Play Platform:</b> {{controller.user.platform}}</li>
+                <li><b>Play-Style:</b> {{controller.user.playStyle}}</li>
+                <li><b>Rank:</b> {{controller.user.rank}}</li>
+            </ul>
+        </div>
   </div>
     <br />
         <div class="img-rounded" id="dashBoardPost">
@@ -29,12 +29,12 @@
                 <br />
                 <div ng-repeat="post in controller.user.posts" class="list-group">
                     <ul href="#" class="list-group ">
-                        <li class="shadow img-rounded" style="background-color:darkgray; padding:3px;">
+                        <li class="shadowDark img-rounded" style="background-color:darkgray; padding:3px;">
                             <h3 id="postUserText"><b style="text-transform:capitalize;">{{post.user}}</b></h3>
                         </li>
                         <li id="innerText">{{post.comment}}</li>
                         <li ng-show="post.item">
-                            <img id="postImage" width="650" class="shadow img-responsive img-rounded" ng-src="{{post.item}}" />
+                            <img id="postImage" width="650" class="shadow img-responsive " ng-src="{{post.item}}" />
                         </li>
                         
                     </ul>

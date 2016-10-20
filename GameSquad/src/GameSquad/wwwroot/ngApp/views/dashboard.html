@@ -1,5 +1,5 @@
 <div  class="col-lg-8 col-lg-offset-2">
-    <img id="dashboardBannerImg" src="../../images/dashboardimg.png"  class="img-responsive"/>
+    <img width="600" id="dashboardBannerImg" src="../../images/dashboardimg.png"  class="img-responsive"/>
 </div>
 <div id="profileHead" class="col-lg-8 col-lg-offset-2">
     <img id="profileImg" style="margin-bottom:20px;" ng-src="{{controller.user.profileImage}}" class="img-responsive" />
@@ -8,21 +8,21 @@
 
 <div class="col-lg-8 col-lg-offset-2">
     <div id="bioContainer" class="img-rounded">
-        <ul id="innerText" class="list-unstyled">
-            <li><strong>Bio:</strong> {{controller.user.bio}}</li>
-        </ul>
-        <ul id="innerText" class="list-unstyled ">
-            <li><strong>Location:</strong> {{controller.user.location}}</li>
-            <li><strong>Play Platform:</strong> {{controller.user.platform}}</li>
-            <li><strong>Play-Style:</strong> {{controller.user.playStyle}}</li>
-            <li><strong>Rank:</strong> {{controller.user.rank}}</li>
-        </ul>
+        <div class="innerBioContainer shadowDark img-rounded">
+            <ul id="innerText" class="list-unstyled ">
+                <li style="margin-bottom:10px;"><b>Bio:</b> {{controller.user.bio}}</li>
+                <li><b>Location:</b> {{controller.user.location}}</li>
+                <li><b>Play Platform:</b> {{controller.user.platform}}</li>
+                <li><b>Play-Style:</b> {{controller.user.playStyle}}</li>
+                <li><b>Rank:</b> {{controller.user.rank}}</li>
+            </ul>
+        </div>
         <div><a id="EditGliphicon" class="glyphicon glyphicon-pencil" href="/profileEdit"></a></div>
     </div>
     <h1></h1><a style="font-size:1.5em" href="/postCreate">Create A <strong>Post</strong></a>
     <!----Post for this user-->
     
-        <div class="row">
+       
                 <div class="img-rounded" id="dashBoardPost">
                     <div id="postBlock">
                         <h1>My <strong>Posts</strong></h1>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            
         </div>
   
 

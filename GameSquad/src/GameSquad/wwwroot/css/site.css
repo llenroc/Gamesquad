@@ -153,6 +153,7 @@ p
     margin-bottom:4%;
     margin-left: auto;
    margin-right: auto;
+   width:750px;
  
 }
 /*<--------User Search Styles--------------->*/
@@ -217,6 +218,13 @@ p
     padding:20px;
 }
 
+.innerBioContainer
+{
+    background-color:darkgray;
+    padding:15px;
+    margin-top:10px;
+}
+
 #postBlock
 {
     margin:20px;
@@ -262,7 +270,6 @@ p
 #inboxContainer {
     border: 22px;
     background-color: #505454;
-    background-image: url('../images/Overwatch.png');
     margin-top: 40px;
     padding-left: 40px;
     padding-right: 40px;
