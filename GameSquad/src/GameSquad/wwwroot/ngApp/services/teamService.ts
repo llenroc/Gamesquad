@@ -53,6 +53,10 @@
         public removeMember(teamId) {
             return this.teamsResource.RemoveMember({ teamId: teamId }).$promise;
         }
+
+        public deleteTeam(id) {
+            return this.teamsResource.delete({ id: id }).$promise;
+        }
     }
     angular.module('GameSquad').service('teamService', TeamService);
 }

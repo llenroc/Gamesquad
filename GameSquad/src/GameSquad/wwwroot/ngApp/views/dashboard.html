@@ -30,17 +30,17 @@
                         <br />
                         <div ng-repeat="post in controller.user.posts" class="list-group">
                             <ul  href="#" class="list-group ">
-                                <li class="img-rounded" style="background-color:darkgray; padding:3px;">
+                                <li class="shadowDark img-rounded" id="namebox">
                                     <h3 id="postUserText"><b style="text-transform:capitalize;">{{post.user}}</b></h3>
                                 </li>
                                 <li id="innerText">{{post.comment}}</li>
                                 <li>
-                                    <img  id="postImage" width="650" class="img-responsive img-rounded" ng-src="{{post.item}}" />
+                                    <img  id="postImage" width="650" class="shadowDark img-responsive" ng-src="{{post.item}}" />
                                 </li>
-                                <a id="EditGliphicon" class="glyphicon glyphicon-remove text-info" ng-click="controller.showModalDelPost(post.id)"></a>
-                                <a id="EditGliphicon" class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
-                                
                             </ul>
+                            <a id="EditGliphicon" class="glyphicon glyphicon-remove" ng-click="controller.showModalDelPost(post.id)"></a>
+                            <a id="EditGliphicon" class="glyphicon glyphicon-pencil" ng-click="controller.showModalEditPost(post.id)"></a>
+                            
                         </div>
                     </div>
                 </div>

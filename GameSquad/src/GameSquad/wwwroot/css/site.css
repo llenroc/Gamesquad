@@ -13,7 +13,18 @@ h1
     color:orange;
     font-size:1.0em;
 }
-
+.shadow 
+{
+    box-shadow: 10px 10px 5px grey;
+}
+.shadowDark
+{
+    box-shadow: 10px 10px 5px #212121;
+}
+#namebox
+{
+    background-color:darkgray; padding:3px;
+}
 #EditGliphicon
 {
     color:orange;
@@ -62,7 +73,7 @@ p
 #innerText
 {
     color:black;
-    padding:1%;
+    padding:2%;
 }
 
 #walkthroughLink
@@ -118,11 +129,15 @@ p
 }
 #postImage
 {
-    margin:auto;
-    padding:initial;
-    
+   
     padding-top:10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+
+
 /*------Team Search Styles-------*/
 #teamBannerImg
 {
@@ -174,6 +189,10 @@ p
     display:inline;
         width:80px; 
         height:80px;
+    
+    margin-left: auto;
+    margin-right: auto;
+        
 }
 
 #bioContainer

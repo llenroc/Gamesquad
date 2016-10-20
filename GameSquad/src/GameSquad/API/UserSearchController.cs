@@ -42,9 +42,12 @@ namespace GameSquad.API
         [HttpPost]
         public IActionResult Post([FromBody]USearch _data)
         {
+            var userId = _manager.GetUserId(User);
+            _data.CurrentUser = userId;
+
             var holder = _service.GetTableData(_data);
 
-            var userId = _manager.GetUserId(User);
+            
             var friends = _fService.GetAllFriendsByUser(userId);
 
             var rData = new List<FriendCheckReturnVM>();

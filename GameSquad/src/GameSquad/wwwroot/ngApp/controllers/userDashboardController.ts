@@ -22,6 +22,9 @@
         }
 
         public saveProfile() {
+            if (this.user.profileImage == null) {
+                this.user.profileImage = "/images/defaultUser.png";
+            }
             this.userDashboardService.saveProfile(this.user)
                 .then((data) => {
                     //document.location.reload();
