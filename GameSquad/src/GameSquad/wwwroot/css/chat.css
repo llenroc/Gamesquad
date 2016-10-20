@@ -24,7 +24,7 @@
 .chat-message-section {
     height: 350px;
     width:100%;
-    min-width: 500px;
+    /*min-width: 500px;*/
     max-width:1000px;
     overflow-x: hidden;
     background-color: black;
