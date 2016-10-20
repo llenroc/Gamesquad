@@ -16,12 +16,11 @@ namespace GameSquad.Controllers {
         }
 
         public logout() {
+            
+            $.connection.hub.stop();
             this.accountService.logout().then(() => {
-                $.connection.hub.stop().done(() => {
-                    this.$location.path('/');
-                    document.location.reload();
-                })
-                
+                this.$location.path('/');
+                document.location.reload();
             });
             
         }
@@ -52,24 +51,19 @@ namespace GameSquad.Controllers {
         
         
         //Callback for notification counter
-        public notificationCount = null;
+        public notificationCount = 0;
         public notificationCheck() {
-            
+            //Gets initial count when first connecting
             $.connection.chatHub.client.notificationCount = (newCount) => {
                 
-                if (newCount === 0) {
-                    this.notificationCount = '';
-                }
-                else {
-                    this.notificationCount = newCount;
-
-                }
+               
+                this.notificationCount = newCount;
                 console.log(this.notificationCount);
                 
                 this.$scope.$apply();
             }
-
-            $.connection.notificationHub.client.newNotification = () => {
+            //Adds new notification
+            $.connection.chatHub.client.newNotification = () => {
                 this.notificationCount++;
                 this.$scope.$apply();
 
@@ -124,12 +118,7 @@ namespace GameSquad.Controllers {
                 this.$location.path('/');
                 document.location.reload();
 
-                //if ($.connection.chatHub.state !== $.signalR.connectionState.connected) {
-                    
-                //    $.connection.hub.start().done(() => {
-                //        console.log("Connected to signalr");
-                //    });
-                //}
+                
                 this.$uibModalInstance.close();
             }).catch((results) => {
                 this.validationMessages = results;

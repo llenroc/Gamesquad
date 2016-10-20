@@ -110,8 +110,8 @@ namespace GameSquad.Services
             //Signalr Test stuff for insta updating friends list
             var user = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == userId);
             var friend = _repo.Query<ApplicationUser>().FirstOrDefault(c => c.Id == friendId);
-            _hubManager.Clients.User(user.UserName).onUserDisconnected(friend.UserName);
-            _hubManager.Clients.User(friend.UserName).onUserDisconnected(user.UserName);
+            _hubManager.Clients.User(user.UserName).onFriendRemoved(friend.UserName);
+            _hubManager.Clients.User(friend.UserName).onFriendRemoved(user.UserName);
 
         }
 

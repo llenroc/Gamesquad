@@ -95,9 +95,13 @@ namespace GameSquad.Services
                     List<string> friendsList = new List<string>();
                     foreach (var friend in user.Friends)
                     {
-                        var friendUser = _manager.FindByIdAsync(friend.FriendId).Result;
+                        if(friend.Active == true)
+                        {
+                            var friendUser = _manager.FindByIdAsync(friend.FriendId).Result;
 
-                        friendsList.Add(friendUser.UserName);
+                            friendsList.Add(friendUser.UserName);
+                        }
+                        
                     }
 
                     return friendsList;

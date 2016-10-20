@@ -301,7 +301,9 @@
                 console.log(userList + typeof userList);
                 //If it detects this user is already connected it kils connection(fixes current duplicate issue)
                 if (userList === -1) {
-                    $.connection.hub.stop();
+
+                    this.dupUser = true;
+                    
                 }
                 //Sets up the user object for the connected users
                 else {
@@ -364,6 +366,19 @@
 
             }
 
+            //Removes a friend from list if users are no longer friends
+            this.chatHub.client.onFriendRemoved = (friendRemoved) => {
+                let index = this.privateMessageArray.map((x) => { return x.username }).indexOf(friendRemoved);
+                console.log(index);
+                if (index > -1) {
+
+                    
+                    this.privateMessageArray.splice(index, 1);
+                    this.setGlobalToMessage();
+                    this.$scope.$apply();
+                }
+            }
+
             
 
         }
@@ -390,10 +405,15 @@
             this.groupMessageArray.push(newConversation);
         }
 
+        public testNum;
         constructor(private accountService: GameSquad.Services.AccountService,
             private teamService: GameSquad.Services.TeamService,
             private $scope: ng.IScope
+            
         ) {
+            
+
+
             console.log("Chat Constructor Running!");
             this.chatHub = $.connection.chatHub;
             //Starts the waiting functions for chat

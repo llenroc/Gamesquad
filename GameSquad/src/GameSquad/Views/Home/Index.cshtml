@@ -41,7 +41,7 @@
                 <li><a ng-show="account.isLoggedIn()" href="/team">Find<strong> Teams</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" href="/findUsers">Find <strong> Players</strong></a></li>
                 <li><a ng-show="account.isLoggedIn()" ng-click="account.statusModal()" href="">My <strong>Status</strong></a></li>
-                <li><a style="font-size:1.5em; font-family:Audiowide;" class="glyphicon glyphicon-envelope" ng-show="account.isLoggedIn()" href="/inbox" ng-click="account.notificationCount = ''"><span><strong> {{account.notificationCount}}</strong> </span></a></li>
+                <li><a style="font-size:1.5em; font-family:Audiowide;" class="glyphicon glyphicon-envelope" ng-show="account.isLoggedIn()" href="/inbox" ng-click="account.notificationCount = 0"><span ng-show="account.notificationCount > 0"><strong> {{account.notificationCount}}</strong> </span></a></li>
                 <li><a href="/register" ng-show="!account.isLoggedIn()">Sign<strong>Up</strong></a></li>
                 <li><a href="" ng-click="account.loginModal()" ng-show="!account.isLoggedIn()">Sign<strong>In</strong></a> </li>
             </ul>
@@ -64,7 +64,7 @@
     </nav>
     <div style="padding-bottom:50px"><ui-view></ui-view></div>
     <!--SignalR -->
-    <div class="chat-section" ng-controller="ChatController as chat" ng-show="$.connection.chatHub.state === $.signalR.connectionState.connected">
+    <div class="chat-section" ng-controller="ChatController as chat" ng-show="!chat.dupUser">
         <div class="panel panel-warning">
             <div class="panel-heading" role="button" data-toggle="collapse" data-target="#collapse1" ng-click="chat.setPanelAlert()">
                 <h3 class="panel-title">
