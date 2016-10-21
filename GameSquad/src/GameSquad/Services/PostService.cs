@@ -58,6 +58,7 @@ namespace GameSquad.Services
         }
 
         //get username
+        //not in use
         public ApplicationUser GetUserByName(string userName)
         {
             var data = _repo.Query<ApplicationUser>().Where(u => u.UserName == userName).FirstOrDefault();

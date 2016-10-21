@@ -36,7 +36,10 @@
 
         public pickFile() {
             this.filepickerService.pick(
-                { mimetype: 'image/*' },
+                {
+                    mimetype: 'image/*',
+                    imageQuality: 60
+                },
                 this.fileUploaded.bind(this)
             );
         }
