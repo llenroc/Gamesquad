@@ -5,4 +5,4 @@ Chat system built with SignalR (Private chat, group chat, friends lists, notific
 Uses AngularJS, ASP.NET Core, Boostrap, MS SQL 
 
 
-Try it out at: https://gamesquad.azurewebsites.net/
+Try it out at: https://gamesquadapp.azurewebsites.net/
